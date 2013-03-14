@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Rails3BaseApi::Application.load_tasks
+TheLifeWeb::Application.load_tasks

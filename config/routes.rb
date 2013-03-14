@@ -1,4 +1,4 @@
-Rails3BaseApi::Application.routes.draw do
+TheLifeWeb::Application.routes.draw do
   resources :posts, only: [:index, :show]
   resources :comments, only: [:index, :show]
 
