@@ -1,7 +1,9 @@
 TheLifeWeb::Application.routes.draw do
-  resources :posts, only: [:index, :show]
-  resources :comments, only: [:index, :show]
-
+  namespace :v1 do
+    resources :posts, only: [:index, :show] do
+      resources :comments, only: [:index, :show]
+    end
+  end
   mount ApiTaster::Engine => '/api_taster' if defined? ApiTaster::Engine
 end
 

@@ -1,9 +1,9 @@
-class PostsController < ApplicationController
+class V1::PostsController < V1::ApplicationController
   expose(:post)
   expose(:posts)
 
   def index
-    respond_with(posts, include: [:comments])
+    respond_with(posts)
   end
 
   def show

@@ -3,7 +3,7 @@ ApiTaster::RouteCollector.route do
     ## List posts
   markdown
 
-  get '/posts'
+  get '/v1/posts'
 
   desc <<-markdown.strip_heredoc
     ## Show post
@@ -11,6 +11,6 @@ ApiTaster::RouteCollector.route do
     * `:id` - post ID
   markdown
 
-  get '/posts/:id',
+  get '/v1/posts/:id',
     id: Examples.post.id
 end

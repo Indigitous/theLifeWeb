@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class V1::CommentsController < V1::ApplicationController
   expose(:comment)
   expose(:comments)
 
