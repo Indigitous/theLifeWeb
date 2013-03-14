@@ -19,3 +19,5 @@ bin
 .sass-cache
 ._*
 .env
+
+.idea/
