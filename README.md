@@ -1,5 +1,7 @@
-# Example of Rails app with API
+theLifeWeb
+==========
 
+We Backend for theLife Mobile App
 ## API
 
 Status of the API could be checked at http://localhost:5000/api_taster
