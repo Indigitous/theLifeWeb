@@ -13,6 +13,7 @@ gem 'seedbank'
 gem 'dotenv'
 gem 'devise'
 gem 'heroku'
+gem 'strong_parameters'
 
 group :development do
   gem 'letter_opener'

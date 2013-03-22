@@ -57,7 +57,8 @@ module TheLifeWeb
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
+    # We use ActiveModel::ForbiddenAttributesProtection instead
+    config.active_record.whitelist_attributes = false
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -74,5 +75,8 @@ module TheLifeWeb
     # By default Rails API does not include the session middleware.
     # Add the middleware back in to application b/c it requred by Devise and Warden
     config.middleware.use ActionDispatch::Session::CookieStore
+
+    # Parameter keys that are not explicitly permitted will be raised as exception
+    config.action_controller.action_on_unpermitted_parameters = :raise
   end
 end
