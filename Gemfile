@@ -11,6 +11,7 @@ gem 'decent_exposure'
 gem 'active_model_serializers'
 gem 'seedbank'
 gem 'dotenv'
+gem 'devise'
 
 group :development do
   gem 'letter_opener'
@@ -37,7 +38,7 @@ group :test do
 end
 
 group :development, :staging do
-  gem 'api_taster'
+  gem 'api_taster', github: 'fredwu/api_taster'
 end
 
 group :development, :test, :staging do

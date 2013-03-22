@@ -70,5 +70,9 @@ module TheLifeWeb
 
     # Default host for action mailer, initializers/mailer.rb
     config.host = 'localhost:5000'
+
+    # By default Rails API does not include the session middleware.
+    # Add the middleware back in to application b/c it requred by Devise and Warden
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end
