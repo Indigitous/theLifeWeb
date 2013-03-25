@@ -7,6 +7,8 @@ TheLifeWeb::Application.routes.draw do
     devise_scope :user do
       post('/authenticate', to: 'sessions#create')
     end
+
+    resources :friends, only: [:create]
   end
 
   mount ApiTaster::Engine => '/api_taster' if defined? ApiTaster::Engine
