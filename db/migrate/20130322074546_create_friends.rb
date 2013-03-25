@@ -8,5 +8,7 @@ class CreateFriends < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :friends, :user_id
   end
 end
