@@ -12,6 +12,7 @@ gem 'active_model_serializers'
 gem 'seedbank'
 gem 'dotenv'
 gem 'devise'
+gem 'heroku'
 
 group :development do
   gem 'letter_opener'
