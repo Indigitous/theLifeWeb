@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
   has_many :friends, dependent: :destroy
 
   before_save :ensure_authentication_token
+
+  validates :first_name, :last_name, presence: true
 end
