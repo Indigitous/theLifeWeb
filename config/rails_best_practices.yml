@@ -25,6 +25,8 @@ RemoveUnusedMethodsInControllersCheck:
   except_methods:
     - "V1::SessionsController#create"
     - "V1::FriendsController#friend_params"
+    - "V1::RegistrationsController#create"
+    - "V1::RegistrationsController#user_params"
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
 RemoveUnusedMethodsInModelsCheck: { except_methods: [] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }
