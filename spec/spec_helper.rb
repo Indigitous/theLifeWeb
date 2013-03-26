@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.before :suite do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
+    require "#{Rails.root}/db/seeds.rb"
   end
 
   config.before do

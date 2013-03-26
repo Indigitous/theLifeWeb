@@ -12,6 +12,8 @@ module Examples
   def setup!
     ActiveRecord::Base.transaction do
       FactoryGirl.create_list :user, 5
+      FactoryGirl.create_list :category, 3
+      FactoryGirl.create_list :activity, 2
     end
   end
 end

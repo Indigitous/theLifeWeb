@@ -2,5 +2,5 @@
 
 set -e
 
-bin/brakeman --quiet --skip-libs --except ForgerySetting
+bin/brakeman --quiet --skip-libs --except ForgerySetting,ModelAttributes
 bin/rails_best_practices --silent --spec --features -x lib/templates
