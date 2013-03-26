@@ -13,7 +13,7 @@ module Examples
     ActiveRecord::Base.transaction do
       FactoryGirl.create_list :user, 5
       FactoryGirl.create_list :category, 3
-      FactoryGirl.create_list :activity, 15
+      FactoryGirl.create_list :activity, 5
     end
   end
 end

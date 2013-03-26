@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe Activity do
-  let(:activity)  { FactoryGirl.create(:activity) }
-
   describe 'validations' do
-    #subject { activity }
     it { should validate_presence_of  :title }
     it { should validate_presence_of  :summary }
     it { should validate_presence_of  :full_description }
