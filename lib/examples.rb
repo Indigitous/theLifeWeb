@@ -2,19 +2,16 @@ module Examples
   extend self
 
   def user
-    User.find_by_email('api_taster@example.com')
+    User.first
   end
 
   def password
-    'passw0rd'
+    '123456'
   end
 
   def setup!
     ActiveRecord::Base.transaction do
-      FactoryGirl.create :user,
-        email: 'api_taster@example.com',
-        password: password,
-        password_confirmation: password
+      FactoryGirl.create_list :user, 5
     end
   end
 end
