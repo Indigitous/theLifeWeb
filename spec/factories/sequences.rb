@@ -3,4 +3,5 @@ FactoryGirl.define do
   sequence(:password) { '123456' }
   sequence(:first_name) { Faker::Name.first_name }
   sequence(:last_name) { Faker::Name.last_name }
+  sequence(:description) { Faker::Company.catch_phrase }
 end

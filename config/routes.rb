@@ -11,6 +11,7 @@ TheLifeWeb::Application.routes.draw do
 
     resources :friends, only: [:create]
     resources :events, only: [:create]
+    resources :groups, only: [:create]
   end
 
   mount ApiTaster::Engine => '/api_taster' if defined? ApiTaster::Engine
