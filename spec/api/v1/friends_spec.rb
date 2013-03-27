@@ -16,18 +16,12 @@ describe 'v1/friends' do
       post 'v1/friends', params.merge(authentication_token: authentication_token)
     end
 
-    it 'responds with a friend representation' do
-      json_response_body.should be_a_friend_representation(current_user.friends.first)
-    end
+    subject { json_response_body }
 
-    it 'creates a friend for the current user' do
-      expect(current_user.friends.length).to eq 1
-    end
+    it { should be_a_friend_representation(current_user.friends.first) }
 
     context 'when params are not valid' do
       let(:params) { { first_name: 'Homer' } }
-
-      subject { json_response_body }
 
       it { should have_error("can't be blank").on('last_name') }
     end

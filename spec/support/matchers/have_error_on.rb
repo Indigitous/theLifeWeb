@@ -9,6 +9,6 @@ RSpec::Matchers.define :have_error do |expected|
   end
 
   failure_message_for_should do |actual|
-    "expected #{actual} to have error \"#{expected}\" on #{@field}"
+    %(expected #{actual} to have error "#{expected}" on #{@field})
   end
 end
