@@ -5,6 +5,7 @@ class CreateFriends < ActiveRecord::Migration
       t.string :last_name, null: false, default: ''
 
       t.belongs_to :user
+      t.belongs_to :threshold
 
       t.timestamps
     end

@@ -4,6 +4,7 @@ RSpec::Matchers.define :be_a_friend_representation do |friend|
       id
       first_name
       last_name
+      threshold_id
     ]
 
     json.should be

@@ -11,11 +11,14 @@ describe V1::FriendsController do
   end
 
   describe '#create' do
-    let(:params) { { first_name: 'Homer', last_name: 'Simpson', format: :json } }
+    let(:threshold_id) { Threshold.first.id }
 
-    before do
-      post :create, params
+    let(:params) do
+      FactoryGirl.attributes_for(:friend, threshold_id: threshold_id)
+        .merge(format: :json)
     end
+
+    before { post(:create, params) }
 
     subject { response }
 

@@ -12,6 +12,6 @@ class V1::FriendsController < ApplicationController
   private
 
   def friend_params
-    params.require(:friend).permit(:first_name, :last_name)
+    params.require(:friend).permit(:first_name, :last_name, :threshold_id)
   end
 end

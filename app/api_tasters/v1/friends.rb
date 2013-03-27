@@ -4,6 +4,6 @@ ApiTaster::RouteCollector.route do
   markdown
 
   post '/v1/friends',
-    FactoryGirl.attributes_for(:friend)
+    FactoryGirl.attributes_for(:friend, threshold_id: Examples.threshold.id)
       .merge(authentication_token: Examples.user.authentication_token)
 end

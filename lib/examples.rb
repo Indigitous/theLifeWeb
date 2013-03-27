@@ -9,6 +9,10 @@ module Examples
     '123456'
   end
 
+  def threshold
+    Threshold.first
+  end
+
   def setup!
     ActiveRecord::Base.transaction do
       FactoryGirl.create_list :user, 5

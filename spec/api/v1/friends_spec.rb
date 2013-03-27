@@ -5,7 +5,12 @@ describe 'v1/friends' do
   let(:authentication_token) { current_user.authentication_token }
 
   describe 'creating a friend' do
-    let(:params) { { first_name: 'Homer', last_name: 'Simpson' } }
+    let(:threshold_id) { Threshold.first.id }
+
+    let(:params) do
+      FactoryGirl.attributes_for(:friend, threshold_id: threshold_id)
+        .merge(format: :json)
+    end
 
     before do
       post 'v1/friends', params.merge(authentication_token: authentication_token)
