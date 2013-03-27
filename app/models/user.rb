@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
          :recoverable, :trackable, :validatable,
          :token_authenticatable
 
-  has_many :friends
+  has_many :friends, dependent: :destroy
 
   before_save :ensure_authentication_token
 end
