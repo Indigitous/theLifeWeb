@@ -27,9 +27,9 @@ describe 'v1/friends' do
     context 'when params are not valid' do
       let(:params) { { first_name: 'Homer' } }
 
-      it 'responds with validation error' do
-        expect(json_response_body['errors']['last_name']).to eq(["can't be blank"])
-      end
+      subject { json_response_body }
+
+      it { should have_error("can't be blank").on('last_name') }
     end
   end
 end

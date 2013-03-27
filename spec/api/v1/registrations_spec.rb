@@ -14,8 +14,8 @@ describe '/v1/register' do
     let(:user) { FactoryGirl.create(:user) }
     let(:params) { { email: user.email } }
 
-    subject { json_response_body['errors']['email'] }
+    subject { json_response_body }
 
-    it { should eq ['has already been taken'] }
+    it { should have_error('has already been taken').on('email') }
   end
 end
