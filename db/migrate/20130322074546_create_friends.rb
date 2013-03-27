@@ -11,5 +11,6 @@ class CreateFriends < ActiveRecord::Migration
     end
 
     add_index :friends, :user_id
+    add_index :friends, :threshold_id
   end
 end

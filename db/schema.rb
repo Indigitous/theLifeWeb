@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20130322131801) do
     t.datetime "updated_at",                   :null => false
   end
 
+  add_index "friends", ["threshold_id"], :name => "index_friends_on_threshold_id"
   add_index "friends", ["user_id"], :name => "index_friends_on_user_id"
 
   create_table "thresholds", :force => true do |t|
