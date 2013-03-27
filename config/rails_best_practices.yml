@@ -28,7 +28,6 @@ RemoveUnusedMethodsInControllersCheck:
     - V1::RegistrationsController#create
     - V1::RegistrationsController#user_params
     - V1::EventsController#event_params
->>>>>>> User can create an event
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
 RemoveUnusedMethodsInModelsCheck: { except_methods: [] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }

@@ -14,20 +14,14 @@ describe 'v1/events' do
       post 'v1/events', params.merge(authentication_token: authentication_token)
     end
 
-    it 'responds with an event representation' do
-      json_response_body.should be_an_event_representation(current_user.events.first)
-    end
+    subject { json_response_body }
 
-    it 'creates an event for the current user' do
-      expect(current_user.events.length).to eq 1
-    end
+    it { be_an_event_representation(current_user.events.first) }
 
     context 'when params are not valid' do
       let(:params) { { friend_id: friend_id } }
 
-      it 'responds with validation error' do
-        expect(json_response_body['errors']['activity']).to eq(["can't be blank"])
-      end
+      it { should have_error("can't be blank").on('activity') }
     end
   end
 end
