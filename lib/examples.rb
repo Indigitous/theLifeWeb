@@ -2,7 +2,11 @@ module Examples
   extend self
 
   def user
-    User.find_by_email('api@example.com')
+    User.find_by_email(user_email)
+  end
+
+  def user_email
+    'user@example.com'
   end
 
   def user_friend
@@ -27,11 +31,11 @@ module Examples
       FactoryGirl.create_list(:category, 3)
       FactoryGirl.create_list(:activity, 2)
 
-      api_user = FactoryGirl.create :user,
-        email: 'api@example.com',
+      user = FactoryGirl.create :user,
+        email: user_email,
         password: password
 
-      FactoryGirl.create(:friend, user: api_user)
+      FactoryGirl.create(:friend, user: user)
     end
   end
 end
