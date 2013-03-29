@@ -3,7 +3,7 @@ FactoryGirl.define do
     first_name
     last_name
 
-    threshold { Threshold.first }
+    threshold
 
     user
   end

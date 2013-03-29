@@ -16,6 +16,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
   config.include Devise::TestHelpers, type: :controller
+  config.include FactoryGirl::Syntax::Methods
   config.include Helpers
 
   config.infer_base_class_for_anonymous_controllers = false
@@ -25,7 +26,6 @@ RSpec.configure do |config|
   config.before :suite do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
-    require "#{Rails.root}/db/seeds.rb"
   end
 
   config.before do

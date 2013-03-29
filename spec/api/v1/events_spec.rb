@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe 'v1/events' do
-  let(:current_user) { FactoryGirl.create(:user) }
+  let(:current_user) { create(:user) }
   let(:authentication_token) { current_user.authentication_token }
 
   describe 'creating an event' do
-    let(:activity_id) { FactoryGirl.create(:activity).id }
-    let(:friend_id) { FactoryGirl.create(:friend, user: current_user).id }
+    let(:activity_id) { create(:activity).id }
+    let(:friend_id) { create(:friend, user: current_user).id }
 
     let(:params) { { activity_id: activity_id, friend_id: friend_id } }
 

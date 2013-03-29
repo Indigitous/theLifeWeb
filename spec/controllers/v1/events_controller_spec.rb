@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe V1::EventsController do
-  let(:current_user) { FactoryGirl.create(:user) }
+  let(:current_user) { create(:user) }
 
   before { sign_in(current_user) }
 
