@@ -6,6 +6,6 @@ FactoryGirl.define do
 
     category
 
-    thresholds { [Threshold.first] }
+    thresholds { [FactoryGirl.create(:threshold)] }
   end
 end

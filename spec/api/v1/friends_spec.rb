@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 describe 'v1/friends' do
-  let(:current_user) { FactoryGirl.create(:user) }
+  let(:current_user) { create(:user) }
   let(:authentication_token) { current_user.authentication_token }
 
   describe 'creating a friend' do
-    let(:threshold_id) { Threshold.first.id }
+    let(:threshold_id) { create(:threshold).id }
 
     let(:params) do
-      FactoryGirl.attributes_for(:friend, threshold_id: threshold_id)
-        .merge(format: :json)
+      attributes_for(:friend, threshold_id: threshold_id)
     end
 
     before do

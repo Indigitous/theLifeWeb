@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
          :token_authenticatable
 
   has_many :friends, dependent: :destroy
+  has_many :events
 
   before_save :ensure_authentication_token
 

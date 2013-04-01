@@ -1,27 +1,28 @@
 require 'spec_helper'
 
-describe V1::FriendsController do
-  before do
-    sign_in(create(:user))
-  end
+describe V1::EventsController do
+  let(:current_user) { create(:user) }
+
+  before { sign_in(current_user) }
 
   it_behaves_like('a controller that requires an authentication') do
     let(:action) { :create }
-    let(:params) { { first_name: 'Homer', format: :json } }
+    let(:params) { { activity_id: 1, format: :json } }
   end
 
   describe '#create' do
-
     subject { response }
 
     context 'when params are valid' do
-      let(:params) { attributes_for(:friend, threshold_id: 1) }
+      let(:params) do
+        { activity_id: 1, friend_id: 2, format: :json }
+      end
 
       before do
-        Friend.any_instance.should_receive(:save)
-        Friend.any_instance.stub(valid?: true)
+        Event.any_instance.should_receive(:save)
+        Event.any_instance.stub(valid?: true)
 
-        post(:create, params.merge(format: :json))
+        post(:create, params)
       end
 
       it { should be_success }
@@ -29,7 +30,7 @@ describe V1::FriendsController do
     end
 
     context 'when params are not valid' do
-      let(:params) { { first_name: 'Homer', format: :json } }
+      let(:params) { { friend_id: 1, format: :json } }
 
       before { post(:create, params) }
 

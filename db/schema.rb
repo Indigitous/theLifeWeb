@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326060801) do
+ActiveRecord::Schema.define(:version => 20130327071605) do
 
   create_table "activities", :force => true do |t|
     t.string   "title",            :default => "", :null => false
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(:version => 20130326060801) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
   end
+
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.integer  "activity_id"
+    t.boolean  "prayer_requested", :default => false, :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "events", ["activity_id"], :name => "index_events_on_activity_id"
+  add_index "events", ["friend_id"], :name => "index_events_on_friend_id"
+  add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "friends", :force => true do |t|
     t.string   "first_name",   :default => "", :null => false

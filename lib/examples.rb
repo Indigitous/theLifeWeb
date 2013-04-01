@@ -2,7 +2,19 @@ module Examples
   extend self
 
   def user
-    User.first
+    User.find_by_email(user_email)
+  end
+
+  def user_email
+    'user@example.com'
+  end
+
+  def user_friend
+    user.friends.first
+  end
+
+  def activity
+    Activity.first
   end
 
   def password
@@ -15,9 +27,15 @@ module Examples
 
   def setup!
     ActiveRecord::Base.transaction do
-      FactoryGirl.create_list :user, 5
-      FactoryGirl.create_list :category, 3
-      FactoryGirl.create_list :activity, 2
+      FactoryGirl.create_list(:user, 5)
+      FactoryGirl.create_list(:category, 3)
+      FactoryGirl.create_list(:activity, 2)
+
+      user = FactoryGirl.create :user,
+        email: user_email,
+        password: password
+
+      FactoryGirl.create(:friend, user: user)
     end
   end
 end

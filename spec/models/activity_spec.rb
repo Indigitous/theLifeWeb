@@ -11,5 +11,6 @@ describe Activity do
   describe 'associations' do
     it { should have_and_belong_to_many :thresholds }
     it { should belong_to :category}
+    it { should have_many(:events) }
   end
 end
