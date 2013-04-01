@@ -4,7 +4,7 @@ class V1::EventsController < ApplicationController
 
   def create
     event.save
-    respond_with(event, location: nil)
+    respond_with(event)
   end
 
   private

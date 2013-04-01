@@ -3,6 +3,8 @@ class ApplicationController < ActionController::API
 
   before_filter :authenticate_user!
 
+  self.responder = ApiResponder
+
   decent_configuration do
     strategy DecentExposure::StrongParametersStrategy
   end
