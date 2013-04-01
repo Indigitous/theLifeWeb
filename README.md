@@ -1,12 +1,12 @@
 theLifeWeb
 ==========
 
-We Backend for theLife Mobile App
+Web Backend for theLife Mobile App
 ## API
 
 Status of the API could be checked at http://localhost:5000/api_taster
 
-* GET `/posts.json`: returns list of posts
+* GET '/v1/events.json' - get the full list of events associated with user (including user's group comembers' events)
 
 ## What's included
 
