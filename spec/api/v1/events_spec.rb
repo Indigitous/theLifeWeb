@@ -16,7 +16,7 @@ describe 'v1/events' do
 
     subject { json_response_body }
 
-    it { be_an_event_representation(current_user.events.first) }
+    it { should be_an_event_representation(current_user.events.first) }
 
     context 'when params are not valid' do
       let(:params) { { friend_id: friend_id } }
