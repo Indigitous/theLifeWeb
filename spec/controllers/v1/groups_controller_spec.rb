@@ -2,7 +2,13 @@ require 'spec_helper'
 
 describe V1::GroupsController do
   let(:user) { FactoryGirl.create(:user) }
-  before { sign_in(user) }
+  let(:group) { FactoryGirl.build(:group) }
+  let(:groups) { [group] }
+
+  before do
+    Group.stub(scoped: groups)
+    sign_in(user)
+  end
 
   describe 'create' do
     let(:params) do
@@ -38,6 +44,21 @@ describe V1::GroupsController do
 
       it { should_not be_success }
       its(:code) { should eq('422') }
+    end
+  end
+
+  describe '#index' do
+    before do
+      get :index, format: :json
+    end
+
+    subject { response }
+
+    it { should be_success }
+    its(:code) { should eq('200') }
+
+    it 'assigns groups' do
+      expect(controller.groups).to match_array(groups)
     end
   end
 end
