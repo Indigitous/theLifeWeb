@@ -2,12 +2,28 @@ theLifeWeb
 ==========
 
 Web Backend for theLife Mobile App
+<<<<<<< HEAD
+=======
+
+>>>>>>> update README: reflect latest groups-related changes
 ## API
 
 Status of the API could be checked at http://localhost:5000/api_taster
 
+### Events
+
 * GET '/v1/events.json' - get the full list of events associated
   with user (including user's group comembers' events)
+
+
+### Groups
+
+All API requests should include `authentication_token`:
+
+* GET '/v1/groups.json' - returns list of all groups
+
+* POST '/v1/groups.json' - creates a group
+
 
 ## What's included
 
