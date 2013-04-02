@@ -7,6 +7,7 @@ describe V1::GroupsController do
 
   before do
     Group.stub(scoped: groups)
+
     sign_in(user)
   end
 

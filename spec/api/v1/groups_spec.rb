@@ -32,7 +32,7 @@ describe 'v1/groups' do
     let!(:group) { FactoryGirl.create(:group) }
 
     before do
-      get 'v1/groups.json', authentication_token: authentication_token
+      get 'v1/groups', authentication_token: authentication_token
     end
 
     subject { json_response_body }
