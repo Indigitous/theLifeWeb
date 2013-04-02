@@ -27,7 +27,7 @@ describe 'v1/events' do
   describe 'show events for user' do
     before do
       create(:event, user: current_user)
-      get 'v1/events', { authentication_token: authentication_token}
+      get 'v1/events', authentication_token: authentication_token
     end
 
     subject { json_response_body }

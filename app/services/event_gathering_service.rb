@@ -7,7 +7,7 @@ class EventGatheringService
   def gather
     gather_owned_events
     gather_related_events
-    @events.flatten.uniq.sort_by { |event| event[:id] }.reverse
+    @events.flatten.uniq.sort_by(&:id).reverse
   end
 
   private
