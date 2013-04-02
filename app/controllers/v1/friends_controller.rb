@@ -4,7 +4,7 @@ class V1::FriendsController < ApplicationController
 
   def create
     friend.save
-    respond_with(friend, location: nil)
+    respond_with(friend)
   end
 
   private

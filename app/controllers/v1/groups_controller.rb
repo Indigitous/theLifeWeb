@@ -1,7 +1,7 @@
 class V1::GroupsController < ApplicationController
   def create
     group = GroupCreationService.new(current_user, group_params).create
-    respond_with(group, location: nil)
+    respond_with(group)
   end
 
   private

@@ -5,7 +5,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   def create
     user.save
-    respond_with(user, location: nil)
+    respond_with(user)
   end
 
   private
