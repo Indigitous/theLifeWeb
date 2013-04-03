@@ -25,43 +25,13 @@ describe 'v1/events' do
   end
 
   describe 'show events for user' do
-    before { create :event, user: current_user }
+    before do
+      create(:event, user: current_user)
+      get 'v1/events', authentication_token: authentication_token
+    end
 
     subject { json_response_body }
 
-    context 'user must see his events' do
-      before do
-        get 'v1/events', authentication_token: authentication_token
-      end
-
-      it { should be_an_event_representation(current_user.events.first) }
-      its(:size) { should eq(1) }
-    end
-
-    context "user must not see not group comembers's events" do
-      let(:other_user) { create :user }
-
-      before do
-        create :event, user: other_user
-        get 'v1/events', authentication_token: authentication_token
-      end
-
-      its(:size) { should eq(1) }
-    end
-
-    context "user must see his comembers' events" do
-      let(:group_comember) { create :user }
-
-      before do
-        create(:group,
-          owner: current_user,
-          users: [current_user, group_comember]
-        )
-        create :event, user: group_comember
-        get 'v1/events', authentication_token: authentication_token
-      end
-
-      its(:size) { should eq(2) }
-    end
+    it { should be_an_event_representation(current_user.events.first) }
   end
 end
