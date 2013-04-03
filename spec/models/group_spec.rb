@@ -13,5 +13,7 @@ describe Group do
 
   describe 'associations' do
     it { should belong_to :owner }
+    it { should have_many :users }
+    it { should have_many :invite_requests }
   end
 end
