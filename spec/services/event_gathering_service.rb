@@ -18,7 +18,7 @@ describe EventGatheringService do
 
   let(:service) { described_class.new(current_user) }
 
-  describe ".gather" do
+  describe "#gather" do
     subject { service.gather }
 
     it { should be_a_kind_of Array }
