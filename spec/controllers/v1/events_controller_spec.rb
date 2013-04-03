@@ -50,7 +50,7 @@ describe V1::EventsController do
     end
 
     it 'assigns events' do
-      expect(controller.all_events).to match_array(events)
+      expect(controller.events).to match_array(events)
     end
 
     it { should be_success }
