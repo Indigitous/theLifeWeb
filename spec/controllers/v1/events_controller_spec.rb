@@ -10,8 +10,9 @@ describe V1::EventsController do
     let(:params) { { activity_id: 1, format: :json } }
   end
 
+  subject { response }
+
   describe '#create' do
-    subject { response }
 
     context 'when params are valid' do
       let(:params) do
@@ -37,5 +38,22 @@ describe V1::EventsController do
       it { should_not be_success }
       its(:code) { should eq '422' }
     end
+  end
+
+  describe '#index' do
+    let(:event) { build :event, user: current_user }
+    let(:events) { [event] }
+
+    before do
+      EventGatheringService.any_instance.should_receive(:gather) { events }
+      get :index, format: :json
+    end
+
+    it 'assigns events' do
+      expect(controller.events).to match_array(events)
+    end
+
+    it { should be_success }
+    its(:code) { should eq '200' }
   end
 end

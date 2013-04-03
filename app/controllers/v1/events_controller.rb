@@ -7,6 +7,11 @@ class V1::EventsController < ApplicationController
     respond_with(event)
   end
 
+  def index
+    self.events = EventGatheringService.new(current_user).gather
+    respond_with(events)
+  end
+
   private
 
   def event_params
