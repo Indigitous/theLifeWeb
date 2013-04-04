@@ -2,8 +2,7 @@ class InviteRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
 
-  validates :receiver,
-    :user,
+  validates :user,
     :group,
     presence: true
 end

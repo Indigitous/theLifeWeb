@@ -6,7 +6,7 @@ class InviteRequester
   def create
     group_exists? &&
     user_is_group_owner? &&
-    receiver_is_not_member_of_group? &&
+    receiver_is_valid? &&
     invite_request_saved?
   end
 
@@ -34,9 +34,23 @@ class InviteRequester
     true
   end
 
+  def receiver_is_valid?
+    receiver_email_or_phone_present? &&
+    receiver_is_not_member_of_group?
+  end
+
   def receiver_is_not_member_of_group?
     if group.users.exists?(email: email)
       errors.add(:receiver, 'is already a group member')
+      return false
+    end
+
+    true
+  end
+
+  def receiver_email_or_phone_present?
+    if email.blank? && phone.blank?
+      errors.add(:receiver, "email and phone can't be blank")
       return false
     end
 
@@ -54,7 +68,11 @@ class InviteRequester
   end
 
   def email
-    invite_request.receiver
+    invite_request.email
+  end
+
+  def phone
+    invite_request.phone
   end
 
   def errors

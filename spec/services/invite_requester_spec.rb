@@ -5,7 +5,7 @@ describe InviteRequester do
   let(:group) { create(:group, owner: user) }
   let(:params) do
     {
-      receiver: generate(:email),
+      email: generate(:email),
       group_id: group.id
     }
   end
@@ -38,6 +38,21 @@ describe InviteRequester do
       its(:errors) { should include(:user) }
     end
 
+    context 'when email and phone are blank' do
+      let(:params) do
+        {
+          group_id: group.id
+        }
+      end
+
+      before do
+        invite_requester.create
+      end
+
+      it { should_not be_persisted }
+      its(:errors) { should include(:receiver) }
+    end
+
     context 'when user is already a member' do
       before do
         group.users.stub(exists?: true)
@@ -49,14 +64,12 @@ describe InviteRequester do
       its(:errors) { should include(:receiver) }
     end
 
-    context 'with invalid invite request instance' do
+    context 'with valid params' do
       before do
-        InviteRequest.any_instance.stub(save: false)
-        InviteRequest.any_instance.stub(errors: double('errors'))
         invite_requester.create
       end
 
-      it { should_not be_persisted }
+      it { should be_persisted }
     end
   end
 end
