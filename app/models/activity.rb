@@ -8,5 +8,9 @@ class Activity < ActiveRecord::Base
     :summary,
     :full_description,
     :thresholds,
+    :priority,
     presence: true
+
+  validates :priority,
+    inclusion: { in: (1..10) }
 end
