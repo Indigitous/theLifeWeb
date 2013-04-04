@@ -2,10 +2,7 @@ theLifeWeb
 ==========
 
 Web Backend for theLife Mobile App
-<<<<<<< HEAD
-=======
 
->>>>>>> update README: reflect latest groups-related changes
 ## API
 
 Status of the API could be checked at http://localhost:5000/api_taster
