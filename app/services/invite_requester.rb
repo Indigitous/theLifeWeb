@@ -8,6 +8,8 @@ class InviteRequester
     user_is_group_owner? &&
     receiver_is_valid? &&
     invite_request_saved?
+
+    invite_request
   end
 
   def invite_request
