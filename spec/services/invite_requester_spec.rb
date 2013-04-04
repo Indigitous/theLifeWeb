@@ -13,12 +13,11 @@ describe InviteRequester do
   let(:invite_requester) { described_class.new(user, params) }
 
   describe '#create' do
-    subject { invite_requester.invite_request }
+    subject { invite_requester.create }
 
     context 'when group does not exist' do
       before do
         Group.stub(find_by_id: nil)
-        invite_requester.create
       end
 
       it { should_not be_persisted }
@@ -31,7 +30,6 @@ describe InviteRequester do
       before do
         group.stub(owner: another_user)
         invite_requester.stub(group: group)
-        invite_requester.create
       end
 
       it { should_not be_persisted }
@@ -45,10 +43,6 @@ describe InviteRequester do
         }
       end
 
-      before do
-        invite_requester.create
-      end
-
       it { should_not be_persisted }
       its(:errors) { should include(:receiver) }
     end
@@ -57,7 +51,6 @@ describe InviteRequester do
       before do
         group.users.stub(exists?: true)
         invite_requester.stub(group: group)
-        invite_requester.create
       end
 
       it { should_not be_persisted }
@@ -65,10 +58,6 @@ describe InviteRequester do
     end
 
     context 'with valid params' do
-      before do
-        invite_requester.create
-      end
-
       it { should be_persisted }
     end
   end

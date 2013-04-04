@@ -12,11 +12,11 @@ class InviteRequester
     invite_request
   end
 
+  private
+
   def invite_request
     @invite_request ||= build_invite_request
   end
-
-  private
 
   def group_exists?
     unless group.present?
