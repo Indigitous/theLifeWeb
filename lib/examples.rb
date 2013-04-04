@@ -34,7 +34,8 @@ module Examples
 
       user = FactoryGirl.create :user,
         email: user_email,
-        password: password
+        password: password,
+        groups: [Group.first]
 
       FactoryGirl.create(:friend, user: user)
     end
