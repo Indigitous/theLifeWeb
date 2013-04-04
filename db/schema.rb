@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327131537) do
+ActiveRecord::Schema.define(:version => 20130404081212) do
 
   create_table "activities", :force => true do |t|
     t.string   "title",            :default => "", :null => false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20130327131537) do
     t.integer  "category_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.integer  "priority",         :default => 10, :null => false
   end
 
   add_index "activities", ["category_id"], :name => "index_activities_on_category_id"
