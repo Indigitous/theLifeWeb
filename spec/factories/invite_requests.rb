@@ -5,6 +5,6 @@ FactoryGirl.define do
     user
     group
 
-    receiver { generate(:email) }
+    email
   end
 end
