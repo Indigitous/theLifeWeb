@@ -1,14 +1,3 @@
-# Shared example to ensure that a controller requires
-# authentication.
-#
-# Example:
-#   describe V1::FriendsController do
-#     it_behaves_like "a controller that requires an authentication" do
-#       let(:action) { :create }
-#       let(:params) { { first_name: 'Homer' } }
-#     end
-#   end
-#
 shared_examples 'a controller that requires an authentication' do
   let(:action) { :index }
   let(:params) { { format: :json } }
@@ -20,4 +9,16 @@ shared_examples 'a controller that requires an authentication' do
     send(method, action, params)
     expect(response.code).to eq('401')
   end
+end
+
+shared_examples 'a successfull GET request' do
+  let(:action) { :index }
+  let(:params) { { format: :json } }
+
+  before { get action, params }
+
+  subject { response }
+
+  it { should be_success }
+  its(:code) { should eq('200') }
 end

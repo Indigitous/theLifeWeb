@@ -7,6 +7,12 @@ Web Backend for theLife Mobile App
 
 Status of the API could be checked at http://localhost:5000/api_taster
 
+
+### Users
+
+* GET '/v1/groups/:group_id/users.json' -- get the full list of users
+  in requested group
+
 ### Events
 
 * GET '/v1/events.json' - get the full list of events associated
