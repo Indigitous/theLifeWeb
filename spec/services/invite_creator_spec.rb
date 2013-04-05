@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InviteRequester do
+describe InviteCreator do
   let(:user) { create(:user) }
   let(:group) { create(:group, owner: user) }
   let(:params) do
@@ -10,10 +10,10 @@ describe InviteRequester do
     }
   end
 
-  let(:invite_requester) { described_class.new(user, params) }
+  let(:invite_creator) { described_class.new(user, params) }
 
   describe '#create' do
-    subject { invite_requester.create }
+    subject { invite_creator.create }
 
     context 'when group does not exist' do
       before do
@@ -29,7 +29,7 @@ describe InviteRequester do
 
       before do
         group.stub(owner: another_user)
-        invite_requester.stub(group: group)
+        invite_creator.stub(group: group)
       end
 
       it { should_not be_persisted }
@@ -50,7 +50,7 @@ describe InviteRequester do
     context 'when user is already a member' do
       before do
         group.users.stub(exists?: true)
-        invite_requester.stub(group: group)
+        invite_creator.stub(group: group)
       end
 
       it { should_not be_persisted }

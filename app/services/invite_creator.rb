@@ -1,4 +1,4 @@
-class InviteRequester
+class InviteCreator
   def initialize(user, params)
     @user, @params = user, params
   end
