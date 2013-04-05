@@ -1,5 +1,7 @@
 class InviteRequest < ActiveRecord::Base
-  TYPES = %w(INVITE REQUEST_MEMBERSHIP)
+  INVITE = 'INVITE'.freeze
+  REQUEST_MEMBERSHIP = 'REQUEST_MEMBERSHIP'.freeze
+  TYPES = [INVITE, REQUEST_MEMBERSHIP]
 
   belongs_to :user
   belongs_to :group
