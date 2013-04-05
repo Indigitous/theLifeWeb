@@ -1,8 +1,21 @@
 class InviteRequest < ActiveRecord::Base
+  TYPES = %w(INVITE REQUEST_MEMBERSHIP)
+
   belongs_to :user
   belongs_to :group
 
+  delegate :invite?, :request_membership?, to: :type
+
   validates :user,
     :group,
+    :kind,
     presence: true
+
+  validates :kind,
+    inclusion: TYPES
+
+
+  def type
+    self[:kind].to_s.downcase.inquiry
+  end
 end
