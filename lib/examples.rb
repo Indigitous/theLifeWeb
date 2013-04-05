@@ -21,6 +21,10 @@ module Examples
     Activity.first
   end
 
+  def group
+    Group.first
+  end
+
   def password
     '123456'
   end

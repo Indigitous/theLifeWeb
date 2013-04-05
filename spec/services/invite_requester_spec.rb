@@ -30,6 +30,16 @@ describe InviteRequester do
       its(:errors) { should include(:user) }
     end
 
+    context 'when user is a group owner' do
+      before do
+        group.stub(owner: user)
+        invite_requester.stub(group: group)
+      end
+
+      it { should_not be_persisted }
+      its(:errors) { should include(:user) }
+    end
+
     context 'with valid params' do
       it { should be_persisted }
     end

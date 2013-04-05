@@ -27,7 +27,7 @@ class InviteRequester
   end
 
   def user_is_not_member_of_group?
-    if group.users.exists?(id: @user.id)
+    if group.users.exists?(id: @user.id) || group.owner == @user
       errors.add(:user, 'is already a group member')
       return false
     end
