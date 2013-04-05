@@ -52,7 +52,7 @@ class InviteCreator
 
   def receiver_email_or_sms_present?
     if email.blank? && sms.blank?
-      errors.add(:receiver, "email and sms can't be blank")
+      errors.add(:receiver, "both email and sms can't be blank at the same time")
       return false
     end
 

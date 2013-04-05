@@ -8,6 +8,11 @@ describe V1::InviteRequestsController do
     sign_in(user)
   end
 
+  it_behaves_like('a controller that requires an authentication') do
+    let(:action) { :create }
+    let(:method) { :post }
+  end
+
   subject { response }
 
   describe '#create' do
@@ -17,11 +22,6 @@ describe V1::InviteRequestsController do
         email: generate(:email),
         format: :json
       }
-    end
-
-    it_behaves_like('a controller that requires an authentication') do
-      let(:action) { :create }
-      let(:method) { :post }
     end
 
     context 'with valid params' do
