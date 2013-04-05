@@ -37,7 +37,7 @@ class InviteRequester
   end
 
   def receiver_is_valid?
-    receiver_email_or_phone_present? &&
+    receiver_email_or_sms_present? &&
     receiver_is_not_member_of_group?
   end
 
@@ -50,9 +50,9 @@ class InviteRequester
     true
   end
 
-  def receiver_email_or_phone_present?
-    if email.blank? && phone.blank?
-      errors.add(:receiver, "email and phone can't be blank")
+  def receiver_email_or_sms_present?
+    if email.blank? && sms.blank?
+      errors.add(:receiver, "email and sms can't be blank")
       return false
     end
 
@@ -73,8 +73,8 @@ class InviteRequester
     invite_request.email
   end
 
-  def phone
-    invite_request.phone
+  def sms
+    invite_request.sms
   end
 
   def errors

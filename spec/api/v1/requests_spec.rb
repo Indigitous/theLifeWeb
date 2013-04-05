@@ -23,7 +23,7 @@ describe 'v1/requests' do
     context 'with invalid params' do
       let(:params) { { group_id: group.id } }
 
-      it { should have_error("email and phone can't be blank").on('receiver') }
+      it { should have_error("email and sms can't be blank").on('receiver') }
     end
   end
 end

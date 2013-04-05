@@ -7,6 +7,6 @@ class V1::InviteRequestsController < ApplicationController
   private
 
   def invite_request_params
-    params.require(:invite_request).permit(:group_id, :email, :phone)
+    params.require(:invite_request).permit(:group_id, :email, :sms)
   end
 end

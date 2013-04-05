@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20130404084118) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "email"
-    t.string   "phone"
+    t.string   "sms"
   end
 
   add_index "invite_requests", ["group_id"], :name => "index_invite_requests_on_group_id"

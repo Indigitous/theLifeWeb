@@ -36,7 +36,7 @@ describe InviteRequester do
       its(:errors) { should include(:user) }
     end
 
-    context 'when email and phone are blank' do
+    context 'when email and sms are blank' do
       let(:params) do
         {
           group_id: group.id
