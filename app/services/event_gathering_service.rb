@@ -10,14 +10,11 @@ class EventGatheringService
   private
 
   def collect
-    [].tap do |events|
-      events << owned
-      events << related
-    end
+    owned + related
   end
 
   def normalize(events)
-    events.flatten.uniq.sort_by(&:id).reverse
+    events.uniq.sort_by(&:id).reverse
   end
 
   def owned
