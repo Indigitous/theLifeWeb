@@ -4,6 +4,7 @@ RSpec::Matchers.define :be_an_invite_request_representation do |invite_request|
       id
       user_id
       group_id
+      kind
     ]
 
     json.should be
