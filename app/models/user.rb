@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :group_users
   has_many :groups, through: :group_users
   has_many :owned_groups, class_name: 'Group'
+  has_many :invite_requests
 
   before_save :ensure_authentication_token
 

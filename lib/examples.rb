@@ -13,6 +13,10 @@ module Examples
     user.friends.first
   end
 
+  def user_owned_group
+    user.owned_groups.first
+  end
+
   def activity
     Activity.first
   end
@@ -38,6 +42,7 @@ module Examples
         groups: [Group.first]
 
       FactoryGirl.create(:friend, user: user)
+      FactoryGirl.create(:group, owner: user)
     end
   end
 end

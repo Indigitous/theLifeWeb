@@ -7,11 +7,13 @@ Web Backend for theLife Mobile App
 
 Status of the API could be checked at http://localhost:5000/api_taster
 
+All API requests should include `authentication_token`:
 
 ### Users
 
 * GET '/v1/groups/:group_id/users.json' -- get the full list of users
   in requested group
+
 
 ### Events
 
@@ -21,11 +23,14 @@ Status of the API could be checked at http://localhost:5000/api_taster
 
 ### Groups
 
-All API requests should include `authentication_token`:
-
 * GET '/v1/groups.json' - returns list of all groups
 
 * POST '/v1/groups.json' - creates a group
+
+
+### Requests
+
+* POST '/v1/requests.json' - creates a request for a person to join group
 
 
 ## What's included
