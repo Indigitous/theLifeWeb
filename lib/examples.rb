@@ -9,6 +9,14 @@ module Examples
     'user@example.com'
   end
 
+  def invited_user
+    User.find_by_email(invited_user_email)
+  end
+
+  def invited_user_email
+    'invited-user@example.com'
+  end
+
   def user_friend
     user.friends.first
   end
@@ -45,8 +53,13 @@ module Examples
         password: password,
         groups: [Group.first]
 
+      invited_user = FactoryGirl.create :user,
+        email: invited_user_email,
+        password: password
+
       FactoryGirl.create(:friend, user: user)
-      FactoryGirl.create(:group, owner: user)
+      group = FactoryGirl.create(:group, owner: user)
+      FactoryGirl.create(:invite_request, user: user, group: group, email: invited_user.email)
     end
   end
 end

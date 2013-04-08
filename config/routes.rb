@@ -15,6 +15,7 @@ TheLifeWeb::Application.routes.draw do
       resources :users, only: [:index]
     end
     resources :invite_requests, only: [:create], path: 'requests'
+    resources :my_invite_requests, only: [:index], path: 'my_requests'
   end
 
   mount ApiTaster::Engine => '/api_taster' if defined? ApiTaster::Engine
