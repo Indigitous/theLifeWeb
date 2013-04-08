@@ -7,4 +7,8 @@ class Event < ActiveRecord::Base
     :friend,
     :activity,
     presence: true
+
+  delegate :summary, to: :activity
+
+  alias_method :description, :summary
 end

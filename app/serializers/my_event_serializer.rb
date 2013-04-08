@@ -1,0 +1,2 @@
+class MyEventSerializer < EventSerializer
+end

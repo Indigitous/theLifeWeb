@@ -17,7 +17,7 @@ All API requests should include `authentication_token`:
 
 ### Events
 
-* GET '/v1/events.json' - get the full list of events associated
+* GET '/v1/my_events.json' - get the full list of events associated
   with user (including user's group comembers' events)
 
 
