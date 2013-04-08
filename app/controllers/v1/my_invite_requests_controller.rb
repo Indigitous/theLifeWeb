@@ -1,8 +1,7 @@
 class V1::MyInviteRequestsController < ApplicationController
-  expose(:invite_requests)
+  expose(:my_invite_requests) { current_user.received_invite_requests }
 
   def index
-    self.invite_requests = current_user.received_invite_requests
-    respond_with(invite_requests)
+    respond_with(my_invite_requests)
   end
 end

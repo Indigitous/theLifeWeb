@@ -11,6 +11,8 @@ describe V1::MyInviteRequestsController do
   end
   let(:invite_requests) { [invite_request] }
 
+  it_behaves_like('a controller that requires an authentication')
+
   before do
     invited_user.stub(received_invite_request: invite_requests)
 
@@ -18,10 +20,10 @@ describe V1::MyInviteRequestsController do
   end
 
   describe '#index' do
-    it_behaves_like 'a successfull GET request'
+    it_behaves_like('a successfull GET request')
 
     it 'assigns invite_requests' do
-      expect(controller.invite_requests).to match_array(invite_requests)
+      expect(controller.my_invite_requests).to match_array(invite_requests)
     end
   end
 end
