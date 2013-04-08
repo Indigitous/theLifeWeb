@@ -32,6 +32,8 @@ All API requests should include `authentication_token`:
 
 * POST '/v1/requests.json' - creates a request for a person to join group
 
+* GET '/v1/my_requests.json' - returns list of the requests sent to me
+
 
 ## What's included
 
