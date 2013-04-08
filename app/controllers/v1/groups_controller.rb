@@ -1,4 +1,4 @@
-class V1::GroupsController < ApplicationController
+class V1::GroupsController < V1::BaseController
   expose(:groups)
 
   def create

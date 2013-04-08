@@ -79,6 +79,13 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     code_analyzer (0.3.1)
       sexp_processor
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.2)
     colored (1.2)
     columnize (0.3.6)
     crack (0.3.2)
@@ -105,6 +112,8 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.16.10)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
@@ -256,6 +265,9 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
+    uglifier (2.0.1)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
     uniform_notifier (1.2.0)
     warden (1.2.1)
       rack (>= 1.0)
@@ -276,6 +288,7 @@ DEPENDENCIES
   brakeman
   bullet
   capybara
+  coffee-rails (~> 3.2.1)
   database_cleaner
   debugger
   decent_exposure
@@ -286,6 +299,7 @@ DEPENDENCIES
   faker
   foreman
   heroku
+  jquery-rails
   letter_opener
   mail_safe
   pg
@@ -293,9 +307,11 @@ DEPENDENCIES
   rails-api
   rails_best_practices
   rspec-rails
+  sass-rails (~> 3.2.3)
   seedbank
   shoulda-matchers
   simplecov
   strong_parameters
   thin
+  uglifier (>= 1.0.3)
   webmock

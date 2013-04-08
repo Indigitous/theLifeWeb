@@ -1,4 +1,4 @@
-class V1::InviteRequestsController < ApplicationController
+class V1::InviteRequestsController < V1::BaseController
   def create
     invite_request = service.new(current_user, invite_request_params).create
     respond_with(invite_request)

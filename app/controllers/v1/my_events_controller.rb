@@ -1,4 +1,4 @@
-class V1::MyEventsController < ApplicationController
+class V1::MyEventsController < V1::BaseController
   expose(:my_events) { EventGatheringService.new(current_user).gather }
 
   def index

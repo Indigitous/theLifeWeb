@@ -1,4 +1,4 @@
-class V1::FriendsController < ApplicationController
+class V1::FriendsController < V1::BaseController
   expose(:friends, ancestor: :current_user)
   expose(:friend, attributes: :friend_params)
 

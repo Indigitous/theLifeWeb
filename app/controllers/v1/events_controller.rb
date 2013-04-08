@@ -1,4 +1,4 @@
-class V1::EventsController < ApplicationController
+class V1::EventsController < V1::BaseController
   expose(:events, ancestor: :current_user)
   expose(:event, attributes: :event_params)
 
