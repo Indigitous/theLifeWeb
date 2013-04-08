@@ -1,4 +1,7 @@
 TheLifeWeb::Application.routes.draw do
+  ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   namespace :v1, defaults: { format: :json } do
     # Devise
     #

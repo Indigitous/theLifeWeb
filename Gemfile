@@ -15,6 +15,7 @@ gem 'devise'
 gem 'heroku'
 gem 'strong_parameters'
 gem 'jquery-rails'
+gem 'activeadmin'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
