@@ -23,15 +23,4 @@ describe 'v1/events' do
       it { should have_error("can't be blank").on('activity') }
     end
   end
-
-  describe 'show events for user' do
-    before do
-      create(:event, user: current_user)
-      get 'v1/events', authentication_token: authentication_token
-    end
-
-    subject { json_response_body }
-
-    it { should be_an_event_representation(current_user.events.first) }
-  end
 end

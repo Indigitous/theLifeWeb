@@ -20,6 +20,7 @@ describe V1::EventsController do
       end
 
       before do
+        Event.any_instance.stub(:activity) { build :activity, id: 1 }
         Event.any_instance.should_receive(:save)
         Event.any_instance.stub(valid?: true)
 
@@ -38,22 +39,5 @@ describe V1::EventsController do
       it { should_not be_success }
       its(:code) { should eq '422' }
     end
-  end
-
-  describe '#index' do
-    let(:event) { build :event, user: current_user }
-    let(:events) { [event] }
-
-    before do
-      EventGatheringService.any_instance.should_receive(:gather) { events }
-      get :index, format: :json
-    end
-
-    it 'assigns events' do
-      expect(controller.events).to match_array(events)
-    end
-
-    it { should be_success }
-    its(:code) { should eq '200' }
   end
 end

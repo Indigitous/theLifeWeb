@@ -1,11 +1,18 @@
 RSpec::Matchers.define :be_an_event_representation do |event|
   match do |json|
-    response_attributes = event.sliced_attributes %w[
+    event_attributes = event.sliced_attributes %w[
       id
-      activity_id
+      user_id
       friend_id
+      activity_id
       prayer_requested
     ]
+
+    event_accessors = event.sliced_accessors %w[
+      description
+    ]
+
+    response_attributes = event_attributes.merge(event_accessors)
 
     json.should be
     json.should include_attributes(response_attributes)
