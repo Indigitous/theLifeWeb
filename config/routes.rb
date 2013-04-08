@@ -10,6 +10,7 @@ TheLifeWeb::Application.routes.draw do
     end
 
     resources :friends, only: [:create]
+    resources :my_friends, only: [:index]
     resources :events, only: [:create]
     resources :my_events, only: [:index]
     resources :groups, only: [:create, :index] do
