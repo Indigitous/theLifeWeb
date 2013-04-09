@@ -11,4 +11,8 @@ class Event < ActiveRecord::Base
   delegate :summary, to: :activity
 
   alias_method :description, :summary
+
+  def to_s
+    self.id
+  end
 end
