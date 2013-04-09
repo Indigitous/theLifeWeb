@@ -58,7 +58,7 @@ describe 'v1/groups' do
       expect {
         delete "/v1/groups/#{group.id}",
           authentication_token: authentication_token
-      }.to change{ Group.count }
+      }.to change { Group.count }
     end
 
     describe 'with invalid params' do
