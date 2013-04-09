@@ -6,4 +6,10 @@ module Helpers
   def json_response_body
     JSON.parse(response.body)
   end
+
+  def login_admin
+    set_devise_mapping(:admin_user)
+    admin = create(:admin_user)
+    sign_in admin
+  end
 end

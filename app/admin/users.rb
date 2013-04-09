@@ -1,8 +1,10 @@
-ActiveAdmin.register AdminUser do
+ActiveAdmin.register User do
   config.batch_actions = false
 
   index do
     column :email
+    column :first_name
+    column :last_name
     column :current_sign_in_at
     column :last_sign_in_at
     column :sign_in_count
@@ -10,10 +12,14 @@ ActiveAdmin.register AdminUser do
   end
 
   filter :email
+  filter :first_name
+  filter :last_name
 
   form do |f|
     f.inputs "Admin Details" do
       f.input :email
+      f.input :first_name
+      f.input :last_name
       f.input :password
       f.input :password_confirmation
     end
