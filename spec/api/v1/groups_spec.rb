@@ -50,4 +50,26 @@ describe 'v1/groups' do
     it { should be_a_kind_of Array }
     its(:first) { should be_a_user_representation(current_user) }
   end
+
+  describe 'delete a group' do
+    let!(:group) { create(:group, owner: current_user) }
+
+    it 'removes group' do
+      expect {
+        delete "/v1/groups/#{group.id}",
+          authentication_token: authentication_token
+      }.to change{ Group.count }
+    end
+
+    describe 'with invalid params' do
+      let!(:group) { create(:group) }
+
+      it 'does not remove group' do
+        expect {
+          delete "/v1/groups/#{group.id}",
+            authentication_token: authentication_token
+        }.not_to change { Group.count }
+      end
+    end
+  end
 end
