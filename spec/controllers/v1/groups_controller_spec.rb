@@ -5,9 +5,12 @@ describe V1::GroupsController do
   let(:group) { FactoryGirl.build(:group) }
   let(:groups) { [group] }
 
-  before do
-    Group.stub(scoped: groups)
+  it_behaves_like('a controller that requires an authentication') do
+    let(:action) { :create }
+    let(:method) { :post }
+  end
 
+  before do
     sign_in(user)
   end
 
@@ -18,11 +21,6 @@ describe V1::GroupsController do
         description: 'Group for my best friends!',
         format: :json
       }
-    end
-
-    it_behaves_like('a controller that requires an authentication') do
-      let(:action) { :create }
-      let(:method) { :post }
     end
 
     subject { response }
@@ -50,6 +48,7 @@ describe V1::GroupsController do
 
   describe '#index' do
     before do
+      Group.stub(scoped: groups)
       get :index, format: :json
     end
 
@@ -60,6 +59,36 @@ describe V1::GroupsController do
 
     it 'assigns groups' do
       expect(controller.groups).to match_array(groups)
+    end
+  end
+
+  describe '#destroy' do
+    let(:group) { create(:group, owner: user) }
+    let(:params) { { id: group.id, format: :json } }
+
+    subject { response }
+
+    describe 'when group does not exist or user is not a group owner' do
+      before do
+        GroupDeletionService.any_instance.stub(destroy: false)
+        Group.any_instance.should_not_receive(:destroy)
+
+        delete :destroy, params
+      end
+
+      it { should be_success }
+      its(:code) { should eq('204')}
+    end
+
+    describe 'with valid params' do
+      before do
+        Group.any_instance.should_receive(:destroy)
+
+        delete :destroy, params
+      end
+
+      it { should be_success }
+      its(:code) { should eq('204') }
     end
   end
 end
