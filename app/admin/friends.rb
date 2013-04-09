@@ -3,7 +3,6 @@ ActiveAdmin.register Friend do
   config.batch_actions = false
 
   index do
-    column :id
     column :first_name
     column :last_name
     column :threshold
