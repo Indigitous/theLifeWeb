@@ -1,2 +1,0 @@
-class MyFriendSerializer < FriendSerializer
-end
