@@ -27,6 +27,8 @@ All API requests should include `authentication_token`:
 
 * POST '/v1/groups.json' - creates a group
 
+* DELETE '/v1/groups/:group_id.json' - deletes a group
+
 
 ### Requests
 
