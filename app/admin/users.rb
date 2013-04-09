@@ -16,7 +16,7 @@ ActiveAdmin.register User do
   filter :last_name
 
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs "User Details" do
       f.input :email
       f.input :first_name
       f.input :last_name
@@ -24,5 +24,9 @@ ActiveAdmin.register User do
       f.input :password_confirmation
     end
     f.actions
+  end
+
+  action_item :only => :show do
+    link_to('Show Friends', admin_user_friends_path(resource))
   end
 end

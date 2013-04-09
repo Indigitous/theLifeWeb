@@ -13,4 +13,12 @@ describe User do
     it { should have_many :owned_groups }
     it { should have_many :invite_requests }
   end
+
+  describe '#to_s' do
+    let!(:user) { create(:user, first_name: 'Adrian', last_name: 'Teh') }
+    subject { user.to_s }
+    it 'should return firstname and lastname' do
+      subject.should == 'Adrian Teh'
+    end
+  end
 end

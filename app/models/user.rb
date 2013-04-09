@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
 
+  def to_s
+    "#{self.first_name} #{self.last_name}"
+  end
+
   def received_invite_requests
     InviteRequest
       .where(email: email, kind: InviteRequest::INVITE)
