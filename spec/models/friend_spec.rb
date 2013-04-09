@@ -15,4 +15,14 @@ describe Friend do
       subject.should == 'Adrian Teh'
     end
   end
+
+  describe '.recent(n)' do
+    let!(:friend_1) { create(:friend) }
+    let!(:friend_2) { create(:friend) }
+    let!(:friend_3) { create(:friend) }
+    subject { Friend.recent(2) }
+    it 'returns n recent friends' do
+      subject.should =~ [friend_3, friend_2]
+    end
+  end
 end

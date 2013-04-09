@@ -10,6 +10,8 @@ class Friend < ActiveRecord::Base
     :threshold,
     presence: true
 
+  scope :recent, lambda { |n| includes(:user,:threshold).limit(n).order('id desc') }
+
   def to_s
     "#{self.first_name} #{self.last_name}"
   end

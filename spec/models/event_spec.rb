@@ -12,4 +12,14 @@ describe Event do
       subject.should == event.id
     end
   end
+
+  describe '.recent(n)' do
+    let!(:event_1) { create(:event) }
+    let!(:event_2) { create(:event) }
+    let!(:event_3) { create(:event) }
+    subject { Event.recent(2) }
+    it 'returns n recent activities' do
+      subject.should =~ [event_3, event_2]
+    end
+  end
 end

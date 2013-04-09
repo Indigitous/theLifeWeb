@@ -12,6 +12,8 @@ class Event < ActiveRecord::Base
 
   alias_method :description, :summary
 
+  scope :recent, lambda { |n| limit(n).order('id desc') }
+
   def to_s
     self.id
   end
