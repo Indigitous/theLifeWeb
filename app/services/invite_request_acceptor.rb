@@ -1,6 +1,8 @@
 class InviteRequestAcceptor
   attr_accessor :invite_request
 
+  delegate :errors, :group_id, to: :invite_request
+
   def initialize(current_user, invite_request, params)
     @current_user, @invite_request, @params = current_user, invite_request, params
   end
@@ -61,20 +63,12 @@ class InviteRequestAcceptor
     true
   end
 
-  def errors
-    invite_request.errors
-  end
-
   def members
     group.users
   end
 
   def group
     @group ||= Group.find_by_id(group_id)
-  end
-
-  def group_id
-    invite_request.group_id
   end
 
   def user
