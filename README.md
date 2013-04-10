@@ -14,6 +14,8 @@ All API requests should include `authentication_token`:
 * GET '/v1/groups/:group_id/users.json' -- get the full list of users
   in requested group
 
+* DELETE '/v1/groups/:group_id/users/:id.json' -- delete user from a group
+
 ### Friends
 
 * POST '/v1/friends.json' -- add new friend for current user
@@ -25,7 +27,6 @@ All API requests should include `authentication_token`:
 * GET '/v1/my_events.json' - get the full list of events associated
   with user (including user's group comembers' events)
 
-
 ### Groups
 
 * GET '/v1/groups.json' - returns list of all groups
@@ -33,7 +34,6 @@ All API requests should include `authentication_token`:
 * POST '/v1/groups.json' - creates a group
 
 * DELETE '/v1/groups/:group_id.json' - deletes a group
-
 
 ### Requests
 

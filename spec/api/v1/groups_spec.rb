@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'v1/groups' do
-  let(:current_user) { FactoryGirl.create(:user) }
+  let(:current_user) { create :user }
   let(:authentication_token) { current_user.authentication_token }
   let(:params) { FactoryGirl.attributes_for(:group) }
 
@@ -69,6 +69,49 @@ describe 'v1/groups' do
           delete "/v1/groups/#{group.id}",
             authentication_token: authentication_token
         }.not_to change { Group.count }
+      end
+    end
+  end
+
+  describe 'remove user from a group' do
+    let(:group_member) { create :user }
+
+    describe 'when all params are valid' do
+      let!(:group) do
+        create :group, owner: current_user, users: [current_user, group_member]
+      end
+
+      it 'successfully removes user from a group' do
+        expect do
+          delete "/v1/groups/#{group.id}/users/#{group_member.id}",
+            authentication_token: current_user.authentication_token
+        end.to change { group.reload.users.count }
+      end
+    end
+
+    describe 'when params are invalid' do
+      describe 'when current user is not a group owner' do
+        let!(:group) { create :group, users:[current_user, group_member] }
+
+        it 'does not remove user from a group' do
+          expect do
+            delete "v1/groups/#{group.id}/users/#{group_member.id}",
+              authentication_token: current_user.authentication_token
+          end.not_to change { group.reload.users.count }
+        end
+      end
+
+      describe 'when user is not a group member' do
+        let!(:group) do
+          create :group, users:[current_user], owner: current_user
+        end
+
+        it 'does not remove user from a group' do
+          expect do
+            delete "v1/groups/#{group.id}/users/#{group_member.id}",
+              authentication_token: current_user.authentication_token
+          end.not_to change { group.reload.users.count }
+        end
       end
     end
   end

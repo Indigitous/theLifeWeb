@@ -14,7 +14,7 @@ TheLifeWeb::Application.routes.draw do
     resources :events, only: [:create]
     resources :my_events, only: [:index]
     resources :groups, only: [:create, :index, :destroy] do
-      resources :users, only: [:index]
+      resources :users, only: [:index, :destroy]
     end
     resources :invite_requests, only: [:create], path: 'requests'
     resources :my_invite_requests, only: [:index], path: 'my_requests'
