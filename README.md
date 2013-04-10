@@ -27,6 +27,8 @@ All API requests should include `authentication_token`:
 
 * POST '/v1/groups.json' - creates a group
 
+* DELETE '/v1/groups/:group_id.json' - deletes a group
+
 
 ### Requests
 
@@ -34,6 +36,11 @@ All API requests should include `authentication_token`:
 
 * GET '/v1/my_requests.json' - returns list of the requests sent to me
 
+### Activities
+
+* GET '/v1/activities.json' - If `threshold_id` is providen, then response will
+  contain only activities applicable for given
+  threshold, else it returns full list of activities.
 
 ## What's included
 

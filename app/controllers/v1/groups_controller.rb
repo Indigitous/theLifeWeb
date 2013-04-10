@@ -10,6 +10,11 @@ class V1::GroupsController < V1::BaseController
     respond_with(groups)
   end
 
+  def destroy
+    GroupDeletionService.new(current_user, params).destroy
+    head :no_content
+  end
+
   private
 
   def group_params
