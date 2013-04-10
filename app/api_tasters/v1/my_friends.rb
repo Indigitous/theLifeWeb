@@ -1,6 +1,6 @@
 ApiTaster::RouteCollector.route do
   desc <<-markdown.strip_heredoc
-    ## Show user's event stream
+    ## Show user's friends
   markdown
 
   get '/v1/my_friends',
