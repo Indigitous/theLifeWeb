@@ -8,6 +8,14 @@ ApiTaster::RouteCollector.route do
       .merge(authentication_token: Examples.user.authentication_token)
 
   desc <<-markdown.strip_heredoc
+    ## Delete my group
+  markdown
+
+  delete '/v1/groups/:id',
+    id: Examples.user.owned_groups.first.id,
+    authentication_token: Examples.user.authentication_token
+
+  desc <<-markdown.strip_heredoc
     ## Get all groups in the app
   markdown
 
