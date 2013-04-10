@@ -1,4 +1,4 @@
-class InviteRequestAcceptor
+class InviteRequestRejector
   attr_accessor :invite_request
 
   def initialize(current_user, invite_request, params)
@@ -6,8 +6,6 @@ class InviteRequestAcceptor
   end
 
   def process
-    group_exists? &&
-    user_is_not_member_of_group? &&
     invite_request_valid? &&
     invite_request_processed?
 
@@ -16,30 +14,11 @@ class InviteRequestAcceptor
 
   private
 
-  def group_exists?
-    unless group.present?
-      errors.add(:group, 'does not exist')
-      return false
-    end
-
-    true
-  end
-
-  def user_is_not_member_of_group?
-    if members.exists?(id: user_id) || group.owner == user
-      errors.add(:user, 'is already a group member')
-      return false
-    end
-
-    true
-  end
-
   def invite_request_valid?
     invite_request.invite? ? invite_valid? : request_valid?
   end
 
   def invite_request_processed?
-    members << user
     invite_request.destroy
   end
 
@@ -63,10 +42,6 @@ class InviteRequestAcceptor
 
   def errors
     invite_request.errors
-  end
-
-  def members
-    group.users
   end
 
   def group

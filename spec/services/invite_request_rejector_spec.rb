@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InviteRequestAcceptor do
+describe InviteRequestRejector do
   let(:current_user) { create(:user) }
   let(:group) { create(:group, owner: current_user) }
   let(:user) { create(:user) }
@@ -8,35 +8,16 @@ describe InviteRequestAcceptor do
 
   let(:params) { { user: user.id } }
 
-  let(:invite_request_acceptor) { described_class.new(current_user, invite_request, params) }
+  let(:invite_request_rejector) { described_class.new(current_user, invite_request, params) }
 
   describe '#process' do
-    subject { invite_request_acceptor.process }
-
-    describe 'when group does not exist' do
-      before do
-        Group.stub(find_by_id: nil)
-      end
-
-      it { should be_persisted }
-      its(:errors) { should include(:group) }
-    end
-
-    describe 'when user is already a member' do
-      before do
-        group.users.stub(exists?: true)
-        invite_request_acceptor.stub(group: group)
-      end
-
-      it { should be_persisted }
-      its(:errors) { should include(:user) }
-    end
+    subject { invite_request_rejector.process }
 
     describe 'when invite request is a membership request and current_user is not an owner' do
       before do
         invite_request.stub(invite?: false)
         group.stub(owner: nil)
-        invite_request_acceptor.stub(group: group)
+        invite_request_rejector.stub(group: group)
       end
 
       it { should be_persisted }
@@ -47,7 +28,7 @@ describe InviteRequestAcceptor do
       before do
         received_invite_requests = double(:invite_request, exists?: false)
         user.stub(received_invite_requests: received_invite_requests)
-        invite_request_acceptor.stub(user: user)
+        invite_request_rejector.stub(user: user)
       end
 
       it { should be_persisted }
@@ -55,12 +36,6 @@ describe InviteRequestAcceptor do
     end
 
     describe 'with valid params' do
-      before do
-        members = double(:members, exists?: false)
-        members.should_receive(:<<)
-        invite_request_acceptor.stub(members: members)
-      end
-
       it { should_not be_persisted }
     end
   end
