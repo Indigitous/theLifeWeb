@@ -48,6 +48,17 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:user) }
     end
 
+    describe 'when inviting and user is not an owner of invite request' do
+      before do
+        received_invite_requests = double(:invite_request, exists?: false)
+        user.stub(received_invite_requests: received_invite_requests)
+        invite_request_acceptor.stub(user: user)
+      end
+
+      it { should be_persisted }
+      its(:errors) { should include(:user) }
+    end
+
     describe 'with valid params' do
       before do
         members = double(:members, exists?: false)

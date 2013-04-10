@@ -1,4 +1,6 @@
 class InviteRequestAcceptor
+  attr_accessor :invite_request
+
   def initialize(current_user, invite_request, params)
     @current_user, @invite_request, @params = current_user, invite_request, params
   end
@@ -9,7 +11,7 @@ class InviteRequestAcceptor
     invite_request_valid? &&
     invite_request_processed?
 
-    @invite_request
+    invite_request
   end
 
   private
@@ -33,12 +35,21 @@ class InviteRequestAcceptor
   end
 
   def invite_request_valid?
-    @invite_request.invite? ? true : request_valid?
+    invite_request.invite? ? invite_valid? : request_valid?
   end
 
   def invite_request_processed?
     members << user
-    @invite_request.destroy
+    invite_request.destroy
+  end
+
+  def invite_valid?
+    unless user.received_invite_requests.exists?(id: invite_request.id)
+      errors.add(:user, 'is not owner')
+      return false
+    end
+
+    true
   end
 
   def request_valid?
@@ -51,7 +62,7 @@ class InviteRequestAcceptor
   end
 
   def errors
-    @invite_request.errors
+    invite_request.errors
   end
 
   def members
