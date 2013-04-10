@@ -9,11 +9,12 @@ class InviteRequestAcceptor
 
   def process
     group_exists? &&
+    user_exists? &&
     user_is_not_member_of_group? &&
     invite_request_valid? &&
     invite_request_processed?
 
-    invite_request
+    invite_request.errors.any? ? invite_request : membership
   end
 
   private
@@ -21,6 +22,15 @@ class InviteRequestAcceptor
   def group_exists?
     unless group.present?
       errors.add(:group, 'does not exist')
+      return false
+    end
+
+    true
+  end
+
+  def user_exists?
+    unless user.present?
+      errors.add(:user, 'does not exist')
       return false
     end
 
@@ -65,6 +75,10 @@ class InviteRequestAcceptor
 
   def members
     group.users
+  end
+
+  def membership
+    user.group_users.where(group_id: group_id).first
   end
 
   def group

@@ -17,6 +17,10 @@ module Examples
     'invited-user@example.com'
   end
 
+  def invite_request
+    InviteRequest.find_by_email(invited_user_email)
+  end
+
   def user_friend
     user.friends.first
   end

@@ -8,6 +8,7 @@ class InviteRequestRejector
   end
 
   def process
+    user_exists? &&
     invite_request_valid? &&
     invite_request_processed?
 
@@ -15,6 +16,15 @@ class InviteRequestRejector
   end
 
   private
+
+  def user_exists?
+    unless user.present?
+      errors.add(:user, 'does not exist')
+      return false
+    end
+
+    true
+  end
 
   def invite_request_valid?
     invite_request.invite? ? invite_valid? : request_valid?
@@ -45,6 +55,7 @@ class InviteRequestRejector
   def group
     @group ||= Group.find_by_id(group_id)
   end
+
 
   def user
     @user = User.find_by_id(user_id)

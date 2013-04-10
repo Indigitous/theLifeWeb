@@ -29,6 +29,7 @@ RemoveUnusedMethodsInControllersCheck:
     - V1::RegistrationsController#user_params
     - V1::EventsController#event_params
     - V1::GroupsController#group_params
+    - V1::InviteRequestsController#handle
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
 RemoveUnusedMethodsInModelsCheck: { except_methods: [] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }

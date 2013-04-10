@@ -22,6 +22,15 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:group) }
     end
 
+    describe 'when user does not exit' do
+      before do
+        User.stub(find_by_id: nil)
+      end
+
+      it { should be_persisted }
+      its(:errors) { should include(:user) }
+    end
+
     describe 'when user is already a member' do
       before do
         group.users.stub(exists?: true)
@@ -55,13 +64,8 @@ describe InviteRequestAcceptor do
     end
 
     describe 'with valid params' do
-      before do
-        members = double(:members, exists?: false)
-        members.should_receive(:<<)
-        invite_request_acceptor.stub(members: members)
-      end
-
-      it { should_not be_persisted }
+      it { should be_a_kind_of GroupUser }
+      it { should be_persisted }
     end
   end
 end
