@@ -35,7 +35,7 @@ describe 'v1/friends' do
         expect do
           delete "/v1/friends/#{friend.id}",
             authentication_token: current_user.authentication_token
-        end.to change { Friend.count }
+        end.to change { current_user.friends.count }
       end
     end
 
@@ -45,7 +45,7 @@ describe 'v1/friends' do
           expect do
             delete "/v1/friends/#{other_friend.id}",
               authentication_token: current_user
-          end.not_to change { Friend.count }
+          end.not_to change { current_user.friends.count }
         end
       end
     end
