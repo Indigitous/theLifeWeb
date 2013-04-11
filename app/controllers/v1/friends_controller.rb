@@ -7,6 +7,11 @@ class V1::FriendsController < ApplicationController
     respond_with(friend)
   end
 
+  def destroy
+    FriendDeletionService.new(current_user, params).delete
+    head :no_content
+  end
+
   private
 
   def friend_params
