@@ -38,22 +38,19 @@ describe V1::FriendsController do
 
   describe '#destroy' do
     let(:friend) { create :friend, user: current_user }
-    let(:params) { { id: friend.id } }
+    let(:delete_params) { { id: friend.id, format: :json } }
 
-    before do
-      # FriendDeletionService.any_instance.stub(delete: true)
-      Friend.any_instance.should_receive(:destroy)
+    describe 'when all params are valid' do
+      before do
+        Friend.any_instance.should_receive(:destroy)
+      end
 
-      delete :destroy, params.merge(format: :json)
+      it_behaves_like 'a successfull DELETE request' do
+        let(:params) { delete_params}
+      end
     end
 
-    it { should be_success }
-    its(:code) { should eq('204') }
-
-    context 'when friend is not a friend of current user' do
-      let(:params) { { id: other_friend.id, format: :json, } }
-      let(:other_friend) { create :friend }
-
+    describe 'when friend is not a friend of current user' do
       before do
         FriendDeletionService.any_instance.stub(delete: false)
         Friend.any_instance.should_not_receive(:destroy)
@@ -61,8 +58,9 @@ describe V1::FriendsController do
         delete :destroy, params
       end
 
-      it { should be_success }
-      its(:code) { should eq('204') }
+      it_behaves_like 'a successfull DELETE request' do
+        let(:params) { delete_params}
+      end
     end
   end
 end
