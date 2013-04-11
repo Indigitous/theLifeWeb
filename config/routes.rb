@@ -12,7 +12,7 @@ TheLifeWeb::Application.routes.draw do
       post('/register', to: 'registrations#create')
     end
 
-    resources :friends, only: [:create]
+    resources :friends, only: [:create, :destroy]
     resources :my_friends, only: [:index]
     resources :events, only: [:create]
     resources :my_events, only: [:index]

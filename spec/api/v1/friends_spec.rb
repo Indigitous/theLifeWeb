@@ -25,4 +25,29 @@ describe 'v1/friends' do
       it { should have_error("can't be blank").on('last_name') }
     end
   end
+
+  describe 'deleting a friend' do
+    let!(:friend) { create :friend, user: current_user }
+    let!(:other_friend) { create :friend }
+
+    describe 'when all params are valid' do
+      it 'successfully deletes a friend' do
+        expect do
+          delete "/v1/friends/#{friend.id}",
+            authentication_token: current_user.authentication_token
+        end.to change { current_user.friends.count }
+      end
+    end
+
+    describe 'when params are invalid' do
+      describe 'when user has not such friend' do
+        it 'does not delete friend' do
+          expect do
+            delete "/v1/friends/#{other_friend.id}",
+              authentication_token: current_user
+          end.not_to change { current_user.friends.count }
+        end
+      end
+    end
+  end
 end

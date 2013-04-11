@@ -14,6 +14,11 @@ All API requests should include `authentication_token`:
 * GET '/v1/groups/:group_id/users.json' -- get the full list of users
   in requested group
 
+### Friends
+
+* POST '/v1/friends.json' -- add new friend for current user
+
+* DELETE '/v1/friends/:id.json' -- delete a friend
 
 ### Events
 
