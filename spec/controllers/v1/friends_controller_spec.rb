@@ -46,7 +46,7 @@ describe V1::FriendsController do
       end
 
       it_behaves_like 'a successfull DELETE request' do
-        let(:params) { delete_params}
+        let(:params) { delete_params }
       end
     end
 
@@ -59,7 +59,7 @@ describe V1::FriendsController do
       end
 
       it_behaves_like 'a successfull DELETE request' do
-        let(:params) { delete_params}
+        let(:params) { delete_params }
       end
     end
   end
