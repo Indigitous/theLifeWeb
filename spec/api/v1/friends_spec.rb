@@ -79,7 +79,7 @@ describe 'v1/friends' do
             put "/v1/friends/#{friend.id}",
               threshold_id: Threshold::TITLES.size + 1,
               authentication_token: current_user.authentication_token
-          end.not_to change { friend.threshold_id }
+          end.not_to change { Friend.find_by_id(friend.id).threshold_id }
         end
       end
     end
