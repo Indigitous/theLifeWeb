@@ -26,7 +26,4 @@ ActiveAdmin.register User do
     f.actions
   end
 
-  action_item :only => :show do
-    link_to('Show Friends', admin_user_friends_path(resource))
-  end
 end
