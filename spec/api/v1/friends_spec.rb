@@ -50,4 +50,38 @@ describe 'v1/friends' do
       end
     end
   end
+
+  describe 'updating a friend' do
+    let!(:current_threshold) do
+      create :threshold, title: Threshold::TITLES[0]
+    end
+
+    let!(:goal_threshold) do
+      create :threshold, title: Threshold::TITLES.last
+    end
+
+    let!(:friend) { create :friend, user: current_user, threshold: current_threshold }
+
+    describe 'when all params are valid' do
+      it 'successfully updates a friend' do
+        expect do
+          put "/v1/friends/#{friend.id}",
+            threshold_id: goal_threshold.id,
+            authentication_token: current_user.authentication_token
+        end.to change { Friend.find_by_id(friend.id).threshold_id }
+      end
+    end
+
+    describe 'when params are invalid' do
+      describe 'when invalid threshold is given' do
+        it 'does not updates a friend' do
+          expect do
+            put "/v1/friends/#{friend.id}",
+              threshold_id: Threshold::TITLES.size + 1,
+              authentication_token: current_user.authentication_token
+          end.not_to change { friend.threshold_id }
+        end
+      end
+    end
+  end
 end
