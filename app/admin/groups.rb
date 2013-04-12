@@ -2,6 +2,10 @@ ActiveAdmin.register Group do
   belongs_to :user, :optional => true
   config.batch_actions = false
 
+  action_item :only => :show do
+    link_to('Manage Users', admin_group_group_users_path(resource))
+  end
+
   index do
     column :name
     column :description
@@ -14,20 +18,19 @@ ActiveAdmin.register Group do
   show do
     attributes_table *default_attribute_table_rows
     panel "Users" do
-      paginated_collection(resource.users.page(params[:page]).per(25), download_links: false) do
+      paginated_collection(resource.group_users.includes(:user).page(params[:page]).per(25), download_links: false) do
         table_for(collection, sortable: false) do
-          column :email
-          column :first_name
-          column :last_name
-          column '' do |user|
-            links = ''.html_safe
-            if controller.action_methods.include?('show')
-              links << link_to(I18n.t('active_admin.view'), admin_user_path(user), :class => "member_link view_link")
-            end
-            if controller.action_methods.include?('edit')
-              links << link_to(I18n.t('active_admin.edit'), edit_admin_user_path(user), :class => "member_link edit_link")
-            end
-            links
+          column :email do |group_user|
+            link_to group_user.user.email, [:admin,group_user.user]
+          end
+          column :first_name do |group_user|
+            group_user.user.first_name
+          end
+          column :last_name do |group_user|
+            group_user.user.last_name
+          end
+          column '' do |group_user|
+            link_to('Remove From Group', admin_group_group_user_path(group,group_user), :method => :delete, :data => {:confirm => I18n.t('active_admin.delete_confirmation')}, :class => "member_link delete_link")
           end
         end
       end

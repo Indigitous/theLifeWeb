@@ -2,6 +2,15 @@ TheLifeWeb::Application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config
 
+  namespace :admin do
+    resources :users do
+      resources :group_users
+    end
+    resources :groups do
+      resources :group_users
+    end
+  end
+
   namespace :v1, defaults: { format: :json } do
     # Devise
     #
