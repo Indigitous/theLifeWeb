@@ -20,6 +20,8 @@ All API requests should include `authentication_token`:
 
 * POST '/v1/friends.json' -- add new friend for current user
 
+* PUT '/v1/friends/:id.json' -- update a friend info
+
 * DELETE '/v1/friends/:id.json' -- delete a friend
 
 ### Events
