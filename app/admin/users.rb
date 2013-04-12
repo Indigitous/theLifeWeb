@@ -2,7 +2,11 @@ ActiveAdmin.register User do
   config.batch_actions = false
 
   action_item :only => :show do
-    link_to('Add Friend', new_admin_user_friend_path(resource))
+    link_to('Manage Friends', admin_user_friends_path(resource))
+  end
+
+  action_item :only => :show do
+    link_to('Manage Groups', admin_user_group_users_path(resource))
   end
 
   index do
@@ -33,19 +37,14 @@ ActiveAdmin.register User do
   show do
     attributes_table *default_attribute_table_rows
     panel "Groups" do
-      paginated_collection(resource.groups.includes(:owner).page(params[:page]).per(25), download_links: false) do
+      paginated_collection(resource.group_users.includes(:group => :owner).page(params[:page]).per(25), download_links: false) do
         table_for(collection, sortable: false) do
-          column :name
-          column :owner
-          column '' do |group|
-            links = ''.html_safe
-            if controller.action_methods.include?('show')
-              links << link_to(I18n.t('active_admin.view'), admin_group_path(group), :class => "member_link view_link")
-            end
-            if controller.action_methods.include?('edit')
-              links << link_to(I18n.t('active_admin.edit'), edit_admin_group_path(group), :class => "member_link edit_link")
-            end
-            links
+          column :group
+          column "Owner" do |group_user|
+            group_user.group.owner
+          end
+          column '' do |group_user|
+            link_to('Remove From Group', admin_user_group_user_path(user,group_user), :method => :delete, :data => {:confirm => I18n.t('active_admin.delete_confirmation')}, :class => "member_link delete_link")
           end
         end
       end
@@ -57,14 +56,7 @@ ActiveAdmin.register User do
           column :last_name
           column :threshold
           column '' do |friend|
-            links = ''.html_safe
-            if controller.action_methods.include?('show')
-              links << link_to(I18n.t('active_admin.view'), admin_friend_path(friend), :class => "member_link view_link")
-            end
-            if controller.action_methods.include?('edit')
-              links << link_to(I18n.t('active_admin.edit'), edit_admin_friend_path(friend), :class => "member_link edit_link")
-            end
-            links
+            link_to('Delete', admin_user_friend_path(user,friend), :method => :delete, :data => {:confirm => I18n.t('active_admin.delete_confirmation')}, :class => "member_link delete_link")
           end
         end
       end

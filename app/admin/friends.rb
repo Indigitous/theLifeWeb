@@ -2,6 +2,10 @@ ActiveAdmin.register Friend do
   belongs_to :user, :optional => true
   config.batch_actions = false
 
+  filter :threshold
+  filter :first_name
+  filter :last_name
+
   index do
     column :first_name
     column :last_name
@@ -35,7 +39,7 @@ ActiveAdmin.register Friend do
 
   controller do
     def scoped_collection
-      Friend.includes(:threshold, :user)
+      (parent? ? parent.friends : Friend).includes(:threshold, :user)
     end
 
     def create
