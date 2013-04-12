@@ -14,6 +14,7 @@ gem 'heroku'
 gem 'strong_parameters'
 gem 'jquery-rails'
 gem 'activeadmin'
+gem 'ckeditor'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

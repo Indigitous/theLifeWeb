@@ -11,6 +11,17 @@ ActiveAdmin.register Activity do
     default_actions
   end
 
+  form do |f|
+    f.inputs do
+      f.input :title
+      f.input :summary
+      f.input :full_description, :as => :ckeditor
+      f.input :category
+      f.input :priority
+    end
+    f.buttons
+  end
+
   controller do
     def scoped_collection
       Activity.includes(:category)
