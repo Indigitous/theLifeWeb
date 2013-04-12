@@ -68,7 +68,7 @@ describe 'v1/friends' do
           put "/v1/friends/#{friend.id}",
             threshold_id: goal_threshold.id,
             authentication_token: current_user.authentication_token
-        end.to change { Friend.find_by_id(friend.id).threshold_id }
+        end.to change { friend.reload.threshold_id }
       end
     end
 
@@ -77,9 +77,9 @@ describe 'v1/friends' do
         it 'does not updates a friend' do
           expect do
             put "/v1/friends/#{friend.id}",
-              threshold_id: Threshold::TITLES.size + 1,
+              threshold_id: -1,
               authentication_token: current_user.authentication_token
-          end.not_to change { Friend.find_by_id(friend.id).threshold_id }
+          end.not_to change { friend.reload.threshold_id }
         end
       end
     end

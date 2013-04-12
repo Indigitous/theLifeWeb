@@ -22,5 +22,5 @@ ApiTaster::RouteCollector.route do
 
   delete '/v1/friends/:id',
     id: Examples.user_friend.id,
-      authentication_token: Examples.user.authentication_token
+    authentication_token: Examples.user.authentication_token
 end
