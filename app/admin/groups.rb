@@ -21,13 +21,13 @@ ActiveAdmin.register Group do
       paginated_collection(resource.group_users.includes(:user).page(params[:page]).per(25), download_links: false) do
         table_for(collection, sortable: false) do
           column :email do |group_user|
-            link_to group_user.user.email, [:admin,group_user.user]
+            link_to group_user.user_email, [:admin,group_user.user]
           end
           column :first_name do |group_user|
-            group_user.user.first_name
+            group_user.user_first_name
           end
           column :last_name do |group_user|
-            group_user.user.last_name
+            group_user.user_last_name
           end
           column '' do |group_user|
             link_to('Remove From Group', admin_group_group_user_path(group,group_user), :method => :delete, :data => {:confirm => I18n.t('active_admin.delete_confirmation')}, :class => "member_link delete_link")

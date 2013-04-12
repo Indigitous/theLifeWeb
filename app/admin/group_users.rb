@@ -13,10 +13,10 @@ ActiveAdmin.register GroupUser do
     column :group
     column :user
     column :first_name do |group_user|
-      group_user.user.first_name
+      group_user.user_first_name
     end
     column :last_name do |group_user|
-      group_user.user.last_name
+      group_user.user_last_name
     end
     default_actions
   end
