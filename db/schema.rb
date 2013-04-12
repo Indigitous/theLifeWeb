@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130405083959) do
+ActiveRecord::Schema.define(:version => 20130412152251) do
 
   create_table "activities", :force => true do |t|
     t.string   "title",            :default => "", :null => false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20130405083959) do
   add_index "friends", ["threshold_id"], :name => "index_friends_on_threshold_id"
   add_index "friends", ["user_id"], :name => "index_friends_on_user_id"
 
-  create_table "group_users", :id => false, :force => true do |t|
+  create_table "group_users", :force => true do |t|
     t.integer "group_id"
     t.integer "user_id"
   end
