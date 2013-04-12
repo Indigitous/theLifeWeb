@@ -1,5 +1,7 @@
 ActiveAdmin.register Group do
+  belongs_to :user, :optional => true
   config.batch_actions = false
+
   index do
     column :name
     column :description

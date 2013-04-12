@@ -1,4 +1,5 @@
 ActiveAdmin.register Friend do
+  belongs_to :user, :optional => true
   config.batch_actions = false
 
   index do
@@ -35,6 +36,14 @@ ActiveAdmin.register Friend do
   controller do
     def scoped_collection
       Friend.includes(:threshold, :user)
+    end
+
+    def create
+      create! do |format|
+        format.html do
+          parent.present? ? redirect_to(admin_user_path(parent), :flash => flash) : redirect_to(admin_friend_path(resource), :flash => flash)
+        end
+      end
     end
   end
 
