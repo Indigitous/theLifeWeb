@@ -14,10 +14,4 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   validates :first_name, :last_name, presence: true
-
-  def received_invite_requests
-    InviteRequest
-      .where(email: email, kind: InviteRequest::INVITE)
-      .order('id desc')
-  end
 end
