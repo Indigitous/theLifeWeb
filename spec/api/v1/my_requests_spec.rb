@@ -12,12 +12,12 @@ describe 'v1/my_requests' do
 
   subject { json_response_body }
 
-  describe 'get requests sent to me' do
+  describe 'get requests sent to me or my groups' do
     before do
       get '/v1/my_requests', authentication_token: authentication_token
     end
 
     it { should be_a_kind_of Array }
-    its(:first) { should be_an_invite_request_representation(invite_request) }
+    its(:first) { should be_a_my_invite_request_representation(invite_request) }
   end
 end

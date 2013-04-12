@@ -20,4 +20,12 @@ class InviteRequest < ActiveRecord::Base
   def type
     self[:kind].to_s.downcase.inquiry
   end
+
+  def description
+    if invite?
+      "<b>$uf $ul</b> asks you to join group <b>$g</b>"
+    else
+      "<b>$uf $ul</b> wants to join your group <b>$g</b>"
+    end
+  end
 end
