@@ -6,5 +6,9 @@ FactoryGirl.define do
     group
 
     email
+
+    factory :membership_request do
+      kind InviteRequest::REQUEST_MEMBERSHIP
+    end
   end
 end

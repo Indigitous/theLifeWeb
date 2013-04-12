@@ -1,7 +1,4 @@
 class InviteRequestSerializer < BaseSerializer
-  attributes :id, :user_id, :group_id, :type
-
-  def type
-    object.kind
-  end
+  attributes :id, :user_id, :group_id
+  attribute :kind, key: :type
 end

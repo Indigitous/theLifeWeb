@@ -63,4 +63,37 @@ describe V1::FriendsController do
       end
     end
   end
+
+  describe '#update' do
+    let(:friend) { create :friend, user: current_user }
+    let(:other_friend) { create :friend }
+    let(:put_params) do
+      {
+        id: friend.id,
+        threshold_id: friend.threshold_id + 1
+      }
+    end
+
+    describe 'when all params are valid' do
+      before do
+        Friend.any_instance.should_receive(:save)
+      end
+
+      it_behaves_like 'a successfull PUT request' do
+        let(:params) { put_params }
+      end
+    end
+
+    describe 'with invalid params' do
+      before do
+        Friend.any_instance.stub(save: false)
+
+        put :update, put_params
+      end
+
+      it_behaves_like 'a successfull PUT request' do
+        let(:params) { put_params }
+      end
+    end
+  end
 end

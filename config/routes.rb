@@ -21,14 +21,16 @@ TheLifeWeb::Application.routes.draw do
       post('/register', to: 'registrations#create')
     end
 
-    resources :friends, only: [:create, :destroy]
+    resources :friends, only: [:create, :update, :destroy]
     resources :my_friends, only: [:index]
     resources :events, only: [:create]
     resources :my_events, only: [:index]
     resources :groups, only: [:create, :index, :destroy] do
-      resources :users, only: [:index]
+      resources :users, only: [:index, :destroy]
     end
-    resources :invite_requests, only: [:create], path: 'requests'
+    resources :invite_requests, only: [:create], path: 'requests' do
+      post :process, on: :member, to: 'invite_requests#handle'
+    end
     resources :my_invite_requests, only: [:index], path: 'my_requests'
     resources :activities, only: [:index]
   end

@@ -5,4 +5,9 @@ class V1::UsersController < V1::BaseController
   def index
     respond_with(users)
   end
+
+  def destroy
+    GroupUserDeletionService.new(current_user, params).exclude
+    head :no_content
+  end
 end

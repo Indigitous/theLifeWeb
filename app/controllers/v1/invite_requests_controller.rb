@@ -1,7 +1,23 @@
 class V1::InviteRequestsController < V1::BaseController
+  expose(:invite_request)
   def create
-    invite_request = service.new(current_user, invite_request_params).create
+    invite_request = creation_service.new(current_user, invite_request_params).create
     respond_with(invite_request)
+  end
+
+
+  def handle
+    if params[:accept].to_s == 'true'
+      result = InviteRequestAcceptor.new(current_user, invite_request, params).process
+      respond_with(result)
+    else
+      _invite_request = InviteRequestRejector.new(current_user, invite_request, params).process
+      if _invite_request.errors.any?
+        respond_with(_invite_request)
+      else
+        head :no_content
+      end
+    end
   end
 
   private
@@ -10,7 +26,7 @@ class V1::InviteRequestsController < V1::BaseController
     params.require(:invite_request).permit(:group_id, :email, :sms)
   end
 
-  def service
+  def creation_service
     params[:type] == 'INVITE' ? InviteCreator : InviteRequester
   end
 end
