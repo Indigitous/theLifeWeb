@@ -33,8 +33,7 @@ describe V1::InviteRequestsController do
           post :create, params
         end
 
-        it { should be_success }
-        its(:code) { should eq('201') }
+        it_behaves_like 'a :created response'
       end
 
       context 'with invalid params' do
@@ -49,8 +48,7 @@ describe V1::InviteRequestsController do
           post :create, params
         end
 
-        it { should_not be_success }
-        its(:code) { should eq('422') }
+        it_behaves_like 'an :unprocessable_entity response'
       end
     end
 
@@ -68,8 +66,7 @@ describe V1::InviteRequestsController do
           post :create, params
         end
 
-        it { should be_success }
-        its(:code) { should eq('201') }
+        it_behaves_like 'a :created response'
       end
 
       context 'with invalid params' do
@@ -84,8 +81,7 @@ describe V1::InviteRequestsController do
           post :create, params
         end
 
-        it { should_not be_success }
-        its(:code) { should eq('422') }
+        it_behaves_like 'an :unprocessable_entity response'
       end
     end
   end
@@ -119,8 +115,7 @@ describe V1::InviteRequestsController do
           post :handle, invite_request_params
         end
 
-        it { should be_success }
-        its(:code) { should eq('201') }
+        it_behaves_like 'a :created response'
       end
 
       context 'with invalid params' do
@@ -128,8 +123,7 @@ describe V1::InviteRequestsController do
           post :handle, invite_request_params.merge(user: user.id)
         end
 
-        it { should_not be_success }
-        its(:code) { should eq('422') }
+        it_behaves_like 'an :unprocessable_entity response'
       end
     end
 
@@ -141,8 +135,7 @@ describe V1::InviteRequestsController do
           post :handle, membership_request_params
         end
 
-        it { should be_success }
-        its(:code) { should eq('201') }
+        it_behaves_like 'a :created response'
       end
 
       context 'with invalid params' do
@@ -150,8 +143,7 @@ describe V1::InviteRequestsController do
           post :handle, membership_request_params.merge(user: user.id)
         end
 
-        it { should_not be_success }
-        its(:code) { should eq('422') }
+        it_behaves_like 'an :unprocessable_entity response'
       end
     end
 
@@ -163,8 +155,7 @@ describe V1::InviteRequestsController do
           post :handle, invite_request_params.merge(accept: false)
         end
 
-        it { should be_success }
-        its(:code) { should eq('204') }
+        it_behaves_like 'a :no_content response'
       end
 
       context 'with invalid params' do
@@ -172,8 +163,7 @@ describe V1::InviteRequestsController do
           post :handle, invite_request_params.merge(accept: false, user: user.id)
         end
 
-        it { should_not be_success }
-        its(:code) { should eq('422') }
+        it_behaves_like 'an :unprocessable_entity response'
       end
     end
 
@@ -185,8 +175,7 @@ describe V1::InviteRequestsController do
           post :handle, membership_request_params.merge(accept: false)
         end
 
-        it { should be_success }
-        its(:code) { should eq('204') }
+        it_behaves_like 'a :no_content response'
       end
 
       context 'with invalid params' do
@@ -194,8 +183,7 @@ describe V1::InviteRequestsController do
           post :handle, membership_request_params.merge(accept: false, user: -1)
         end
 
-        it { should_not be_success }
-        its(:code) { should eq('422') }
+        it_behaves_like 'an :unprocessable_entity response'
       end
     end
   end

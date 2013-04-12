@@ -30,7 +30,19 @@ shared_examples 'a successfull DELETE request' do
   before { delete action, params }
 
   subject { response }
+end
 
+shared_examples 'a :created response' do
+  it { should be_success }
+  its(:code) { should eq('201') }
+end
+
+shared_examples 'an :unprocessable_entity response' do
+  it { should_not be_success }
+  its(:code) { should eq('422') }
+end
+
+shared_examples 'a :no_content response' do
   it { should be_success }
   its(:code) { should eq('204') }
 end
