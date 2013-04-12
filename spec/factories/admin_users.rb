@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :admin_user do
     email
     password
+    password_confirmation
   end
 end

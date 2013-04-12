@@ -48,6 +48,11 @@ module Examples
       FactoryGirl.create_list(:category, 3)
       FactoryGirl.create_list(:activity, 2)
 
+      FactoryGirl.create :admin_user,
+        :email => 'admin@example.com',
+        :password => 'password',
+        :password_confirmation => 'password'
+
       user = FactoryGirl.create :user,
         email: user_email,
         password: password,
