@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe GroupDeletionService do
   let(:user) { create(:user) }
-  let(:group) { create(:group, owner: user) }
+  let(:another_user) { create(:user) }
+  let(:group) { create(:group, owner: user, users: [another_user]) }
   let(:params) { { id: group.id } }
 
   let(:group_deletion_service) { described_class.new(user, params) }
