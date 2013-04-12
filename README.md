@@ -42,7 +42,7 @@ All API requests should include `authentication_token`:
 * GET '/v1/my_requests.json' - returns list of the requests sent to me
   and my groups
 
-* POST '/v1/requests/:reques_id/process.json' - process (accept/reject)
+* POST '/v1/requests/:request_id/process.json' - process (accept/reject)
   an existing request to join a group
 
 ### Activities
