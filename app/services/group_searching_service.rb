@@ -1,27 +1,27 @@
 class GroupSearchingService
   def initialize(query)
-    @query = query
+    @query = normalize_query(query)
   end
 
   def find_all_matching
-    normalize
-
-    return groups
+    groups
   end
 
   private
 
-  def normalize
-    if @query.is_a?(String)
-      @query = @query.split
+  def normalize_query(query)
+    if query.is_a?(String)
+      query = query.split
     end
+
+    query
   end
 
   def groups
-    if @query.nil? || @query.empty?
-      @groups = Group.all
+    if @query.blank?
+      Group.all
     else
-      @groups ||= Group.search(name_or_description_matches_any: @query).all
+      Group.search(name_or_description_matches_any: @query).all
     end
   end
 end

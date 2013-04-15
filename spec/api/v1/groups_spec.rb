@@ -7,7 +7,7 @@ describe 'v1/groups' do
   subject { json_response_body }
 
   describe 'creating a group' do
-    let(:params) { FactoryGirl.attributes_for(:group) }
+    let(:params) { attributes_for(:group) }
 
     before do
       post 'v1/groups', params.merge(authentication_token: authentication_token)
