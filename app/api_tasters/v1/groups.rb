@@ -16,10 +16,16 @@ ApiTaster::RouteCollector.route do
     authentication_token: Examples.user.authentication_token
 
   desc <<-markdown.strip_heredoc
-    ## Get all groups in the app
+    ## Get a list of groups in the app:
+    #### Optional parameters:
+    * `query`:
+      * if `query` is not empty then response will contain all groups,
+      name or description of which contains any keyword from query
+      * else it will return all groups
   markdown
 
   get '/v1/groups',
+    query: '',
     authentication_token: Examples.user.authentication_token
 
   desc <<-markdown.strip_heredoc

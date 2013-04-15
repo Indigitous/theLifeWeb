@@ -3,11 +3,12 @@ require 'spec_helper'
 describe 'v1/groups' do
   let(:current_user) { create :user }
   let(:authentication_token) { current_user.authentication_token }
-  let(:params) { FactoryGirl.attributes_for(:group) }
 
   subject { json_response_body }
 
   describe 'creating a group' do
+    let(:params) { attributes_for(:group) }
+
     before do
       post 'v1/groups', params.merge(authentication_token: authentication_token)
     end
@@ -32,11 +33,22 @@ describe 'v1/groups' do
     let!(:group) { FactoryGirl.create(:group) }
 
     before do
-      get 'v1/groups', authentication_token: authentication_token
+      get 'v1/groups', params.merge(authentication_token: authentication_token)
     end
 
-    it { should be_a_kind_of Array }
-    its(:first) { should be_a_group_representation(group) }
+    context 'all groups(no query given)' do
+      let(:params) { {} }
+
+      it { should be_a_kind_of Array }
+      its(:first) { should be_a_group_representation(group) }
+    end
+
+    context 'searching groups(some query given)' do
+      let(:params) { { query: group.name.split.first } }
+
+      it { should be_a_kind_of Array }
+      its(:first) { should be_a_group_representation(group) }
+    end
   end
 
   describe 'list users in a group' do
