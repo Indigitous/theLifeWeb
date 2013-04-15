@@ -176,6 +176,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.1.0)
       launchy (~> 2.2.0)
+    libv8 (3.11.8.17)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -233,6 +234,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redcarpet (2.2.2)
+    ref (1.0.4)
     remotipart (1.0.5)
     responders (0.9.3)
       railties (~> 3.1)
@@ -289,6 +291,9 @@ GEM
       railties (~> 3.0)
     temple (0.5.5)
     terminal-table (1.4.5)
+    therubyracer (0.11.4)
+      libv8 (~> 3.11.8.12)
+      ref
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -347,6 +352,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   strong_parameters
+  therubyracer
   thin
   uglifier (>= 1.0.3)
   webmock
