@@ -34,11 +34,13 @@ All API requests should include `authentication_token`:
 
 ### Groups
 
-* GET '/v1/groups.json' - returns list of all groups
+* GET '/v1/groups.json' - returns list of groups, depending on given parameters
 
 * POST '/v1/groups.json' - creates a group
 
 * DELETE '/v1/groups/:group_id.json' - deletes a group
+
+* GET '/v1/my_groups.json' - returns the list of groups current user ownes
 
 ### Requests
 
