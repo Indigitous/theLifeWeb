@@ -10,11 +10,7 @@ class GroupSearchingService
   private
 
   def normalize_query(query)
-    if query.is_a?(String)
-      query = query.split
-    end
-
-    query
+    query.is_a?(String) ? query.split : query
   end
 
   def groups
