@@ -4,7 +4,10 @@ ActiveRecord::Base.class_eval do
   end
 
   def sliced_accessors(keys)
-    accessors = keys.map { |key| [key, send(key) ] }
-    Hash[*accessors.flatten]
+    accessors = {}
+
+    keys.map { |key| accessors[key] = send(key) }
+
+    accessors
   end
 end

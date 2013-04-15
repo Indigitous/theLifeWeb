@@ -8,4 +8,6 @@ class Group < ActiveRecord::Base
   validates :description,
     :owner,
     presence: true
+
+  alias_method :member_ids, :user_ids
 end
