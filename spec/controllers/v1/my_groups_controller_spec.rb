@@ -7,10 +7,8 @@ describe V1::MyGroupsController do
 
   it_behaves_like('a controller that requires an authentication')
 
-  subject { response }
-
   describe '#index' do
-    let(:group) { create :group, owner: current_user }
+    let(:group) { create :group, owner: current_user, users: [current_user] }
     let(:groups) { [group] }
 
     before do
@@ -19,7 +17,7 @@ describe V1::MyGroupsController do
 
     it_behaves_like 'a successfull GET request'
 
-    it 'assigns events' do
+    it 'assigns groups' do
       expect(controller.my_groups).to match_array(groups)
     end
 
