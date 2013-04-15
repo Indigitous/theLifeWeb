@@ -48,7 +48,7 @@ describe V1::GroupsController do
 
   describe '#index' do
     before do
-      Group.stub(scoped: groups)
+      GroupSearchingService.any_instance.stub(find_all_matching: groups)
       get :index, format: :json
     end
 

@@ -7,6 +7,8 @@ class V1::GroupsController < V1::BaseController
   end
 
   def index
+    self.groups = GroupSearchingService.new(params[:query]).find_all_matching
+
     respond_with(groups)
   end
 
