@@ -33,7 +33,7 @@ describe GroupSearchingService do
       it { should include(first_group, second_group) }
     end
 
-    context 'when group name or description does not match given query' do
+    context 'when group name and description does not match given query' do
       let(:query) { 'third' }
 
       it { should be_a_kind_of Array }
