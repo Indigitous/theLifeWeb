@@ -1,3 +1,7 @@
+/*
+ *= require select2
+*/
+
 // SASS variable overrides must be declared before loading up Active Admin's styles.
 //
 // To view the variables that Active Admin provides, take a look at
@@ -40,5 +44,26 @@ body.active_admin {
   .cke_chrome {
     width: 77.1% !important;
     overflow: hidden;
+  }
+
+  form fieldset > ol > li p.inline-hints:before {
+    content: 'Hint: ';
+  }
+
+  .select2-container.select2-container-multi {
+    width: 50%;
+  }
+
+  form input[type=text].select2-input:focus {
+    border: 0;
+    @include box-shadow(none);
+  }
+  ul.select2-results {
+    margin: 4px 4px 4px 0;
+    padding: 0 0 0 4px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 200px;
   }
 }
