@@ -11,6 +11,9 @@ All API requests should include `authentication_token`:
 
 ### Users
 
+* GET '/v1/users/:id.json' -- get my or one of the users in my groups
+  profile
+
 * GET '/v1/groups/:group_id/users.json' -- get the full list of users
   in requested group
 

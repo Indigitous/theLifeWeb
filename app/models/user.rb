@@ -24,4 +24,17 @@ class User < ActiveRecord::Base
     .where(email: email, kind: InviteRequest::INVITE)
     .order('id desc')
   end
+
+  def visible_profiles
+    User.where(id: visible_user_ids)
+  end
+
+  def visible_user_ids
+    user_ids = GroupUser
+      .where(group_id: group_ids + owned_group_ids)
+      .uniq
+      .pluck(:user_id)
+
+    user_ids + [id]
+  end
 end
