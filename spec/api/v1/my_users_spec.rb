@@ -13,7 +13,7 @@ describe '/v1/my_users' do
       get "/v1/my_users/#{current_user.id}", authentication_token: authentication_token
     end
 
-    it { should be_a_user_representation(current_user) }
+    it { should be_a_my_user_representation(current_user) }
   end
 
   describe "show another user's profile" do
@@ -21,6 +21,6 @@ describe '/v1/my_users' do
       get "/v1/my_users/#{another_user.id}", authentication_token: authentication_token
     end
 
-    it { should be_a_user_representation(another_user) }
+    it { should be_a_my_user_representation(another_user) }
   end
 end

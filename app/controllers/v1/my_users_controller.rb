@@ -3,6 +3,6 @@ class V1::MyUsersController < V1::BaseController
   expose(:my_user)
 
   def show
-    respond_with(my_user)
+    respond_with(my_user, serializer: MyUserSerializer)
   end
 end
