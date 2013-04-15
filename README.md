@@ -40,7 +40,7 @@ All API requests should include `authentication_token`:
 
 * DELETE '/v1/groups/:group_id.json' - deletes a group
 
-* GET '/v1/my_groups.json' - returns the list of groups current user ownes
+* GET '/v1/my_groups.json' - returns the list of groups current user belongs to
 
 ### Requests
 

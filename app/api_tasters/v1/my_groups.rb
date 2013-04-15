@@ -1,6 +1,6 @@
 ApiTaster::RouteCollector.route do
   desc <<-markdown.strip_heredoc
-      ## Show user's groups
+      ## Show groups user belongs to
     markdown
 
     get '/v1/my_groups',
