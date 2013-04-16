@@ -4,5 +4,7 @@ ApiTaster::RouteCollector.route do
     markdown
 
     get '/v1/my_events',
-      authentication_token: Examples.user.authentication_token
+      authentication_token: Examples.user.authentication_token,
+      after: 2,
+      before: 1
 end

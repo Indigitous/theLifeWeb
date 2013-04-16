@@ -21,10 +21,33 @@ describe EventGatheringService do
   describe "#gather" do
     subject { service.gather }
 
-    it { should be_a_kind_of Array }
-    its(:size) { should eq(2) }
+    its(:length) { should eq(2) }
     it { should include(event) }
     it { should include(group_event) }
     it { should_not include(other_event) }
+
+    describe 'events after the specified' do
+      let(:events) { create_list(:event, 3, user: current_user) }
+      let(:params) { { after: events.first.id } }
+
+      subject { service.gather(params) }
+
+      it { should eq(events[1..-1].reverse) }
+
+      context 'when before specified in params' do
+        let(:params) { { after: events.first.id, before: events.first.id } }
+
+        it { should eq(events[1..-1].reverse) }
+      end
+    end
+
+    describe 'events before the specified' do
+      let(:events) { create_list(:event, 3, user: current_user) }
+      let(:params) { { before: events.first.id } }
+
+      subject { service.gather(params) }
+
+      it { should eq([group_event, event]) }
+    end
   end
 end
