@@ -21,13 +21,13 @@ class EventGatheringService
     params = normalize_params(params)
     events = normalize_conditions(events.uniq, params)
 
-    params[:before] ? events.reverse : events
+    params[:after] ? events.reverse : events
   end
 
   def normalize_params(params)
-    if params[:after].present?
-      params[:before] = nil
-    end
+    params[:after] = params[:after].presence
+    params[:before] = params[:before].presence
+    params[:before] = nil if params[:after]
 
     params
   end
@@ -41,10 +41,10 @@ class EventGatheringService
   end
 
   def normalize_operator(params)
-    params[:before] ? '<' : '>'
+    params[:after] ? '>' : '<'
   end
 
   def normalize_ordering(params)
-    params[:before] ? 'ASC' : 'DESC'
+    params[:after] ? 'ASC' : 'DESC'
   end
 end
