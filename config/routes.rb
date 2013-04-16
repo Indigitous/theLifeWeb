@@ -30,6 +30,7 @@ TheLifeWeb::Application.routes.draw do
     end
     resources :my_groups, only: [:index]
     resources :my_users, only: [:show]
+    resources :users, only: [:update]
     resources :invite_requests, only: [:create], path: 'requests' do
       post :process, on: :member, to: 'invite_requests#handle'
     end
