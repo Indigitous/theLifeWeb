@@ -71,6 +71,7 @@ describe V1::UsersController do
         first_name: 'Homer',
         last_name: 'Simpson',
         email: 'homer.rockstar@gmail.com',
+        mobile: '77788990',
         format: :json
       }
     end
