@@ -94,12 +94,5 @@ describe V1::UsersController do
       it { should_not be_success }
       its(:code) { should eq('422') }
     end
-
-    it 'allows updating only current user' do
-      expect do
-       put :update, id: another_user, first_name: 'Bart', format: :json
-     end.to change { current_user.reload.first_name }
-    end
   end
-
 end
