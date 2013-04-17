@@ -1,6 +1,6 @@
 ApiTaster::RouteCollector.route do
   desc <<-markdown.strip_heredoc
-    ## Update current user information
+    ## Update current user's information
   markdown
 
   put '/v1/users/:id',
