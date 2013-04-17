@@ -3,7 +3,7 @@ FactoryGirl.define do
     first_name
     last_name
     email
-    mobile { Faker::PhoneNumber.phone_number }
+    mobile
 
     threshold
 
