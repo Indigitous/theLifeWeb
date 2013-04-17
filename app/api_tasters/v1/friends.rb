@@ -14,6 +14,8 @@ ApiTaster::RouteCollector.route do
   put '/v1/friends/:id',
     id: Examples.user_friend.id,
     threshold_id: Examples.user_friend.threshold.id,
+    email: '',
+    mobile: '',
     authentication_token: Examples.user.authentication_token
 
   desc <<-markdown.strip_heredoc

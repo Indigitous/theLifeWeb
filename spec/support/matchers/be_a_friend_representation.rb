@@ -4,6 +4,8 @@ RSpec::Matchers.define :be_a_friend_representation do |friend|
       id
       first_name
       last_name
+      email
+      mobile
       threshold_id
     ]
 
