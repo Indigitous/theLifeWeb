@@ -65,7 +65,6 @@ describe V1::UsersController do
   end
 
   describe '#update' do
-    let(:another_user) { create(:user) }
     let(:put_params) do
       {
         id: current_user.id,
