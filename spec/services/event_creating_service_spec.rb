@@ -25,7 +25,7 @@ describe EventCreatingService do
       context 'when event is not valid' do
         before { event.stub(save: false) }
 
-        it "skips updating friend's threhold" do
+        it "skips updating friend's threshold" do
           friend.should_not_receive('update_attributes!')
           subject.create
         end
