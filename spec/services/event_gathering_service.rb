@@ -39,6 +39,11 @@ describe EventGatheringService do
 
         it { should eq(events[1..-1].reverse) }
       end
+
+      context 'when max param is given' do
+        let(:params) { { after: events.first.id, max: 1 } }
+        it { should eq([events[1]]) }
+      end
     end
 
     describe 'events before the specified' do

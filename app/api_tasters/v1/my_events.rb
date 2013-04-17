@@ -6,5 +6,6 @@ ApiTaster::RouteCollector.route do
     get '/v1/my_events',
       authentication_token: Examples.user.authentication_token,
       after: 2,
-      before: 1
+      before: 1,
+      max: 20
 end

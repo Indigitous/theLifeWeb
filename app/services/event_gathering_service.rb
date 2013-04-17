@@ -37,7 +37,9 @@ class EventGatheringService
       events = events.where(["id #{normalize_operator(params)} ?", event_id])
     end
 
-    events.order("id #{normalize_ordering(params)}").limit(20)
+    events
+      .order("id #{normalize_ordering(params)}")
+      .limit(params[:max] || 20)
   end
 
   def normalize_operator(params)
