@@ -63,4 +63,35 @@ describe V1::UsersController do
       end
     end
   end
+
+  describe '#update' do
+    let(:put_params) do
+      {
+        id: current_user.id,
+        first_name: 'Homer',
+        last_name: 'Simpson',
+        email: 'homer.rockstar@gmail.com',
+        format: :json
+      }
+    end
+
+    context 'with valid params' do
+      before { User.any_instance.should_receive(:save) }
+
+      it_behaves_like 'a successfull PUT request' do
+        let(:params) { put_params }
+      end
+    end
+
+    context 'with invalid params' do
+      let(:invalid_params) { put_params.merge(first_name: nil) }
+
+      before do
+        put :update, invalid_params
+      end
+
+      it { should_not be_success }
+      its(:code) { should eq('422') }
+    end
+  end
 end
