@@ -20,6 +20,14 @@ class V1::FriendsController < V1::BaseController
   private
 
   def friend_params
-    params.require(:friend).permit(:first_name, :last_name, :threshold_id)
+    allowed_params = [
+      :first_name,
+      :last_name,
+      :threshold_id,
+      :email,
+      :mobile
+    ]
+
+    params.require(:friend).permit(*allowed_params)
   end
 end

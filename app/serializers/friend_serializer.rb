@@ -1,3 +1,8 @@
 class FriendSerializer < BaseSerializer
-  attributes :id, :first_name, :last_name, :threshold_id
+  attributes :id,
+    :first_name,
+    :last_name,
+    :email,
+    :mobile,
+    :threshold_id
 end
