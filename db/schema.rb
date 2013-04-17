@@ -79,10 +79,12 @@ ActiveRecord::Schema.define(:version => 20130417093545) do
     t.boolean  "prayer_requested", :default => false, :null => false
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.integer  "threshold_id"
   end
 
   add_index "events", ["activity_id"], :name => "index_events_on_activity_id"
   add_index "events", ["friend_id"], :name => "index_events_on_friend_id"
+  add_index "events", ["threshold_id"], :name => "index_events_on_threshold_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "friends", :force => true do |t|

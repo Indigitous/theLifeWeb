@@ -3,13 +3,14 @@ class V1::EventsController < V1::BaseController
   expose(:event, attributes: :event_params)
 
   def create
-    event.save
-    respond_with(event)
+    new_event = EventCreatingService.new(event).create
+    respond_with(new_event)
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:activity_id, :friend_id, :prayer_requested)
+    permitted = [:activity_id, :friend_id, :prayer_requested, :threshold_id]
+    params.require(:event).permit(*permitted)
   end
 end

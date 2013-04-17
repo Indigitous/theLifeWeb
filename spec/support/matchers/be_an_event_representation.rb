@@ -6,6 +6,7 @@ RSpec::Matchers.define :be_an_event_representation do |event|
       friend_id
       activity_id
       prayer_requested
+      threshold_id
     ]
 
     event_accessors = event.sliced_accessors %w[
