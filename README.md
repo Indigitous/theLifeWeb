@@ -58,6 +58,10 @@ All API requests should include `authentication_token`:
   contain only activities applicable for given
   threshold, else it returns full list of activities.
 
+### Categories
+
+* GET '/v1/categories.json' - returns list of the categories
+
 ## What's included
 
 Application currently based on Rails 3.2 stable branch and Ruby 1.9
