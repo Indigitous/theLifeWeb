@@ -67,6 +67,8 @@ module Examples
         password: password
 
       FactoryGirl.create(:friend, user: user)
+      FactoryGirl.create_list(:event, 6, user: user)
+
       group = FactoryGirl.create(:group, owner: user)
       FactoryGirl.create(:invite_request, user: user, group: group, email: invited_user.email)
     end
