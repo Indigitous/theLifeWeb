@@ -13,7 +13,7 @@ ApiTaster::RouteCollector.route do
   desc <<-markdown.strip_heredoc
     ## Update user's image
 
-    `:id` must be curret user
+    `:id` must be current user
   markdown
 
   post '/v1/my_users/:id/image',
