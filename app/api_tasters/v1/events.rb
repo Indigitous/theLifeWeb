@@ -7,5 +7,6 @@ ApiTaster::RouteCollector.route do
     activity_id: Examples.activity.id,
     friend_id: Examples.user_friend.id,
     prayer_requested: false,
-    authentication_token: Examples.user.authentication_token
+    authentication_token: Examples.user.authentication_token,
+    threshold_id: Examples.threshold.id
 end
