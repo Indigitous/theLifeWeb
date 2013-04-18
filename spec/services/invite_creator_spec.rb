@@ -59,6 +59,14 @@ describe InviteCreator do
 
     context 'with valid params' do
       it { should be_persisted }
+
+      it 'sends signup instructions to user' do
+        mail = double(:mail)
+        mail.should_receive(:deliver)
+        InvitationMailer.should_receive(:signup_instructions).and_return(mail)
+
+        invite_creator.create
+      end
     end
   end
 end
