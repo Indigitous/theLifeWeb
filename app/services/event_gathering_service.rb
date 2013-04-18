@@ -1,4 +1,6 @@
 class EventGatheringService
+  DEFAULT_LIMIT = 20
+
   def initialize(user)
     @user = user
   end
@@ -39,7 +41,7 @@ class EventGatheringService
 
     events
       .order("id #{normalize_ordering(params)}")
-      .limit(params[:max] || 20)
+      .limit(params[:max] || DEFAULT_LIMIT)
   end
 
   def normalize_operator(params)
