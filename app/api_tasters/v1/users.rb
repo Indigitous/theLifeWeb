@@ -5,6 +5,9 @@ ApiTaster::RouteCollector.route do
 
   put '/v1/users/:id',
     id: Examples.user.id,
-    first_name: 'Eduardo',
+    first_name: 'Homer',
+    last_name: 'Simpson',
+    email: 'homer@msn.com',
+    mobile: '777-888-999-0',
     authentication_token: Examples.user.authentication_token
 end

@@ -23,6 +23,13 @@ class V1::UsersController < V1::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email)
+    allowed_params = [
+      :first_name,
+      :last_name,
+      :email,
+      :mobile
+    ]
+
+    params.require(:user).permit(*allowed_params)
   end
 end

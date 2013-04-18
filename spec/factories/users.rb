@@ -4,5 +4,6 @@ FactoryGirl.define do
     password
     first_name
     last_name
+    mobile
   end
 end

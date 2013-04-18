@@ -21,8 +21,9 @@ class User < ActiveRecord::Base
 
   def received_invite_requests
     InviteRequest
-    .where(email: email, kind: InviteRequest::INVITE)
-    .order('id desc')
+      .where(kind: InviteRequest::INVITE)
+      .where('email = ? OR sms = ?', email, mobile)
+      .order('id DESC')
   end
 
   def visible_profiles
