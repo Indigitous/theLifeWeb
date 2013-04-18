@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
 
+  mount_uploader :image, PhotoUploader
+
   def full_name
     [first_name, last_name].compact.join(' ')
   end

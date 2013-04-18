@@ -16,6 +16,8 @@ gem 'jquery-rails'
 gem 'activeadmin'
 gem 'ckeditor'
 gem 'select2-rails'
+gem 'carrierwave'
+gem 'rmagick'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
