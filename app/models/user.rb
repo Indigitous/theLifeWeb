@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
+  mount_uploader :image, PhotoUploader
+
   def full_name
     [first_name, last_name].compact.join(' ')
   end
