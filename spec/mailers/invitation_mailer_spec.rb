@@ -1,9 +1,9 @@
 require "spec_helper"
 
 describe InvitationMailer do
-  let(:user) { build(:user) }
-  let(:group) { build(:group) }
-  let(:invite_request) { build(:invite_request, email: 'homer@msn.com', user: user, group: group) }
+  let(:user) { double(:user, full_name: 'Bart Simpson') }
+  let(:group) { double(:group, name: 'D12') }
+  let(:invite_request) { double(:invite_request, email: 'homer@msn.com', user: user, group: group) }
 
   describe "#signup_instructions" do
     let(:email) { described_class.signup_instructions(invite_request) }
