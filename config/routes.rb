@@ -23,7 +23,11 @@ TheLifeWeb::Application.routes.draw do
 
     resources :friends, only: [:create, :update, :destroy]
     resources :my_friends, only: [:index]
-    resources :events, only: [:create]
+
+    resources :events, only: [:create] do
+      resource :pledge, only: [:create]
+    end
+
     resources :my_events, only: [:index]
     resources :groups, only: [:create, :index, :destroy] do
       resources :users, only: [:index, :destroy]

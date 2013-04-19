@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
     :activity,
     presence: true
 
-  delegate :summary, to: :activity
+  delegate :summary, to: :activity, allow_nil: true
   delegate :name, to: :user, prefix: true
   delegate :name, to: :friend, prefix: true
 
