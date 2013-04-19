@@ -11,6 +11,7 @@ RSpec::Matchers.define :be_an_event_representation do |event|
 
     event_accessors = event.sliced_accessors %w[
       description
+      time
     ]
 
     response_attributes = event_attributes.merge(event_accessors)

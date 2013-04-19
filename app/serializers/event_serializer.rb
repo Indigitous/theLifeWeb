@@ -5,9 +5,6 @@ class EventSerializer < BaseSerializer
     :activity_id,
     :description,
     :threshold_id,
-    :prayer_requested
-
-  def description
-    object.description
-  end
+    :prayer_requested,
+    :time
 end

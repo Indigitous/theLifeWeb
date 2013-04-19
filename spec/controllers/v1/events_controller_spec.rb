@@ -21,6 +21,7 @@ describe V1::EventsController do
 
       before do
         Event.any_instance.stub(:activity) { build :activity, id: 1 }
+        Event.any_instance.stub(created_at: Time.now)
         Event.any_instance.should_receive(:save)
         Event.any_instance.stub(valid?: true)
 
