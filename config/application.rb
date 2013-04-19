@@ -70,7 +70,7 @@ module TheLifeWeb
     config.assets.initialize_on_precompile = false
 
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-    config.assets.precompile += %w( active_admin.js active_admin.css active_admin/print.css)
+    config.assets.precompile += %w( active_admin.js active_admin.css active_admin/print.css )
 
     # Default host for action mailer, initializers/mailer.rb
     config.host = 'localhost:5000'
