@@ -7,7 +7,8 @@ class InviteCreator
     group_exists? &&
     user_is_group_owner? &&
     receiver_is_valid? &&
-    invite_request_saved?
+    invite_request_saved? &&
+    signup_instructions_sent?
 
     invite_request
   end
@@ -61,6 +62,10 @@ class InviteCreator
 
   def invite_request_saved?
     invite_request.save
+  end
+
+  def signup_instructions_sent?
+    invite_request.email.blank? || InvitationMailer.signup_instructions(invite_request).deliver
   end
 
   def build_invite_request
