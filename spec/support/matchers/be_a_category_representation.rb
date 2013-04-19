@@ -7,7 +7,7 @@ RSpec::Matchers.define :be_a_category_representation do |group|
     ]
 
     accessors = group.sliced_accessors %w[
-      activity_ids
+      activities
     ]
 
     response_attributes = attributes.merge(accessors)
