@@ -10,7 +10,7 @@ class V1::FriendsController < V1::BaseController
   def update
     friend.save
 
-    respond_with(friend)
+    head :no_content
   end
 
   def destroy

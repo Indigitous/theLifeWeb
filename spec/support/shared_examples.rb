@@ -49,7 +49,7 @@ end
 
 shared_examples 'a successfull PUT request' do
   let(:action) { :update }
-  let(:params) { { format: :json} }
+  let(:params) { { format: :json } }
 
   before { put action, params }
 
