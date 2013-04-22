@@ -135,6 +135,17 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
   add_index "invite_requests", ["group_id"], :name => "index_invite_requests_on_group_id"
   add_index "invite_requests", ["user_id"], :name => "index_invite_requests_on_user_id"
 
+  create_table "pledges", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "pledges", ["event_id"], :name => "index_pledges_on_event_id"
+  add_index "pledges", ["user_id", "event_id"], :name => "index_pledges_on_user_id_and_event_id"
+  add_index "pledges", ["user_id"], :name => "index_pledges_on_user_id"
+
   create_table "settings", :force => true do |t|
     t.string   "key"
     t.string   "value"

@@ -7,4 +7,5 @@ en:
 
   errors:
     messages:
+      can_not_pray_for_event: you can't pray for an event
       group_limit_reached: members limit is reached
