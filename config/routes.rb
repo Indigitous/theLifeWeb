@@ -41,7 +41,7 @@ TheLifeWeb::Application.routes.draw do
     resource :image, only: [] do
       get ':object/:id(/:version)', to: 'images#show'
 
-      post ':object/:id', to: 'images#update'
+      post ':object/:id', to: 'users#update'
     end
   end
 
