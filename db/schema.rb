@@ -81,10 +81,12 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.integer  "threshold_id"
+    t.integer  "target_event_id"
   end
 
   add_index "events", ["activity_id"], :name => "index_events_on_activity_id"
   add_index "events", ["friend_id"], :name => "index_events_on_friend_id"
+  add_index "events", ["target_event_id"], :name => "index_events_on_target_event_id"
   add_index "events", ["threshold_id"], :name => "index_events_on_threshold_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
