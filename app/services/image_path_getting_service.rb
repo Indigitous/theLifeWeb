@@ -7,7 +7,6 @@ class ImagePathGettingService
 
   def get
     resource_is_whitelisted? &&
-    resource_exists? &&
     get_image_for_resource
   end
 
@@ -17,13 +16,6 @@ class ImagePathGettingService
     WHITELISTED_RESOURCES.include? requested_resource
   end
 
-  def resource_exists?
-    @resource_class = requested_resource.singularize.capitalize.constantize
-    return @resource_class.is_a? Class
-  rescue NameError
-    return false
-  end
-
   def get_image_for_resource
     return resource.image_url(version) if resource.present?
 
@@ -31,6 +23,7 @@ class ImagePathGettingService
   end
 
   def resource
+    @resource_class ||= requested_resource.singularize.capitalize.constantize
     @resource_class.find_by_id(@params[:id])
   end
 
