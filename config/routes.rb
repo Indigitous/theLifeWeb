@@ -29,9 +29,7 @@ TheLifeWeb::Application.routes.draw do
       resources :users, only: [:index, :destroy]
     end
     resources :my_groups, only: [:index]
-    resources :my_users, only: [:show] do
-      post :image, on: :member, to: 'users#update'
-    end
+    resources :my_users, only: [:show]
     resources :users, only: [:update]
     resources :invite_requests, only: [:create], path: 'requests' do
       post :process, on: :member, to: 'invite_requests#handle'
@@ -39,6 +37,12 @@ TheLifeWeb::Application.routes.draw do
     resources :my_invite_requests, only: [:index], path: 'my_requests'
     resources :activities, only: [:index]
     resources :categories, only: [:index]
+
+    resource :image, only: [] do
+      get ':object/:id(/:version)', to: 'images#show'
+
+      post ':object/:id', to: 'images#update'
+    end
   end
 
   mount ApiTaster::Engine => '/api_taster' if defined? ApiTaster::Engine

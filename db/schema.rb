@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20130419144652) do
     t.string   "first_name",             :default => "", :null => false
     t.string   "last_name",              :default => "", :null => false
     t.string   "mobile"
+    t.string   "image"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

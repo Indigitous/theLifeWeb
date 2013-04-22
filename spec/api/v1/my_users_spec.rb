@@ -39,7 +39,7 @@ describe '/v1/my_users' do
     end
 
     before do
-      post "/v1/my_users/#{current_user.id}/image", params
+      post "/v1/image/users/#{current_user.id}", params
     end
 
     it "updates current_user's image" do
