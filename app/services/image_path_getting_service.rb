@@ -28,7 +28,7 @@ class ImagePathGettingService
   end
 
   def version
-    @params[:version]
+    @params[:version].blank? ? nil : @params[:version]
   end
 
   def requested_resource
