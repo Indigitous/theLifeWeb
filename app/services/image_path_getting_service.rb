@@ -1,32 +1,44 @@
 class ImagePathGettingService
+  WHITELISTED_RESOURCES = %w(users friends activities)
+
   def initialize(user, params)
     @user, @params = user, params
   end
 
   def get
-    check_object_exists && get_image_for_object
+    resource_is_whitelisted? &&
+    resource_exists? &&
+    get_image_for_resource
   end
 
   private
 
-  def check_object_exists
-    @object_class = @params[:object].singularize.capitalize.constantize
-    return @object_class.is_a? Class
+  def resource_is_whitelisted?
+    WHITELISTED_RESOURCES.include? requested_resource
+  end
+
+  def resource_exists?
+    @resource_class = requested_resource.singularize.capitalize.constantize
+    return @resource_class.is_a? Class
   rescue NameError
     return false
   end
 
-  def get_image_for_object
-    return object.image_url(version) if object.present?
+  def get_image_for_resource
+    return resource.image_url(version) if resource.present?
 
     false
   end
 
-  def object
-    @object_class.find_by_id(@params[:id])
+  def resource
+    @resource_class.find_by_id(@params[:id])
   end
 
   def version
-    nil || @params[:version]
+    @params[:version]
+  end
+
+  def requested_resource
+    @params[:resources]
   end
 end

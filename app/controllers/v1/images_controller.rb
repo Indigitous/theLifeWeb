@@ -7,7 +7,4 @@ class V1::ImagesController < V1::BaseController
       head :not_found
     end
   end
-
-  def update
-  end
 end
