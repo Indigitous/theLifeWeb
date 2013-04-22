@@ -39,9 +39,7 @@ TheLifeWeb::Application.routes.draw do
     resources :categories, only: [:index]
 
     resource :image, only: [] do
-      get ':object/:id(/:version)', to: 'images#show'
-
-      post ':object/:id', to: 'users#update'
+      get ':resources/:id(/:version)', to: 'images#show'
     end
   end
 

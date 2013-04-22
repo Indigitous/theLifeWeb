@@ -23,30 +23,4 @@ describe '/v1/my_users' do
 
     it { should be_a_my_user_representation(another_user) }
   end
-
-  describe "add or update photo for current user" do
-    let(:test_image) { Rack::Test::UploadedFile.new(
-      File.join(
-        Rails.root, 'spec', 'support', 'images' , 'test_image.png'
-      )
-    )}
-
-    let(:params) do
-      {
-        image: test_image,
-        authentication_token: authentication_token
-      }
-    end
-
-    before do
-      post "/v1/image/users/#{current_user.id}", params
-    end
-
-    it "updates current_user's image" do
-      should be_a_user_representation(current_user.reload)
-
-      current_user.image_url.should be
-      current_user.image_url(:thumbnail).should be
-    end
-  end
 end
