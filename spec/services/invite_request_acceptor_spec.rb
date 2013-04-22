@@ -22,6 +22,16 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:group) }
     end
 
+    context 'when group members limit is reached' do
+      before do
+        group.stub(users_count: 9000)
+        invite_request_acceptor.stub(group: group)
+      end
+
+      it { should be_persisted }
+      its(:errors) { should include(:group) }
+    end
+
     describe 'when user does not exit' do
       before do
         User.stub(find_by_id: nil)

@@ -9,6 +9,7 @@ class InviteRequestAcceptor
 
   def process
     group_exists? &&
+    members_limit_is_not_reached? &&
     user_exists? &&
     user_is_not_member_of_group? &&
     invite_request_valid? &&
@@ -22,6 +23,15 @@ class InviteRequestAcceptor
   def group_exists?
     unless group.present?
       errors.add(:group, 'does not exist')
+      return false
+    end
+
+    true
+  end
+
+  def members_limit_is_not_reached?
+    if group.users_count >= Setting.max_users_in_group
+      errors.add(:group, 'members limit is reached')
       return false
     end
 
