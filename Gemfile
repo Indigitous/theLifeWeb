@@ -17,7 +17,7 @@ gem 'activeadmin'
 gem 'ckeditor'
 gem 'select2-rails'
 gem 'carrierwave'
-gem 'rmagick'
+gem 'mini_magick'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
