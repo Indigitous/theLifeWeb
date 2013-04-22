@@ -5,7 +5,6 @@ ENV["RAILS_ENV"] ||= 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 
 paths = Dir[Rails.root.join('spec/**/{support,extensions}/**/*.rb')]
 paths.each { |file| require file }
