@@ -5,4 +5,12 @@ class FriendSerializer < BaseSerializer
     :email,
     :mobile,
     :threshold_id
+
+  def attributes
+    hash = super
+
+    hash.merge! image_attributes
+
+    hash
+  end
 end
