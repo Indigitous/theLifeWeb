@@ -22,8 +22,4 @@ class Event < ActiveRecord::Base
   def to_s
     self.id
   end
-
-  def can_pray_for_it?(user_to_pray)
-    prayer_requested && user != user_to_pray
-  end
 end

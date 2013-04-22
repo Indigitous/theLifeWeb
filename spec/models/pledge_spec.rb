@@ -10,28 +10,24 @@ describe Pledge do
   it { should validate_uniqueness_of(:event_id).scoped_to(:user_id) }
 
   describe 'validate pray requester for an event' do
-    let(:event) { stub_model(Event) }
+    let(:event) { stub_model(Event, prayer_requested: true) }
     let(:user) { stub_model(User) }
     let(:pledge) { described_class.new(event: event, user: user) }
 
+    before { pledge.valid? }
+
     subject { pledge.errors[:event] }
 
-    context "when can't pray for an event" do
-      before do
-        event.stub(can_pray_for_it?: false)
-        pledge.valid?
-      end
+    it { should be_blank }
 
-      it { should include("you can't pray for an event") }
+    context 'when prayer is not requested' do
+      let(:event) { Event.new(prayer_requested: false) }
+      it { should include("you can't pray for an event where prayer is not requested") }
     end
 
-    context "when can pray for an event" do
-      before do
-        event.stub(can_pray_for_it?: true)
-        pledge.valid?
-      end
-
-      it { should be_blank }
+    context 'when user is already event owner' do
+      let(:event) { Event.new(prayer_requested: true, user: user) }
+      it { should include("you can't pray for self event") }
     end
   end
 end

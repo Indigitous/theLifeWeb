@@ -24,23 +24,4 @@ describe Event do
       subject.should =~ [event_3, event_2]
     end
   end
-
-  describe '#can_pray_for_it?' do
-    let(:event) { Event.new(prayer_requested: true) }
-    let(:user) { User.new }
-
-    subject { event.can_pray_for_it?(user) }
-
-    it { should be_true }
-
-    context 'when prayer is not requested' do
-      let(:event) { Event.new(prayer_requested: false) }
-      it { should be_false }
-    end
-
-    context 'when user is already event owner' do
-      let(:event) { Event.new(prayer_requested: true, user: user) }
-      it { should be_false }
-    end
-  end
 end

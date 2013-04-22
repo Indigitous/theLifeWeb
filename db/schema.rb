@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
     t.datetime "updated_at",                          :null => false
     t.integer  "threshold_id"
     t.integer  "target_event_id"
+    t.integer  "pledges_count",    :default => 0,     :null => false
   end
 
   add_index "events", ["activity_id"], :name => "index_events_on_activity_id"

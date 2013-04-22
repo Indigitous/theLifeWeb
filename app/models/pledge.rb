@@ -1,6 +1,6 @@
 class Pledge < ActiveRecord::Base
   belongs_to :user
-  belongs_to :event
+  belongs_to :event, counter_cache: true
 
   validates :user_id, presence: true
 
@@ -13,8 +13,12 @@ class Pledge < ActiveRecord::Base
   private
 
   def can_pray_for_event?
-    if event && ! event.can_pray_for_it?(user)
-      errors.add(:event, I18n.t('errors.messages.can_not_pray_for_event'))
+    return unless event
+
+    if ! event.prayer_requested
+      errors.add(:event, I18n.t('errors.messages.can_not_pray_unless_prayer_requested'))
+    elsif event.user == user
+      errors.add(:event, I18n.t('errors.messages.can_not_pray_for_self_event'))
     end
   end
 end
