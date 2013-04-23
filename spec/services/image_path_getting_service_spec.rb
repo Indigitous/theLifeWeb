@@ -106,5 +106,41 @@ describe ImagePathGettingService do
         end
       end
     end
+
+    context "activity's image" do
+      let(:activity) { create :activity }
+      let(:activity_params) { { resources: 'activities', id: activity.id } }
+
+      describe 'when activity has not attached image' do
+        let(:params) { activity_params }
+
+        it { should_not be }
+      end
+
+      describe 'when activity has attached image' do
+        context 'user requests base version of image' do
+          let(:params) { activity_params }
+
+          before do
+            Activity.any_instance.should_receive(:image_url)
+            Activity.any_instance.stub(image_url: 'some/path/to/image')
+          end
+
+          it { should be_a_kind_of String }
+        end
+
+        context 'user requests non-base version of image' do
+          let(:version) { "thumbnail" }
+          let(:params) { activity_params.merge(version: version) }
+
+          before do
+            Activity.any_instance.should_receive(:image_url).with(version)
+            Activity.any_instance.stub(image_url: 'some/path/to/image')
+          end
+
+          it { should be_a_kind_of String }
+        end
+      end
+    end
   end
 end

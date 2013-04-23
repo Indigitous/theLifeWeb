@@ -13,4 +13,6 @@ class Activity < ActiveRecord::Base
 
   validates :priority,
     inclusion: { in: (1..10) }
+
+  mount_uploader :image, PhotoUploader
 end

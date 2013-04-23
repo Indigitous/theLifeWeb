@@ -37,7 +37,7 @@ class ImagePathGettingService
 
   def resource
     @resource_class ||= requested_resource.singularize.capitalize.constantize
-    @resource_class.find_by_id(resource_id)
+    @resource ||= @resource_class.find_by_id(resource_id)
   end
 
   def resource_id
