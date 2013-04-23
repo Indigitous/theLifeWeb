@@ -58,6 +58,17 @@ describe ImagePathGettingService do
 
           it { should be_a_kind_of String }
         end
+
+        context 'user requests non-existing version of image' do
+          let(:version) { 'some' }
+          let(:params) { user_params.merge(version: version) }
+
+          before do
+            User.any_instance.should_receive(:image_url).with(version)
+          end
+
+          it { should_not be }
+        end
       end
     end
 
@@ -106,6 +117,17 @@ describe ImagePathGettingService do
 
           it { should be_a_kind_of String }
         end
+
+        context 'user requests non-existing version of image' do
+          let(:version) { 'some' }
+          let(:params) { friend_params.merge(version: version) }
+
+          before do
+            Friend.any_instance.should_receive(:image_url).with(version)
+          end
+
+          it { should_not be }
+        end
       end
     end
 
@@ -141,6 +163,17 @@ describe ImagePathGettingService do
           end
 
           it { should be_a_kind_of String }
+        end
+
+        context 'user requests non-existing version of image' do
+          let(:version) { 'some' }
+          let(:params) { activity_params.merge(version: version) }
+
+          before do
+            Activity.any_instance.should_receive(:image_url).with(version)
+          end
+
+          it { should_not be }
         end
       end
     end
