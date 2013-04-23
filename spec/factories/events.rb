@@ -13,7 +13,7 @@ FactoryGirl.define do
 
       FactoryGirl.create :group,
         owner: event.user,
-        users: evaluator.group_users
+        users: evaluator.group_users.push(event.user)
     end
   end
 end
