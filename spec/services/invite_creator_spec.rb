@@ -38,8 +38,7 @@ describe InviteCreator do
 
     context 'when group members limit is reached' do
       before do
-        group.stub(users_count: 9000)
-        invite_creator.stub(group: group)
+        Group.any_instance.stub(users_count: 9000)
       end
 
       it { should_not be_persisted }

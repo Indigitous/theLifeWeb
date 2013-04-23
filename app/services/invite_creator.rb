@@ -6,7 +6,6 @@ class InviteCreator
   def create
     group_exists? &&
     user_is_group_owner? &&
-    members_limit_is_not_reached? &&
     receiver_is_valid? &&
     invite_request_saved? &&
     signup_instructions_sent?
@@ -32,15 +31,6 @@ class InviteCreator
   def user_is_group_owner?
     unless group.owner == @user
       errors.add(:user, 'is not owner')
-      return false
-    end
-
-    true
-  end
-
-  def members_limit_is_not_reached?
-    if group.users_count >= Setting.max_users_in_group
-      errors.add(:group, 'members limit is reached')
       return false
     end
 

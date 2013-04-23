@@ -20,8 +20,18 @@ class InviteRequest < ActiveRecord::Base
   validates :kind,
     inclusion: TYPES
 
+  validate :members_quota
+
 
   def type
     self[:kind].to_s.downcase.inquiry
+  end
+
+  private
+
+  def members_quota
+    if group && group.users_count >= Setting.max_users_in_group
+      errors.add(:group, I18n.t('errors.messages.group_limit_reached'))
+    end
   end
 end

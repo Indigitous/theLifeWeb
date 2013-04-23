@@ -4,3 +4,7 @@
 en:
   active_admin:
     powered_by: ""
+
+  errors:
+    messages:
+      group_limit_reached: members limit is reached
