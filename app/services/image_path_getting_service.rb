@@ -30,7 +30,11 @@ class ImagePathGettingService
   end
 
   def get_image_for_resource
-    return resource.image_url(version) if resource.present?
+    begin
+      resource.image_url(version) if resource.present?
+    rescue ArgumentError
+      false
+    end
   end
 
   def resource
@@ -43,7 +47,7 @@ class ImagePathGettingService
   end
 
   def version
-    @params[:version].blank? ? nil : @params[:version]
+    @params[:version].presence
   end
 
   def requested_resource
