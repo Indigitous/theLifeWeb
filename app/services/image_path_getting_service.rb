@@ -26,13 +26,11 @@ class ImagePathGettingService
       when 'friends' then @user.friend_ids
     end
 
-    accessible_resource_ids.include?(resource_id) ? true : false
+    accessible_resource_ids.include?(resource_id)
   end
 
   def get_image_for_resource
     return resource.image_url(version) if resource.present?
-
-    false
   end
 
   def resource

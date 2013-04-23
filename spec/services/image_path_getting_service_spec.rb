@@ -47,12 +47,13 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-base version of image' do
-          let(:version) { "thumbnail" }
+          let(:version) { 'thumbnail' }
           let(:params) { user_params.merge(version: version) }
 
           before do
             User.any_instance.should_receive(:image_url).with(version)
-            User.any_instance.stub(:image_url).with(version) {'some/path/to/image'}
+            User.any_instance
+              .stub(:image_url).with(version) { 'some/path/to/image' }
           end
 
           it { should be_a_kind_of String }
@@ -94,12 +95,13 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-base version of image' do
-          let(:version) { "thumbnail" }
+          let(:version) { 'thumbnail' }
           let(:params) { friend_params.merge(version: version) }
 
           before do
             Friend.any_instance.should_receive(:image_url).with(version)
-            Friend.any_instance.stub(:image_url).with(version) {'some/path/to/image'}
+            Friend.any_instance
+              .stub(:image_url).with(version) { 'some/path/to/image' }
           end
 
           it { should be_a_kind_of String }
@@ -130,7 +132,7 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-base version of image' do
-          let(:version) { "thumbnail" }
+          let(:version) { 'thumbnail' }
           let(:params) { activity_params.merge(version: version) }
 
           before do
