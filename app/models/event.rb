@@ -10,6 +10,8 @@ class Event < ActiveRecord::Base
     presence: true
 
   delegate :summary, to: :activity
+  delegate :name, to: :user, prefix: true
+  delegate :name, to: :friend, prefix: true
 
   alias_method :description, :summary
 

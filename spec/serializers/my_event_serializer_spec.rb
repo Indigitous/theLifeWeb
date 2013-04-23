@@ -6,5 +6,5 @@ describe MyEventSerializer do
 
   subject { JSON.parse(json) }
 
-  it { should be_an_event_representation(event) }
+  it { should be_a_my_event_representation(event) }
 end

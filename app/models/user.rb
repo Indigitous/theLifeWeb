@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :owned_groups, class_name: 'Group'
   has_many :invite_requests
 
+  alias_attribute :name, :first_name
+
   before_save :ensure_authentication_token
 
   validates :first_name, :last_name, presence: true

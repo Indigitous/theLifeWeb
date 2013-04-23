@@ -7,6 +7,10 @@ class InviteRequest < ActiveRecord::Base
   belongs_to :group
 
   delegate :invite?, :request_membership?, to: :type
+  delegate :full_name, to: :user, prefix: true
+  delegate :name, to: :group, prefix: true
+
+  alias_method :user_name, :user_full_name
 
   validates :user,
     :group,
@@ -19,13 +23,5 @@ class InviteRequest < ActiveRecord::Base
 
   def type
     self[:kind].to_s.downcase.inquiry
-  end
-
-  def description
-    if invite?
-      "<b>$uf $ul</b> asks you to join group <b>$g</b>"
-    else
-      "<b>$uf $ul</b> wants to join your group <b>$g</b>"
-    end
   end
 end

@@ -4,6 +4,8 @@ class Friend < ActiveRecord::Base
 
   has_many :events, dependent: :destroy
 
+  alias_attribute :name, :first_name
+
   validates :first_name,
     :last_name,
     :user,

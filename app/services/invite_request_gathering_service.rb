@@ -14,11 +14,15 @@ class InviteRequestGatheringService
   end
 
   def received_personally
-    InviteRequest.where(email: @user.email, kind: InviteRequest::INVITE)
+    InviteRequest
+      .where(email: @user.email, kind: InviteRequest::INVITE)
+      .includes(:user, :group)
   end
 
   def received_in_groups
-    InviteRequest.where(group_id: owned_group_ids, kind: InviteRequest::REQUEST_MEMBERSHIP)
+    InviteRequest
+      .where(group_id: owned_group_ids, kind: InviteRequest::REQUEST_MEMBERSHIP)
+      .includes(:user, :group)
   end
 
   def owned_group_ids
