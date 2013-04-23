@@ -6,14 +6,14 @@ FactoryGirl.define do
   end
 
   factory :group_event, parent: :event do
-    ignore { for_user nil }
+    ignore { group_users [] }
 
     after(:build) do |event, evaluator|
-      return unless evaluator.for_user
+      return if evaluator.group_users.blank?
 
       FactoryGirl.create :group,
         owner: event.user,
-        users: [evaluator.for_user]
+        users: evaluator.group_users
     end
   end
 end
