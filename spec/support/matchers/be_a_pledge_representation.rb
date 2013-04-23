@@ -6,7 +6,11 @@ RSpec::Matchers.define :be_a_pledge_representation do |pledge|
       event_id
     ]
 
+    pledge_accessors = pledge.sliced_accessors %w[event_pledges_count]
+
+    response_attributes = pledge_attributes.merge(pledge_accessors)
+
     json.should be
-    json.should include_attributes(pledge_attributes)
+    json.should include_attributes(response_attributes)
   end
 end

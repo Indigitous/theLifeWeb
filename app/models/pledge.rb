@@ -10,6 +10,8 @@ class Pledge < ActiveRecord::Base
 
   validate :can_pray_for_event?
 
+  delegate :pledges_count, to: :event, prefix: true
+
   private
 
   def can_pray_for_event?
