@@ -1,4 +1,6 @@
 class UserSerializer < BaseSerializer
+  include ImageAttributes
+
   attributes :id,
     :authentication_token,
     :email,
@@ -6,8 +8,4 @@ class UserSerializer < BaseSerializer
     :last_name,
     :mobile,
     :locale
-
-  def attributes
-    super.merge(image_attributes)
-  end
 end
