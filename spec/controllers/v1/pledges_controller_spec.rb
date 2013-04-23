@@ -10,7 +10,7 @@ describe V1::PledgesController do
 
   describe '#create' do
     let(:event) { stub_model(Event, id:1 ) }
-    let(:pledge) { stub_model(Pledge) }
+    let(:pledge) { stub_model(Pledge, event: event) }
 
     before do
       controller.stub(event: event)
