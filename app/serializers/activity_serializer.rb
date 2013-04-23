@@ -7,10 +7,6 @@ class ActivitySerializer < BaseSerializer
     :priority
 
   def attributes
-    hash = super
-
-    hash.merge! image_attributes
-
-    hash
+    super.merge(image_attributes)
   end
 end

@@ -7,10 +7,6 @@ class FriendSerializer < BaseSerializer
     :threshold_id
 
   def attributes
-    hash = super
-
-    hash.merge! image_attributes
-
-    hash
+    super.merge(image_attributes)
   end
 end
