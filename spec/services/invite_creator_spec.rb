@@ -36,6 +36,15 @@ describe InviteCreator do
       its(:errors) { should include(:user) }
     end
 
+    context 'when group members limit is reached' do
+      before do
+        Group.any_instance.stub(users_count: 9000)
+      end
+
+      it { should_not be_persisted }
+      its(:errors) { should include(:group) }
+    end
+
     context 'when email and sms are blank' do
       let(:params) do
         {

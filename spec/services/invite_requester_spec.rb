@@ -20,6 +20,15 @@ describe InviteRequester do
       its(:errors) { should include(:group) }
     end
 
+    context 'when group members limit is reached' do
+      before do
+        Group.any_instance.stub(users_count: 9000)
+      end
+
+      it { should_not be_persisted }
+      its(:errors) { should include(:group) }
+    end
+
     context 'when user is already a member' do
       before do
         group.users.stub(exists?: true)
