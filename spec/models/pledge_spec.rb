@@ -7,7 +7,11 @@ describe Pledge do
   it { should validate_presence_of(:user_id) }
   it { should validate_presence_of(:event_id) }
 
-  it { should validate_uniqueness_of(:event_id).scoped_to(:user_id) }
+  it do
+    should validate_uniqueness_of(:event_id)
+      .scoped_to(:user_id)
+      .with_message("you can't pray for an event twice")
+  end
 
   describe 'validate pray requester for an event' do
     let(:event) { stub_model(Event, prayer_requested: true) }
@@ -16,7 +20,7 @@ describe Pledge do
 
     before { pledge.valid? }
 
-    subject { pledge.errors[:event] }
+    subject { pledge.errors[:event_id] }
 
     it { should be_blank }
 

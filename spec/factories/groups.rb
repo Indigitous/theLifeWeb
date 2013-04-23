@@ -6,5 +6,9 @@ FactoryGirl.define do
     description
 
     owner
+
+    after(:build) do |group|
+      group.users << group.owner
+    end
   end
 end

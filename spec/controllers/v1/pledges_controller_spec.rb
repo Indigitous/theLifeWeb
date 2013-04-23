@@ -9,14 +9,15 @@ describe V1::PledgesController do
   before { sign_in(create(:user)) }
 
   describe '#create' do
-    let(:event) { stub_model(Event, id: 1) }
+    let(:event) { stub_model(Event, id:1 ) }
+    let(:pledge) { stub_model(Pledge) }
 
     before do
       controller.stub(event: event)
     end
 
-    it 'receives pledge! on the pledged event creating service' do
-      PledgedEventCreatingService.any_instance.should_receive(:pledge!)
+    it 'receives create on the pledge creating service' do
+      PledgeCreatingService.any_instance.should_receive(:create)
       post(:create, format: :json, event_id: event.id)
     end
 
@@ -24,7 +25,7 @@ describe V1::PledgesController do
 
     context 'when user can pledge to pray for an event' do
       before do
-        PledgedEventCreatingService.any_instance.stub(:pledge!).and_return(event)
+        PledgeCreatingService.any_instance.stub(:create).and_return(pledge)
         post(:create, format: :json, event_id: event.id)
       end
 
@@ -34,8 +35,8 @@ describe V1::PledgesController do
 
     context "when user can't pledge to pray for an event" do
       before do
-        event.stub(errors: [{ pray: ["you can't pray for it"] }])
-        PledgedEventCreatingService.any_instance.stub(:pledge!).and_return(event)
+        pledge.stub(errors: [{ event: ["you can't pray for it"] }])
+        PledgeCreatingService.any_instance.stub(:create).and_return(pledge)
         post(:create, format: :json, event_id: event.id)
       end
 

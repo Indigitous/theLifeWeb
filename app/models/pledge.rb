@@ -6,7 +6,7 @@ class Pledge < ActiveRecord::Base
 
   validates :event_id,
     presence: true,
-    uniqueness: { scope: :user_id }
+    uniqueness: { scope: :user_id, message: I18n.t('errors.messages.can_not_pray_twice') }
 
   validate :can_pray_for_event?
 
@@ -16,9 +16,9 @@ class Pledge < ActiveRecord::Base
     return unless event
 
     if ! event.prayer_requested
-      errors.add(:event, I18n.t('errors.messages.can_not_pray_unless_prayer_requested'))
+      errors.add(:event_id, I18n.t('errors.messages.can_not_pray_unless_prayer_requested'))
     elsif event.user == user
-      errors.add(:event, I18n.t('errors.messages.can_not_pray_for_self_event'))
+      errors.add(:event_id, I18n.t('errors.messages.can_not_pray_for_self_event'))
     end
   end
 end

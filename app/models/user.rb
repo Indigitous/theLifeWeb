@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :groups, through: :group_users
   has_many :owned_groups, class_name: 'Group'
   has_many :invite_requests
+  has_many :pledges
 
   alias_attribute :name, :first_name
 

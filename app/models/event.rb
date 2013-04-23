@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   belongs_to :friend
   belongs_to :activity
   belongs_to :threshold
+  belongs_to :target_event, class_name: 'Event'
 
   has_many :pledges
 

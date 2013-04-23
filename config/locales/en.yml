@@ -11,3 +11,4 @@ en:
       can_not_pray_for_event: you can't pray for an event
       can_not_pray_for_self_event: you can't pray for self event
       can_not_pray_unless_prayer_requested: you can't pray for an event where prayer is not requested
+      can_not_pray_twice: you can't pray for an event twice
