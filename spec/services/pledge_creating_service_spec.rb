@@ -9,7 +9,7 @@ describe PledgeCreatingService do
     let(:pledge) { double(:pledge, event: event, user: current_user) }
 
     before do
-      event.stub(dup: duplicated_event)
+      event.stub(dup: duplicated_event, reload: true)
       pledge.stub(save: true)
     end
 
@@ -20,7 +20,18 @@ describe PledgeCreatingService do
       service.create
     end
 
-    context 'event duplication' do
+    context 'when pledge is not saved' do
+      before do
+        pledge.stub(save: false)
+      end
+
+      it 'skips saving a duplicated event' do
+        duplicated_event.should_not_receive(:save!)
+        service.create
+      end
+    end
+
+    context 'when pledge is saved' do
       it 'duplicates an event' do
         event.should_receive(:dup)
         service.create
@@ -37,7 +48,7 @@ describe PledgeCreatingService do
       end
 
       it 'saves a duplicated event' do
-        duplicated_event.should_receive(:save)
+        duplicated_event.should_receive(:save!)
         service.create
       end
     end

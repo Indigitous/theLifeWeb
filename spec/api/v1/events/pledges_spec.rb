@@ -18,6 +18,14 @@ describe 'v1/events/:event_id/pledge' do
 
     it { should be_a_pledge_representation(current_user.pledges.first) }
 
+
+    context 'create an event duplicate' do
+      subject { Event.find_by_target_event_id(event.id) }
+
+      it { should be }
+      its(:pledges_count) { should eq event.reload.pledges_count }
+    end
+
     context 'second times' do
       before do
         post "v1/events/#{event.id}/pledge",

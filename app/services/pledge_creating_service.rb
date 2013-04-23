@@ -1,26 +1,27 @@
 class PledgeCreatingService
+  attr_reader :pledge
+
+  delegate :event, :user, to: :pledge
+
   def initialize(pledge)
     @pledge = pledge
-    @event = pledge.event
-    @user = pledge.user
   end
 
   def create
-    Event.transaction do
-      unless dup_event.save && @pledge.save
-        raise ActiveRecord::Rollback
-      end
+    if pledge.save
+      event.reload
+      dup_event.save!
     end
 
-    @pledge
+    pledge
   end
 
   private
 
   def dup_event
-    @event.dup.tap do |event|
-      event.target_event = @event
-      event.user = @user
+    event.dup.tap do |new_event|
+      new_event.target_event = event
+      new_event.user = user
     end
   end
 end
