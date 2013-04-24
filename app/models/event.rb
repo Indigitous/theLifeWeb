@@ -26,8 +26,4 @@ class Event < ActiveRecord::Base
   def to_s
     self.id
   end
-
-  def time
-    created_at.to_s(:long)
-  end
 end

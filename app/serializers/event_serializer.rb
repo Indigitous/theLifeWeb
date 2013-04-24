@@ -7,4 +7,8 @@ class EventSerializer < BaseSerializer
     :threshold_id,
     :prayer_requested,
     :time
+
+  def time
+    object.created_at.to_s(:long)
+  end
 end

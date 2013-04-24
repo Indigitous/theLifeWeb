@@ -12,7 +12,6 @@ RSpec::Matchers.define :be_a_my_event_representation do |event|
       description
       user_name
       friend_name
-      time
     ]
 
     expect(json).to be
