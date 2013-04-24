@@ -12,7 +12,7 @@ describe '/v1/my_events' do
 
     subject { json_response_body }
 
-    it { should be_a_my_event_representation(events.first) }
+    its(:last) { should be_a_my_event_representation(events.first) }
 
     context 'after the specified' do
       let(:params) do
@@ -20,7 +20,7 @@ describe '/v1/my_events' do
       end
 
       its(:length) { should eq(1) }
-      it { should be_a_my_event_representation(events.last) }
+      its(:last) { should be_a_my_event_representation(events.last) }
     end
   end
 end

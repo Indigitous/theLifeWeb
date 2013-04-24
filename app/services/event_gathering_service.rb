@@ -14,7 +14,7 @@ class EventGatheringService
   def collect
     Event
       .where(user_id: group_comembers_id.push(@user.id))
-      .includes(:user, :friend, :activity)
+      .includes(:user, :friend, :activity, :pledged_users)
   end
 
   def group_comembers_id

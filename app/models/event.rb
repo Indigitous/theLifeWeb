@@ -6,6 +6,9 @@ class Event < ActiveRecord::Base
   belongs_to :target_event, class_name: 'Event'
 
   has_many :pledges
+  has_many :pledged_users,
+    through: :pledges,
+    source: :user
 
   validates :user,
     :friend,
