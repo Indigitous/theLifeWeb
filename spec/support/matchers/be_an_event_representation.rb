@@ -13,10 +13,11 @@ RSpec::Matchers.define :be_an_event_representation do |event|
       description
     ]
 
-    other = {}
-    other['time'] = event.created_at.to_s(:long)
+    rest_attributes = { time: event.created_at.to_s(:long) }
 
-    response_attributes = event_attributes.merge(event_accessors).merge(other)
+    response_attributes = event_attributes
+      .merge(rest_attributes)
+      .merge(event_accessors)
 
     json.should be
     json.should include_attributes(response_attributes)
