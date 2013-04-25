@@ -12,7 +12,7 @@ describe V1::CategoriesController do
     let(:categories) { [category] }
 
     before do
-      Category.stub(includes: categories)
+      Category.stub(scoped: categories)
     end
 
     it_behaves_like 'a successfull GET request'
