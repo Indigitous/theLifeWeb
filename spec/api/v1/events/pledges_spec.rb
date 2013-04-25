@@ -19,14 +19,14 @@ describe 'v1/events/:event_id/pledge' do
     it { should be_a_pledge_representation(current_user.pledges.first) }
 
 
-    context 'create an event duplicate' do
+    describe 'creates an event duplicate' do
       subject { Event.find_by_target_event_id(event.id) }
 
       it { should be }
       its(:pledges_count) { should eq event.reload.pledges_count }
     end
 
-    context 'second times' do
+    context 'for the second time' do
       before do
         post "v1/events/#{event.id}/pledge",
         authentication_token: authentication_token
@@ -43,7 +43,7 @@ describe 'v1/events/:event_id/pledge' do
       it { should have_error("you can't pray for self event").on('event_id') }
     end
 
-    context 'when prayer is no requested' do
+    context 'when prayer is not requested' do
       let(:event) { create(:group_event, group_users: [current_user]) }
       it { should have_error("you can't pray for an event where prayer is not requested").on('event_id') }
     end

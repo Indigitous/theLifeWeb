@@ -9,14 +9,14 @@ describe V1::PledgesController do
   before { sign_in(create(:user)) }
 
   describe '#create' do
-    let(:event) { stub_model(Event, id:1 ) }
+    let(:event) { stub_model(Event, id: 1) }
     let(:pledge) { stub_model(Pledge, event: event) }
 
     before do
       controller.stub(event: event)
     end
 
-    it 'receives create on the pledge creating service' do
+    it 'receives #create on the pledge creating service' do
       PledgeCreatingService.any_instance.should_receive(:create)
       post(:create, format: :json, event_id: event.id)
     end
