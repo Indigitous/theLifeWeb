@@ -9,7 +9,7 @@ module ImageAttributes
       attributes['image'] = image_url
 
       object.image.versions.keys.each do |version|
-        attributes[version] = image_url + "/#{version.to_s}"
+        attributes[version] = [image_url, version].join '/'
       end
     end
 

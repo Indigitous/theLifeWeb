@@ -30,11 +30,9 @@ class ImagePathGettingService
   end
 
   def get_image_for_resource
-    begin
-      resource.image_url(version) if resource.present?
-    rescue ArgumentError
-      false
-    end
+    resource.image_url(version) if resource.present?
+  rescue ArgumentError
+    false
   end
 
   def resource
