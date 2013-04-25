@@ -1,180 +1,83 @@
 require 'spec_helper'
 
 describe ImagePathGettingService do
-  let(:current_user) { create :user }
+  let(:user) { double(:user) }
 
-  let(:service) { described_class.new(current_user, params) }
+  let(:service) { ImagePathGettingService.new(user, params) }
+  let(:resource) { double(:resource, image_url: '') }
 
-  describe "#get" do
-    subject { service.get }
-
-    context 'when requested resource is not allowed' do
-      let(:params) { { resources: 'babes', id: current_user.id } }
-
-      it { should_not be }
+  describe '#to_image' do
+    before do
+      resource.stub_chain(:image, :version_names)
+        .and_return('thumbnail', 'original')
     end
 
-    context "user's image" do
-      let!(:other_user) { create :user }
-      let(:user_params) { { resources: 'users', id: current_user.id } }
+    subject { service.to_image }
 
-      describe 'when user has not such comember' do
-        let(:params) { { resources: 'users', id: other_user.id } }
+    describe 'collection from params' do
+      before do
+        collection.stub(:find)
+          .with(1)
+          .and_return(resource)
+      end
+
+      context 'with user_id' do
+        let(:params) { { user_id: 1, version: '' } }
+        let(:collection) { double(:users_collection) }
 
         before do
-          User.any_instance.should_not_receive(:image_url)
+          user.stub(:visible_profiles).and_return(collection)
         end
 
-        it { should_not be }
+        it { should be }
       end
 
-      describe 'when user has no image attached to' do
-        let(:params) { user_params }
-
-        it { should_not be }
-      end
-
-      describe 'when user has image attached to' do
-        context 'user requests base version of image' do
-          let(:params) { user_params }
-
-          before do
-            User.any_instance.should_receive(:image_url)
-            User.any_instance.stub(image_url: 'some/path/to/image')
-          end
-
-          it { should be_a_kind_of String }
-        end
-
-        context 'user requests non-base version of image' do
-          let(:version) { 'thumbnail' }
-          let(:params) { user_params.merge(version: version) }
-
-          before do
-            User.any_instance.should_receive(:image_url).with(version)
-            User.any_instance
-              .stub(:image_url).with(version) { 'some/path/to/image' }
-          end
-
-          it { should be_a_kind_of String }
-        end
-
-        context 'user requests non-existing version of image' do
-          let(:version) { 'some' }
-          let(:params) { user_params.merge(version: version) }
-
-          before do
-            User.any_instance.should_receive(:image_url).with(version)
-          end
-
-          it { should_not be }
-        end
-      end
-    end
-
-    context "friend's image" do
-      let!(:friend) { create :friend, user: current_user }
-      let!(:other_friend) { create :friend }
-      let(:friend_params) { { resources: 'friends', id: friend.id } }
-
-      describe 'when user has not such friend' do
-        let(:params) { { resources: 'friends', id: other_friend.id } }
+      context 'with friend_id' do
+        let(:params) { { friend_id: 1, version: '' } }
+        let(:collection) { double(:friends_collection) }
 
         before do
-          Friend.any_instance.should_not_receive(:image_url)
+          user.stub(:friends).and_return(collection)
         end
 
-        it { should_not be }
+        it { should be }
       end
 
-      describe 'when friend has not attached image' do
-        let(:params) { friend_params }
+      context 'with activity_id' do
+        let(:params) { { activity_id: 1, version: '' } }
+        let(:collection) { double(:activities_collection) }
 
-        it { should_not be }
-      end
-
-      describe 'when friend has attached image' do
-        context 'user requests base version of image' do
-          let(:params) { friend_params }
-
-          before do
-            Friend.any_instance.should_receive(:image_url)
-            Friend.any_instance.stub(image_url: 'some/path/to/image')
-          end
-
-          it { should be_a_kind_of String }
+        before do
+          Activity.stub(:scoped).and_return(collection)
         end
 
-        context 'user requests non-base version of image' do
-          let(:version) { 'thumbnail' }
-          let(:params) { friend_params.merge(version: version) }
-
-          before do
-            Friend.any_instance.should_receive(:image_url).with(version)
-            Friend.any_instance
-              .stub(:image_url).with(version) { 'some/path/to/image' }
-          end
-
-          it { should be_a_kind_of String }
-        end
-
-        context 'user requests non-existing version of image' do
-          let(:version) { 'some' }
-          let(:params) { friend_params.merge(version: version) }
-
-          before do
-            Friend.any_instance.should_receive(:image_url).with(version)
-          end
-
-          it { should_not be }
-        end
+        it { should be }
       end
     end
 
-    context "activity's image" do
-      let(:activity) { create :activity }
-      let(:activity_params) { { resources: 'activities', id: activity.id } }
+    describe 'returns image version from params' do
+      let(:params) { { version: version } }
 
-      describe 'when activity has not attached image' do
-        let(:params) { activity_params }
 
-        it { should_not be }
+      before do
+        service.stub(resource: resource)
       end
 
-      describe 'when activity has attached image' do
-        context 'user requests base version of image' do
-          let(:params) { activity_params }
+      context 'when version is exists' do
+        let(:version) { 'thumbnail' }
 
-          before do
-            Activity.any_instance.should_receive(:image_url)
-            Activity.any_instance.stub(image_url: 'some/path/to/image')
-          end
-
-          it { should be_a_kind_of String }
+        before do
+          resource.stub(:image_url)
+            .with(version)
+            .and_return(version)
         end
 
-        context 'user requests non-base version of image' do
-          let(:version) { 'thumbnail' }
-          let(:params) { activity_params.merge(version: version) }
+        it { should eq version }
+      end
 
-          before do
-            Activity.any_instance.should_receive(:image_url).with(version)
-            Activity.any_instance.stub(image_url: 'some/path/to/image')
-          end
-
-          it { should be_a_kind_of String }
-        end
-
-        context 'user requests non-existing version of image' do
-          let(:version) { 'some' }
-          let(:params) { activity_params.merge(version: version) }
-
-          before do
-            Activity.any_instance.should_receive(:image_url).with(version)
-          end
-
-          it { should_not be }
-        end
+      context 'when verions is not exists' do
+        let(:version) { 'unexpected' }
+        it { should be_nil }
       end
     end
   end

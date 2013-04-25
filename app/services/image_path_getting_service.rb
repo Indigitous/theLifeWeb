@@ -1,53 +1,34 @@
 class ImagePathGettingService
-  WHITELISTED_RESOURCES = %w(users friends activities)
-  PUBLIC_RESOURCES = %w(activities)
+  delegate :image_url, :image, to: :resource
 
   def initialize(user, params)
     @user, @params = user, params
   end
 
-  def get
-    resource_is_whitelisted? &&
-    user_has_access_to_this_resource? &&
-    get_image_for_resource
+  def to_image
+    image_url(version) if version_names.include?(version)
   end
 
   private
 
-  def resource_is_whitelisted?
-    WHITELISTED_RESOURCES.include? requested_resource
-  end
-
-  def user_has_access_to_this_resource?
-    return true if PUBLIC_RESOURCES.include?(requested_resource)
-
-    accessible_resource_ids = case requested_resource
-      when 'users' then @user.visible_user_ids
-      when 'friends' then @user.friend_ids
-    end
-
-    accessible_resource_ids.include?(resource_id.to_i)
-  end
-
-  def get_image_for_resource
-    begin
-      resource.image_url(version) if resource.present?
-    rescue ArgumentError
-      false
-    end
-  end
-
   def resource
-    @resource_class ||= requested_resource.singularize.capitalize.constantize
-    @resource ||= @resource_class.find_by_id(resource_id)
+    if resource_id = @params[:user_id]
+      @user.visible_profiles.find(resource_id)
+
+    elsif resource_id = @params[:friend_id]
+      @user.friends.find(resource_id)
+
+    elsif resource_id = @params[:activity_id]
+      Activity.scoped.find(resource_id)
+    end
   end
 
-  def resource_id
-    @params[:id]
+  def version_names
+    image.version_names
   end
 
   def version
-    @params[:version].presence
+    @params[:version]
   end
 
   def requested_resource
