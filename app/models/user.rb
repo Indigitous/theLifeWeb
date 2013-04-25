@@ -45,8 +45,6 @@ class User < ActiveRecord::Base
       .uniq
       .pluck(:user_id)
 
-    user_ids << id unless user_ids.include?(id)
-
-    user_ids
+    user_ids.push(id).uniq
   end
 end
