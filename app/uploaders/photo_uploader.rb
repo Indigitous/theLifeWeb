@@ -13,11 +13,17 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "#{Rails.root}/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    Rails.root.join 'uploads',
+      model.class.to_s.underscore,
+      mounted_as.to_s,
+      model.id.to_s
   end
 
   def cache_dir
-    "#{Rails.root}/tmp/cache/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    Rails.root.join 'tmp/cache/uploads/',
+      model.class.to_s.underscore,
+      mounted_as.to_s,
+      model.id.to_s
   end
 
   # Process files as they are uploaded:
@@ -40,7 +46,19 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "#{secure_token}.jpg" if original_filename.present?
   end
 
-  protected
+  def url(*args)
+    version = args.first.to_s
+    args.shift if version == 'original'
+
+    super(*args)
+  end
+
+  def version_names
+    ['original'] + versions.keys.map(&:to_s)
+  end
+
+  private
+
   def secure_token(length=16)
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(length/2))

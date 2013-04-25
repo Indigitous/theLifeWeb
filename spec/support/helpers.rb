@@ -12,4 +12,8 @@ module Helpers
     admin = create(:admin_user)
     sign_in admin
   end
+
+  def file_path(*paths)
+    Rails.root.join('spec/fixtures', *paths)
+  end
 end
