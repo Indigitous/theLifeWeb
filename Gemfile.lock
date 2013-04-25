@@ -92,6 +92,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     ckeditor (4.0.4)
@@ -190,6 +193,8 @@ GEM
       polyamorous (~> 0.5.0)
     metaclass (0.0.1)
     mime-types (1.21)
+    mini_magick (3.5.0)
+      subexec (~> 0.2.1)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
     multi_json (1.7.1)
@@ -291,6 +296,7 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       railties (~> 3.0)
+    subexec (0.2.3)
     temple (0.5.5)
     terminal-table (1.4.5)
     therubyracer (0.11.4)
@@ -330,6 +336,7 @@ DEPENDENCIES
   brakeman
   bullet
   capybara
+  carrierwave
   ckeditor
   coffee-rails (~> 3.2.1)
   database_cleaner
@@ -345,6 +352,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   mail_safe
+  mini_magick
   pg
   rails (= 3.2.12)
   rails_best_practices

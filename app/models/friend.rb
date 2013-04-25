@@ -12,6 +12,8 @@ class Friend < ActiveRecord::Base
     :threshold,
     presence: true
 
+  mount_uploader :image, ImageUploader
+
   scope :recent, lambda { |n| includes(:user,:threshold).limit(n).order('id desc') }
 
   def to_s

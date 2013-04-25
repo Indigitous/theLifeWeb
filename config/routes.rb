@@ -37,6 +37,10 @@ TheLifeWeb::Application.routes.draw do
     resources :my_invite_requests, only: [:index], path: 'my_requests'
     resources :activities, only: [:index]
     resources :categories, only: [:index]
+
+    resource :image, only: [] do
+      get ':resources/:id(/:version)', to: 'images#show'
+    end
   end
 
   mount ApiTaster::Engine => '/api_taster' if defined? ApiTaster::Engine

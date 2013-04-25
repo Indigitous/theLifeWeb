@@ -1,4 +1,6 @@
 class UserSerializer < BaseSerializer
+  include ImageAttributes
+
   attributes :id,
     :authentication_token,
     :email,

@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
+  mount_uploader :image, ImageUploader
+
   def full_name
     [first_name, last_name].compact.join(' ')
   end
@@ -43,6 +45,6 @@ class User < ActiveRecord::Base
       .uniq
       .pluck(:user_id)
 
-    user_ids + [id]
+    user_ids.push(id).uniq
   end
 end

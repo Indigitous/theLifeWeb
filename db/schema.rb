@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.integer  "priority",         :default => 10, :null => false
+    t.string   "image"
   end
 
   add_index "activities", ["category_id"], :name => "index_activities_on_category_id"
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
     t.datetime "updated_at",                   :null => false
     t.string   "email"
     t.string   "mobile"
+    t.string   "image"
   end
 
   add_index "friends", ["threshold_id"], :name => "index_friends_on_threshold_id"
@@ -163,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
     t.string   "first_name",             :default => "",   :null => false
     t.string   "last_name",              :default => "",   :null => false
     t.string   "mobile"
+    t.string   "image"
     t.string   "locale",                 :default => "en", :null => false
   end
 

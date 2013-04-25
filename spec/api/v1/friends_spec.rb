@@ -83,5 +83,28 @@ describe 'v1/friends' do
         end
       end
     end
+
+    describe "add or update photo for friend" do
+      let(:test_image) { Rack::Test::UploadedFile.new(
+        Rails.root.join('spec', 'support', 'images' , 'test_image.png')
+      )}
+
+      let(:params) do
+        {
+          image: test_image,
+          authentication_token: authentication_token
+        }
+      end
+
+      before do
+        put "/v1/friends/#{friend.id}", params
+        friend.reload
+      end
+
+      it "updates friend's image" do
+        friend.image_url.should be
+        friend.image_url(:thumbnail).should be
+      end
+    end
   end
 end
