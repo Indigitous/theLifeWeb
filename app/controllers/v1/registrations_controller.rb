@@ -22,7 +22,8 @@ class V1::RegistrationsController < Devise::RegistrationsController
       :last_name,
       :email,
       :password,
-      :mobile
+      :mobile,
+      :locale
     ]
 
     params.require(:user).permit(*allowed_params)

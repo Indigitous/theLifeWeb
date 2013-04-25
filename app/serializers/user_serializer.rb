@@ -4,5 +4,6 @@ class UserSerializer < BaseSerializer
     :email,
     :first_name,
     :last_name,
-    :mobile
+    :mobile,
+    :locale
 end

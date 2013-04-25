@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   validates :first_name, :last_name, presence: true
+  validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
   def full_name
     [first_name, last_name].compact.join(' ')
