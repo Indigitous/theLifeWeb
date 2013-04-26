@@ -21,6 +21,10 @@ describe V1::BaseController do
       I18n.backend.store_translations :fr, world: 'Monde'
     end
 
+    after do
+      I18n.locale = I18n.default_locale
+    end
+
     it 'should set default locale to English' do
       get :localized_text
 
