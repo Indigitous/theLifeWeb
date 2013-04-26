@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425151757) do
+ActiveRecord::Schema.define(:version => 20130426115223) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
   end
 
   add_index "activities_thresholds", ["activity_id", "threshold_id"], :name => "index_activities_thresholds_on_activity_id_and_threshold_id"
+
+  create_table "activity_translations", :force => true do |t|
+    t.integer  "activity_id"
+    t.string   "locale"
+    t.string   "title"
+    t.string   "summary"
+    t.text     "full_description"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "activity_translations", ["activity_id"], :name => "index_activity_translations_on_activity_id"
+  add_index "activity_translations", ["locale"], :name => "index_activity_translations_on_locale"
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
