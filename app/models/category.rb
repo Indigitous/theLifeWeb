@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  translates :description
+  translates :name, :description
 
   has_many :activities
 
