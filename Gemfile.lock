@@ -10,6 +10,13 @@ GIT
       remotipart (~> 1.0)
       sass-rails
 
+GIT
+  remote: git://github.com/stympy/faker.git
+  revision: e0a347dc488c6fdd492d0132eafda1cc014ef63a
+  specs:
+    faker (1.1.2)
+      i18n (~> 0.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -142,8 +149,6 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    faker (1.1.2)
-      i18n (~> 0.5)
     fastercsv (1.5.5)
     ffi (1.4.0)
     foreman (0.62.0)
@@ -346,7 +351,7 @@ DEPENDENCIES
   dotenv
   email_spec
   factory_girl_rails
-  faker
+  faker!
   foreman
   heroku
   jquery-rails

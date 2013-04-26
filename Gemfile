@@ -55,6 +55,6 @@ group :development, :staging do
 end
 
 group :development, :test, :staging do
-  gem 'faker'
+  gem 'faker', github: 'stympy/faker'
   gem 'factory_girl_rails'
 end
