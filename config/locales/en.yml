@@ -5,6 +5,13 @@ en:
   active_admin:
     powered_by: ""
 
+  email:
+    invitation:
+      subject: You have been invited to %{group_name}
+      greeting: Hello
+      body: "%{name} invited you to join %{group_name}"
+      instructions: App download instructions
+
   errors:
     messages:
       group_limit_reached: members limit is reached
