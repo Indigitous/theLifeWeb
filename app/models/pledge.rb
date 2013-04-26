@@ -21,13 +21,13 @@ class Pledge < ActiveRecord::Base
 
   def event_prayer_requested?
     if event && ! event.prayer_requested
-      errors.add(:event_id, I18n.t('errors.messages.can_not_pray_unless_prayer_requested'))
+      errors.add(:event, I18n.t('errors.messages.can_not_pray_unless_prayer_requested'))
     end
   end
 
   def prayer_is_event_creator?
     if event && event.user == user
-      errors.add(:event_id, I18n.t('errors.messages.can_not_pray_for_self_event'))
+      errors.add(:event, I18n.t('errors.messages.can_not_pray_for_self_event'))
     end
   end
 end

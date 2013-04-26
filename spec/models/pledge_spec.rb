@@ -20,7 +20,7 @@ describe Pledge do
 
     before { pledge.valid? }
 
-    subject { pledge.errors[:event_id] }
+    subject { pledge.errors[:event] }
 
     it { should be_blank }
 

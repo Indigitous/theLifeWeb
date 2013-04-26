@@ -40,12 +40,12 @@ describe 'v1/events/:event_id/pledge' do
         create(:event, user: current_user, prayer_requested: true)
       end
 
-      it { should have_error("you can't pray for self event").on('event_id') }
+      it { should have_error("you can't pray for self event").on('event') }
     end
 
     context 'when prayer is not requested' do
       let(:event) { create(:group_event, group_users: [current_user]) }
-      it { should have_error("you can't pray for an event where prayer is not requested").on('event_id') }
+      it { should have_error("you can't pray for an event where prayer is not requested").on('event') }
     end
   end
 end
