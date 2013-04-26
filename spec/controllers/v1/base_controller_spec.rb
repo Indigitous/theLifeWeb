@@ -21,7 +21,7 @@ describe V1::BaseController do
       I18n.backend.store_translations :fr, world: 'Monde'
     end
 
-    it 'should default locale to English' do
+    it 'should set default locale to English' do
       get :localized_text
 
       response.body.should == 'Hello World'
