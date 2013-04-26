@@ -47,7 +47,7 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-base version of image' do
-          let(:version) { 'thumbnail' }
+          let(:version) { :thumbnail }
           let(:params) { user_params.merge(version: version) }
 
           before do
@@ -62,7 +62,7 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-existing version of image' do
-          let(:version) { 'some' }
+          let(:version) { :thumbnail }
           let(:params) { user_params.merge(version: version) }
 
           before do
@@ -108,7 +108,7 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-base version of image' do
-          let(:version) { 'thumbnail' }
+          let(:version) { :thumbnail }
           let(:params) { friend_params.merge(version: version) }
 
           before do
@@ -121,7 +121,7 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-existing version of image' do
-          let(:version) { 'some' }
+          let(:version) { :thumbnail }
           let(:params) { friend_params.merge(version: version) }
 
           before do
@@ -156,7 +156,7 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-base version of image' do
-          let(:version) { 'thumbnail' }
+          let(:version) { :thumbnail }
           let(:params) { activity_params.merge(version: version) }
 
           before do
@@ -168,7 +168,7 @@ describe ImagePathGettingService do
         end
 
         context 'user requests non-existing version of image' do
-          let(:version) { 'some' }
+          let(:version) { :thumbnail }
           let(:params) { activity_params.merge(version: version) }
 
           before do
