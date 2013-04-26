@@ -21,7 +21,7 @@ class InviteCreator
 
   def group_exists?
     unless group.present?
-      errors.add(:group, 'does not exist')
+      errors.add(:group, I18n.t('errors.messages.does_not_exist'))
       return false
     end
 
@@ -30,7 +30,7 @@ class InviteCreator
 
   def user_is_group_owner?
     unless group.owner == @user
-      errors.add(:user, 'is not owner')
+      errors.add(:user, I18n.t('errors.messages.is_not_owner'))
       return false
     end
 
@@ -44,7 +44,7 @@ class InviteCreator
 
   def receiver_is_not_member_of_group?
     if group.users.exists?(email: email)
-      errors.add(:receiver, 'is already a group member')
+      errors.add(:receiver, I18n.t('errors.messages.is_already_a_group_member'))
       return false
     end
 
@@ -53,7 +53,7 @@ class InviteCreator
 
   def receiver_email_or_sms_present?
     if email.blank? && sms.blank?
-      errors.add(:receiver, "both email and sms can't be blank at the same time")
+      errors.add(:receiver, I18n.t('errors.messages.both_email_and_sms_cant_be_blank'))
       return false
     end
 

@@ -19,7 +19,7 @@ class InviteRequestRejector
 
   def user_exists?
     unless user.present?
-      errors.add(:user, 'does not exist')
+      errors.add(:user, I18n.t('errors.messages.does_not_exist'))
       return false
     end
 
@@ -36,7 +36,7 @@ class InviteRequestRejector
 
   def invite_belongs_to_user?
     unless user.received_invite_requests.exists?(id: invite_request.id)
-      errors.add(:user, 'is not owner')
+      errors.add(:user, I18n.t('errors.messages.is_not_owner'))
       return false
     end
 
@@ -45,7 +45,7 @@ class InviteRequestRejector
 
   def user_is_a_group_owner?
     unless group.owner == @current_user
-      errors.add(:user, 'is not owner')
+      errors.add(:user, I18n.t('errors.messages.is_not_owner'))
       return false
     end
 

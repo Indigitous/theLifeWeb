@@ -19,7 +19,7 @@ class InviteRequester
 
   def group_exists?
     unless group.present?
-      errors.add(:group, 'does not exist')
+      errors.add(:group, I18n.t('errors.messages.does_not_exist'))
       return false
     end
 
@@ -28,7 +28,7 @@ class InviteRequester
 
   def user_is_not_member_of_group?
     if group.users.exists?(id: @user.id) || group.owner == @user
-      errors.add(:user, 'is already a group member')
+      errors.add(:user, I18n.t('errors.messages.is_already_a_group_member'))
       return false
     end
 
