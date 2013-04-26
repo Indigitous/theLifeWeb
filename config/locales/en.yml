@@ -4,3 +4,10 @@
 en:
   active_admin:
     powered_by: ""
+
+  errors:
+    messages:
+      group_limit_reached: members limit is reached
+      can_not_pray_for_self_event: you can't pray for self event
+      can_not_pray_unless_prayer_requested: you can't pray for an event where prayer is not requested
+      can_not_pray_twice: you can't pray for an event twice

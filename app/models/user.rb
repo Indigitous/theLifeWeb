@@ -10,13 +10,23 @@ class User < ActiveRecord::Base
   has_many :groups, through: :group_users
   has_many :owned_groups, class_name: 'Group'
   has_many :invite_requests
+  has_many :pledges
+
+  alias_attribute :name, :first_name
 
   before_save :ensure_authentication_token
 
   validates :first_name, :last_name, presence: true
+  validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
+
+  mount_uploader :image, ImageUploader
+
+  def full_name
+    [first_name, last_name].compact.join(' ')
+  end
 
   def to_s
-    "#{self.first_name} #{self.last_name}"
+    full_name
   end
 
   def received_invite_requests
@@ -36,6 +46,6 @@ class User < ActiveRecord::Base
       .uniq
       .pluck(:user_id)
 
-    user_ids + [id]
+    user_ids.push(id).uniq
   end
 end

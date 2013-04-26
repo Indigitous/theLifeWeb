@@ -30,5 +30,28 @@ describe '/v1/users' do
         put "/v1/users/#{another_user.id}", params
       end.to change { current_user.reload.first_name }
     end
+
+    describe "add or update photo for current user" do
+      let(:test_image) { Rack::Test::UploadedFile.new(
+        Rails.root.join('spec', 'support', 'images' , 'test_image.png')
+      )}
+
+      let(:params) do
+        {
+          image: test_image,
+          authentication_token: authentication_token
+        }
+      end
+
+      before do
+        put "/v1/users/#{current_user.id}", params
+        current_user.reload
+      end
+
+      it "updates current_user's image" do
+        current_user.image_url.should be
+        current_user.image_url(:thumbnail).should be
+      end
+    end
   end
 end

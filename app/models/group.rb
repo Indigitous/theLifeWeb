@@ -9,5 +9,7 @@ class Group < ActiveRecord::Base
     :owner,
     presence: true
 
+  delegate :count, to: :users, prefix: true
+
   alias_method :member_ids, :user_ids
 end

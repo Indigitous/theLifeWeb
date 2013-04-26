@@ -41,6 +41,10 @@ module Examples
     '123456'
   end
 
+  def event
+    Event.first
+  end
+
   def threshold
     Threshold.first
   end
@@ -67,7 +71,11 @@ module Examples
         password: password
 
       FactoryGirl.create(:friend, user: user)
-      FactoryGirl.create_list(:event, 6, user: user, activity: activity)
+
+      FactoryGirl.create_list :group_event, 6,
+        prayer_requested: true,
+        group_users: [user],
+        activity: activity
 
       group = FactoryGirl.create(:group, owner: user)
       FactoryGirl.create(:invite_request, user: user, group: group, email: invited_user.email)

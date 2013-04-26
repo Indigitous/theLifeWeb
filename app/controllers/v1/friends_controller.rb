@@ -9,6 +9,7 @@ class V1::FriendsController < V1::BaseController
 
   def update
     friend.save
+
     head :no_content
   end
 
@@ -25,7 +26,8 @@ class V1::FriendsController < V1::BaseController
       :last_name,
       :threshold_id,
       :email,
-      :mobile
+      :mobile,
+      :image
     ]
 
     params.require(:friend).permit(*allowed_params)

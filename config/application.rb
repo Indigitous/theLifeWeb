@@ -39,6 +39,8 @@ module TheLifeWeb
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.i18n.fallbacks = [:en]
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'
 
@@ -69,13 +71,11 @@ module TheLifeWeb
     # If you are deploying Rails 3.1+ on Heroku, you may want to set:
     config.assets.initialize_on_precompile = false
 
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    config.assets.precompile += %w( active_admin.js active_admin.css active_admin/print.css )
+
     # Default host for action mailer, initializers/mailer.rb
     config.host = 'localhost:5000'
-
-    # By default Rails API does not include the session middleware.
-    # Add the middleware back in to application b/c it requred by Devise and Warden
-    config.middleware.use ActionDispatch::Session::CookieStore
-    config.middleware.use Rack::MethodOverride
 
     # Parameter keys that are not explicitly permitted will be raised as exception
     config.action_controller.action_on_unpermitted_parameters = :raise

@@ -5,9 +5,10 @@ class EventSerializer < BaseSerializer
     :activity_id,
     :description,
     :threshold_id,
-    :prayer_requested
+    :prayer_requested,
+    :created_at
 
-  def description
-    object.description
+  def created_at
+    object.created_at.to_s(:long)
   end
 end

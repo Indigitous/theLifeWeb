@@ -1,3 +1,3 @@
 class MyInviteRequestSerializer < InviteRequestSerializer
-  attribute :description
+  attributes :group_name, :user_name
 end

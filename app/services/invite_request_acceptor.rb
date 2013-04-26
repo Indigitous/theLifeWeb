@@ -47,6 +47,10 @@ class InviteRequestAcceptor
   end
 
   def invite_request_valid?
+    invite_request.valid? && invite_request_can_be_processed?
+  end
+
+  def invite_request_can_be_processed?
     invite_request.invite? ? invite_belongs_to_user? : user_is_a_group_owner?
   end
 

@@ -6,4 +6,5 @@ FactoryGirl.define do
   sequence(:last_name) { Faker::Name.last_name }
   sequence(:description) { Faker::Company.catch_phrase }
   sequence(:mobile) { Faker::PhoneNumber.phone_number }
+  sequence(:locale) { 'en' }
 end

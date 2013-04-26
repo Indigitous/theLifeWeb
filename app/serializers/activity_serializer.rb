@@ -1,4 +1,6 @@
 class ActivitySerializer < BaseSerializer
+  include ImageAttributes
+
   attributes :id,
     :title,
     :summary,

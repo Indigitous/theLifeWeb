@@ -16,6 +16,8 @@ gem 'jquery-rails'
 gem 'activeadmin'
 gem 'ckeditor'
 gem 'select2-rails'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -53,6 +55,6 @@ group :development, :staging do
 end
 
 group :development, :test, :staging do
-  gem 'faker'
+  gem 'faker', github: 'stympy/faker'
   gem 'factory_girl_rails'
 end

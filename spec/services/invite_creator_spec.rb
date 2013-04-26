@@ -36,6 +36,15 @@ describe InviteCreator do
       its(:errors) { should include(:user) }
     end
 
+    context 'when group members limit is reached' do
+      before do
+        Group.any_instance.stub(users_count: 9000)
+      end
+
+      it { should_not be_persisted }
+      its(:errors) { should include(:group) }
+    end
+
     context 'when email and sms are blank' do
       let(:params) do
         {
@@ -59,6 +68,14 @@ describe InviteCreator do
 
     context 'with valid params' do
       it { should be_persisted }
+
+      it 'sends signup instructions to user' do
+        mail = double(:mail)
+        mail.should_receive(:deliver)
+        InvitationMailer.should_receive(:signup_instructions).and_return(mail)
+
+        invite_creator.create
+      end
     end
   end
 end

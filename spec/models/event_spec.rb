@@ -5,6 +5,8 @@ describe Event do
   it { should validate_presence_of(:friend) }
   it { should validate_presence_of(:activity) }
 
+  it { should have_many(:pledges) }
+
   describe '#to_s' do
     let!(:event) { create(:event) }
     subject { event.to_s }

@@ -4,11 +4,15 @@ class Friend < ActiveRecord::Base
 
   has_many :events, dependent: :destroy
 
+  alias_attribute :name, :first_name
+
   validates :first_name,
     :last_name,
     :user,
     :threshold,
     presence: true
+
+  mount_uploader :image, ImageUploader
 
   scope :recent, lambda { |n| includes(:user,:threshold).limit(n).order('id desc') }
 

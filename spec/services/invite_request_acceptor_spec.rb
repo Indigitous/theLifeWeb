@@ -13,7 +13,7 @@ describe InviteRequestAcceptor do
   describe '#process' do
     subject { invite_request_acceptor.process }
 
-    describe 'when group does not exist' do
+    context 'when group does not exist' do
       before do
         Group.stub(find_by_id: nil)
       end
@@ -22,7 +22,17 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:group) }
     end
 
-    describe 'when user does not exit' do
+    context 'when group members limit is reached' do
+      before do
+        group = double(:group, users_count: 9000)
+        invite_request.stub(group: group)
+      end
+
+      it { should be_persisted }
+      its(:errors) { should include(:group) }
+    end
+
+    context 'when user does not exit' do
       before do
         User.stub(find_by_id: nil)
       end
@@ -31,7 +41,7 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:user) }
     end
 
-    describe 'when user is already a member' do
+    context 'when user is already a member' do
       before do
         group.users.stub(exists?: true)
         invite_request_acceptor.stub(group: group)
@@ -41,7 +51,7 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:user) }
     end
 
-    describe 'when invite request is a membership request and current_user is not an owner' do
+    context 'when invite request is a membership request and current_user is not an owner' do
       before do
         invite_request.stub(invite?: false)
         group.stub(owner: nil)
@@ -52,7 +62,7 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:user) }
     end
 
-    describe 'when invite request is an invite and user is not an owner of it' do
+    context 'when invite request is an invite and user is not an owner of it' do
       before do
         received_invite_requests = double(:invite_request, exists?: false)
         user.stub(received_invite_requests: received_invite_requests)
@@ -63,7 +73,7 @@ describe InviteRequestAcceptor do
       its(:errors) { should include(:user) }
     end
 
-    describe 'with valid params' do
+    context 'with valid params' do
       it { should be_a_kind_of GroupUser }
       it { should be_persisted }
     end

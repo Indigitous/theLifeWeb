@@ -5,5 +5,6 @@ FactoryGirl.define do
     first_name
     last_name
     mobile
+    locale
   end
 end

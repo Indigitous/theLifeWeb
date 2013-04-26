@@ -10,6 +10,13 @@ GIT
       remotipart (~> 1.0)
       sass-rails
 
+GIT
+  remote: git://github.com/stympy/faker.git
+  revision: e0a347dc488c6fdd492d0132eafda1cc014ef63a
+  specs:
+    faker (1.1.2)
+      i18n (~> 0.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -92,6 +99,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     ckeditor (4.0.4)
@@ -139,8 +149,6 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    faker (1.1.2)
-      i18n (~> 0.5)
     fastercsv (1.5.5)
     ffi (1.4.0)
     foreman (0.62.0)
@@ -190,6 +198,8 @@ GEM
       polyamorous (~> 0.5.0)
     metaclass (0.0.1)
     mime-types (1.21)
+    mini_magick (3.5.0)
+      subexec (~> 0.2.1)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
     multi_json (1.7.1)
@@ -291,6 +301,7 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       railties (~> 3.0)
+    subexec (0.2.3)
     temple (0.5.5)
     terminal-table (1.4.5)
     therubyracer (0.11.4)
@@ -330,6 +341,7 @@ DEPENDENCIES
   brakeman
   bullet
   capybara
+  carrierwave
   ckeditor
   coffee-rails (~> 3.2.1)
   database_cleaner
@@ -339,12 +351,13 @@ DEPENDENCIES
   dotenv
   email_spec
   factory_girl_rails
-  faker
+  faker!
   foreman
   heroku
   jquery-rails
   letter_opener
   mail_safe
+  mini_magick
   pg
   rails (= 3.2.12)
   rails_best_practices

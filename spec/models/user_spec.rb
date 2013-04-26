@@ -12,6 +12,7 @@ describe User do
     it { should have_many :groups }
     it { should have_many :owned_groups }
     it { should have_many :invite_requests }
+    it { should have_many :pledges }
   end
 
   describe '#to_s' do
