@@ -1,6 +1,13 @@
 FactoryGirl.define do
   factory :category do
-    name { Faker::Lorem.word }
-    description { Faker::Lorem.paragraph }
+    ignore do
+      name Faker::Lorem.word
+      description Faker::Lorem.sentence
+    end
+
+    after(:build) do |category, evaluator|
+      category.name = evaluator.name
+      category.description = evaluator.description
+    end
   end
 end
