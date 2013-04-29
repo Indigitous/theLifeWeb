@@ -232,6 +232,8 @@ GEM
       activesupport (= 3.2.12)
       bundler (~> 1.0)
       railties (= 3.2.12)
+    rails-i18n (0.7.3)
+      i18n (~> 0.5)
     rails_best_practices (1.13.4)
       activesupport
       awesome_print
@@ -368,6 +370,7 @@ DEPENDENCIES
   mini_magick
   pg
   rails (= 3.2.12)
+  rails-i18n
   rails_best_practices
   rspec-rails
   sass-rails (~> 3.2.3)
