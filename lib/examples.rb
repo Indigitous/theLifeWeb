@@ -2,11 +2,11 @@ module Examples
   extend self
 
   def user
-    User.find_by_email(user_email)
+    User.find(user_id)
   end
 
-  def user_email
-    'user@example.com'
+  def user_id
+    2147483647
   end
 
   def invited_user
@@ -62,7 +62,7 @@ module Examples
         :password_confirmation => 'password'
 
       user = FactoryGirl.create :user,
-        email: user_email,
+        id: user_id,
         password: password,
         groups: [Group.first]
 
