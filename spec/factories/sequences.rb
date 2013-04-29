@@ -4,7 +4,7 @@ FactoryGirl.define do
   sequence(:password_confirmation) { '123456' }
   sequence(:first_name) { Faker::Name.first_name }
   sequence(:last_name) { Faker::Name.last_name }
-  sequence(:description) { Faker::Company.catch_phrase }
+  sequence(:description, aliases: [:full_description]) { Faker::Company.catch_phrase }
   sequence(:mobile) { Faker::PhoneNumber.phone_number }
   sequence(:locale) { 'en' }
 end
