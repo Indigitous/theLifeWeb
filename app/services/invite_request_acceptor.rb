@@ -21,7 +21,7 @@ class InviteRequestAcceptor
 
   def group_exists?
     unless group.present?
-      errors.add(:group, 'does not exist')
+      errors.add(:group, I18n.t('errors.messages.does_not_exist'))
       return false
     end
 
@@ -30,7 +30,7 @@ class InviteRequestAcceptor
 
   def user_exists?
     unless user.present?
-      errors.add(:user, 'does not exist')
+      errors.add(:user, I18n.t('errors.messages.does_not_exist'))
       return false
     end
 
@@ -39,7 +39,7 @@ class InviteRequestAcceptor
 
   def user_is_not_member_of_group?
     if members.exists?(id: user_id) || group.owner == user
-      errors.add(:user, 'is already a group member')
+      errors.add(:user, I18n.t('errors.messages.is_already_a_group_member'))
       return false
     end
 
@@ -61,7 +61,7 @@ class InviteRequestAcceptor
 
   def invite_belongs_to_user?
     unless user.received_invite_requests.exists?(id: invite_request.id)
-      errors.add(:user, 'is not owner')
+      errors.add(:user, I18n.t('errors.messages.is_not_owner'))
       return false
     end
 
@@ -70,7 +70,7 @@ class InviteRequestAcceptor
 
   def user_is_a_group_owner?
     unless group.owner == @current_user
-      errors.add(:user, 'is not owner')
+      errors.add(:user, I18n.t('errors.messages.is_not_owner'))
       return false
     end
 

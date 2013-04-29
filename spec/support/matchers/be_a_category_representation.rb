@@ -1,16 +1,15 @@
-RSpec::Matchers.define :be_a_category_representation do |group|
+RSpec::Matchers.define :be_a_category_representation do |category|
   match do |json|
-    attributes = group.sliced_attributes %w[
+    category_attributes = category.sliced_attributes %w[
       id
+    ]
+
+    category_accessors = category.sliced_accessors %w[
       name
       description
     ]
 
-    accessors = group.sliced_accessors %w[
-      activities
-    ]
-
-    response_attributes = attributes.merge(accessors)
+    response_attributes = category_attributes.merge(category_accessors)
 
     json.should be
     json.should include_attributes(response_attributes)

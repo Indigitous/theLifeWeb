@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserSerializer do
+describe CategorySerializer do
 let(:category) { build :category, id: 1 }
   let(:json) { CategorySerializer.new(category).to_json }
 

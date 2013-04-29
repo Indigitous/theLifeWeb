@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425151757) do
+ActiveRecord::Schema.define(:version => 20130429063515) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -29,13 +29,10 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "activities", :force => true do |t|
-    t.string   "title",            :default => "", :null => false
-    t.string   "summary",          :default => "", :null => false
-    t.text     "full_description", :default => "", :null => false
     t.integer  "category_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.integer  "priority",         :default => 10, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "priority",    :default => 10, :null => false
     t.string   "image"
   end
 
@@ -47,6 +44,19 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
   end
 
   add_index "activities_thresholds", ["activity_id", "threshold_id"], :name => "index_activities_thresholds_on_activity_id_and_threshold_id"
+
+  create_table "activity_translations", :force => true do |t|
+    t.integer  "activity_id"
+    t.string   "locale"
+    t.string   "title"
+    t.string   "summary"
+    t.text     "full_description"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "activity_translations", ["activity_id"], :name => "index_activity_translations_on_activity_id"
+  add_index "activity_translations", ["locale"], :name => "index_activity_translations_on_locale"
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -67,11 +77,21 @@ ActiveRecord::Schema.define(:version => 20130425151757) do
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "categories", :force => true do |t|
-    t.string   "name",        :default => "", :null => false
-    t.text     "description", :default => "", :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
+
+  create_table "category_translations", :force => true do |t|
+    t.integer  "category_id"
+    t.string   "locale"
+    t.text     "description"
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "category_translations", ["category_id"], :name => "index_category_translations_on_category_id"
+  add_index "category_translations", ["locale"], :name => "index_category_translations_on_locale"
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"

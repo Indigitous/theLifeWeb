@@ -6,6 +6,6 @@ class InvitationMailer < ActionMailer::Base
     email = invite_request.email
 
     mail to: email,
-      subject: "You have been invited to #{@group.name}"
+      subject: t('email.invitation.subject', group_name: @group.name)
   end
 end

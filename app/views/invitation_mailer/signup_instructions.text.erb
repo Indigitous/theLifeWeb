@@ -1,5 +1,5 @@
-Hello
+<%= t 'email.invitation.greeting' %>
 
-<%= @user.full_name %> invited you to join <%= @group.name %>
+<%= t 'email.invitation.body', name: @user.full_name, group_name: @group.name %>
 
-App download instructions
+<%= t 'email.invitation.instructions' %>

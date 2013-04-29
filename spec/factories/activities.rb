@@ -1,11 +1,18 @@
 FactoryGirl.define do
   factory :activity do
-    title   { Faker::Lorem.word }
-    summary { Faker::Lorem.sentence }
-    full_description { Faker::Lorem.paragraph }
+    ignore do
+      title   { Faker::Lorem.word }
+      summary { Faker::Lorem.sentence }
+      full_description
+    end
 
     category
-
     thresholds { [FactoryGirl.create(:threshold)] }
+
+    after(:build) do |activity, evaluator|
+      activity.title = evaluator.title
+      activity.summary = evaluator.summary
+      activity.full_description = evaluator.full_description
+    end
   end
 end

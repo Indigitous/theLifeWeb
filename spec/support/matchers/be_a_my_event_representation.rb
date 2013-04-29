@@ -7,6 +7,7 @@ RSpec::Matchers.define :be_a_my_event_representation do |event|
       activity_id
       prayer_requested
       threshold_id
+      target_event_id
       pledges_count
       has_pledged
       description

@@ -5,9 +5,20 @@ en:
   active_admin:
     powered_by: ""
 
+  email:
+    invitation:
+      subject: You have been invited to %{group_name}
+      greeting: Hello
+      body: "%{name} invited you to join %{group_name}"
+      instructions: App download instructions
+
   errors:
     messages:
       group_limit_reached: members limit is reached
       can_not_pray_for_self_event: you can't pray for self event
       can_not_pray_unless_prayer_requested: you can't pray for an event where prayer is not requested
       can_not_pray_twice: you can't pray for an event twice
+      does_not_exist: does not exist
+      is_not_owner: is not owner
+      is_already_a_group_member: is already a group member
+      both_email_and_sms_cant_be_blank: both email and sms can't be blank at the same time
