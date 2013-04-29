@@ -19,6 +19,7 @@ gem 'select2-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'globalize3'
+gem 'rails-i18n'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
