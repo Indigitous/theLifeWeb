@@ -9,6 +9,6 @@ class EventSerializer < BaseSerializer
     :created_at
 
   def created_at
-    object.created_at.to_s(:long)
+    object.created_at.to_i
   end
 end
