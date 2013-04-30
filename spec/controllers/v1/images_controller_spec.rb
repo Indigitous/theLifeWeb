@@ -26,7 +26,7 @@ describe V1::ImagesController do
     end
 
     context 'with invalid params' do
-      let(:params) { base_params.merge(version: 'unexisting') }
+      let(:params) { base_params.merge(version: 'nonexistent') }
 
       its(:body) { should_not be be_a_file_representation(user.image) }
       its(:code) { should eq('404') }
