@@ -7,5 +7,6 @@ class ActivitySerializer < BaseSerializer
     :full_description,
     :category_id,
     :priority,
-    :threshold_ids
+    :threshold_ids,
+    :has_threshold
 end

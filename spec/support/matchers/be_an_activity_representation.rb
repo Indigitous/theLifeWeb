@@ -7,6 +7,7 @@ RSpec::Matchers.define :be_an_activity_representation do |activity|
       full_description
       category_id
       priority
+      has_threshold
     ]
 
     activity_accessors = activity.sliced_accessors %w[

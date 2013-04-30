@@ -8,6 +8,7 @@ FactoryGirl.define do
 
     category
     thresholds { [FactoryGirl.create(:threshold)] }
+    has_threshold { false }
 
     after(:build) do |activity, evaluator|
       activity.title = evaluator.title
