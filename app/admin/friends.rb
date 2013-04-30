@@ -20,21 +20,37 @@ ActiveAdmin.register Friend do
       f.input :last_name
       f.input :user, :label => "Friend of User"
       f.input :threshold, :include_blank => false
+      f.input :image
+      f.input :remove_image, :as => :boolean
     end
     f.actions
   end
 
   show do |ad|
-    attributes_table do
-      row :id
-      row :first_name
-      row :last_name
-      row ("Friend of User") { ad.user }
-      row :threshold
-      row :created_at
-      row :updated_at
+    columns do
+      column :span => 3 do
+        attributes_table do
+          row :id
+          row :first_name
+          row :last_name
+          row ("Friend of User") { ad.user }
+          row :threshold
+          row :created_at
+          row :updated_at
+        end
+        active_admin_comments
+      end
+      column :min_width => "200px" do
+        panel "Image" do
+          friend.image.present? ? image_tag(image_admin_friend_path(friend)) : 'No Image Available'
+        end
+      end
     end
-    active_admin_comments
+  end
+
+  member_action :image do
+    friend = Friend.find(params[:id])
+    send_file friend.image_url, type: 'image/jpeg'
   end
 
   controller do

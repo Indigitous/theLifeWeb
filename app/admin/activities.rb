@@ -19,18 +19,34 @@ ActiveAdmin.register Activity do
       f.input :category
       f.input :priority
       f.input :thresholds
+      f.input :image
+      f.input :remove_image, :as => :boolean
     end
     f.buttons
   end
 
   show do
-    attributes_table *default_attribute_table_rows
-    panel "Thresholds" do
-      table_for(resource.thresholds) do
-        column :title
+    columns do
+      column :span => 3 do
+        attributes_table *default_attribute_table_rows
+        panel "Thresholds" do
+          table_for(resource.thresholds) do
+            column :title
+          end
+        end
+        active_admin_comments
+      end
+      column :min_width => "200px" do
+        panel "Image" do
+          activity.image.present? ? image_tag(image_admin_activity_path(activity)) : 'No Image Available'
+        end
       end
     end
-    active_admin_comments
+  end
+
+  member_action :image do
+    activity = Activity.find(params[:id])
+    send_file activity.image_url, type: 'image/jpeg'
   end
 
   controller do
