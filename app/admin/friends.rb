@@ -42,7 +42,7 @@ ActiveAdmin.register Friend do
       end
       column :min_width => "200px" do
         panel "Image" do
-          friend.image.present? ? image_tag(image_admin_friend_path(friend)) : 'No Image Available'
+          friend.image? ? image_tag(image_admin_friend_path(friend)) : 'No Image Available'
         end
       end
     end

@@ -69,7 +69,7 @@ ActiveAdmin.register User do
       end
       column :min_width => "200px" do
         panel "Image" do
-          user.image.present? ? image_tag(image_admin_user_path(user)) : 'No Image Available'
+          user.image? ? image_tag(image_admin_user_path(user)) : 'No Image Available'
         end
       end
     end

@@ -38,7 +38,7 @@ ActiveAdmin.register Activity do
       end
       column :min_width => "200px" do
         panel "Image" do
-          activity.image.present? ? image_tag(image_admin_activity_path(activity)) : 'No Image Available'
+          activity.image? ? image_tag(image_admin_activity_path(activity)) : 'No Image Available'
         end
       end
     end
