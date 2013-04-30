@@ -4,7 +4,9 @@ ActiveAdmin.register Activity do
   index do
     column :title
     column :summary
-    column :category
+    column :category do |activity|
+      activity.category
+    end
     column :priority
     column :created_at
     column :updated_at
@@ -12,10 +14,15 @@ ActiveAdmin.register Activity do
   end
 
   form do |f|
+    f.globalize_inputs :translations do |t|
+      t.inputs do
+        t.input :title
+        t.input :summary
+        t.input :full_description, :as => :ckeditor
+        t.input :locale, :as => :hidden
+      end
+    end
     f.inputs do
-      f.input :title
-      f.input :summary
-      f.input :full_description, :as => :ckeditor
       f.input :category
       f.input :priority
       f.input :thresholds
@@ -50,8 +57,12 @@ ActiveAdmin.register Activity do
   end
 
   controller do
+    def edit
+      @activity = Activity.includes(:translations, { :category => :translations }).find(params[:id])
+    end
+
     def scoped_collection
-      Activity.includes(:category)
+      Activity.includes(:translations, { :category => :translations })
     end
   end
 end
