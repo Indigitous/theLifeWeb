@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/AdrianTeh/ActiveAdmin-Globalize3-inputs.git
+  revision: ead43b183fa9ef11ab0a748d00f71339a59b436b
+  specs:
+    ActiveAdmin-Globalize3-inputs (0.0.1)
+      activeadmin
+      globalize3
+
+GIT
   remote: git://github.com/fredwu/api_taster.git
   revision: 62b5e1ce70adedf42305fc1ac4eb35f9e5c0f8cb
   specs:
@@ -16,14 +24,6 @@ GIT
   specs:
     faker (1.1.2)
       i18n (~> 0.5)
-
-GIT
-  remote: git@github.com:AdrianTeh/ActiveAdmin-Globalize3-inputs.git
-  revision: ead43b183fa9ef11ab0a748d00f71339a59b436b
-  specs:
-    ActiveAdmin-Globalize3-inputs (0.0.1)
-      activeadmin
-      globalize3
 
 GEM
   remote: https://rubygems.org/
