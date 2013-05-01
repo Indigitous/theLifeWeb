@@ -17,4 +17,6 @@ class Activity < ActiveRecord::Base
     inclusion: { in: (1..10) }
 
   mount_uploader :image, ImageUploader
+
+  accepts_nested_attributes_for :translations
 end

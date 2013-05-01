@@ -20,18 +20,20 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'globalize3'
 gem 'rails-i18n'
+gem 'ActiveAdmin-Globalize3-inputs', :git => "git://github.com/AdrianTeh/ActiveAdmin-Globalize3-inputs.git"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer'
+  gem 'jquery-ui-rails'
 end
 
 group :development do
   gem 'letter_opener'
   gem 'foreman'
-  gem 'bullet'
+  gem 'bullet',   '~> 4.6.0'
 end
 
 group :development, :test do

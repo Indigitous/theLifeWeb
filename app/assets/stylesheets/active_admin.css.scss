@@ -1,5 +1,6 @@
 /*
  *= require select2
+ *= require jquery.ui.all
 */
 
 // SASS variable overrides must be declared before loading up Active Admin's styles.
@@ -65,5 +66,8 @@ body.active_admin {
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 200px;
+  }
+  .ui-tabs .ui-tabs-panel {
+    padding: 0;
   }
 }
