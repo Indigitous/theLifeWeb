@@ -9,3 +9,18 @@
 Threshold::TITLES.each do |title|
   Threshold.find_or_create_by_title!(title)
 end
+
+# initial administrators
+AdminUser.create(email: 'admin@ballistiq.com', password: 'theLife', password_confirmation: 'theLife')
+AdminUser.create(email: 'admin@p2c.com', password: 'theLife', password_confirmation: 'theLife')
+
+# initial activities
+Activity.create(title: 'Change Threshold',
+                summary: '<b>$u</b> has moved <b>$f</b> to <b>$t</b>',
+                full_description: 'Use this activity to move your friend to a new threshold.',
+                thresholds: Threshold.all,
+		has_threshold: true)
+
+# initial settings
+Setting.create(key: 'max_users_in_group', value: 15)
+
