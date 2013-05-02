@@ -11,8 +11,8 @@ RSpec::Matchers.define :be_an_event_representation do |event|
       description
     ]
 
-    expect(json).to be
-    expect(json).to include_attributes(id: event.id)
-    expect(json).to be_a_hash_with_keys(event_attributes)
+    json.should be
+    json.should include_attributes(id: event.id)
+    json.should be_a_hash_with_keys(event_attributes)
   end
 end

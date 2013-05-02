@@ -1,4 +1,8 @@
 class BaseSerializer < ActiveModel::Serializer
   embed :ids, include: false
   alias_method :current_user, :scope
+
+  def created_at
+    object.created_at.to_i
+  end
 end
