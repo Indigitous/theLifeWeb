@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/AdrianTeh/ActiveAdmin-Globalize3-inputs.git
-  revision: ead43b183fa9ef11ab0a748d00f71339a59b436b
+  revision: 1930c8f7d6eb9659021284f28010fd774ca3fb5b
   specs:
     ActiveAdmin-Globalize3-inputs (0.0.1)
       activeadmin
