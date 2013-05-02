@@ -32,6 +32,10 @@ ActiveAdmin.register Activity do
     f.buttons
   end
 
+  action_item :only => :show do
+    link_to('New Activity', new_admin_activity_path)
+  end
+
   show do
     columns do
       column :span => 3 do
