@@ -7,8 +7,4 @@ class EventSerializer < BaseSerializer
     :threshold_id,
     :prayer_requested,
     :created_at
-
-  def created_at
-    object.created_at.to_i
-  end
 end
