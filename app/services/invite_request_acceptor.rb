@@ -56,7 +56,7 @@ class InviteRequestAcceptor
 
   def invite_request_processed?
     members << user
-    invite_request.destroy
+    invite_request.update_attributes(status: InviteRequest::ACCEPTED)
   end
 
   def invite_belongs_to_user?

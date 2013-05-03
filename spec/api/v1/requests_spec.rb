@@ -71,18 +71,31 @@ describe 'v1/requests' do
     describe 'when group owner accepts membership request' do
       let(:params) { { accept: true, user: another_user.id } }
 
-      before do
-        post "/v1/requests/#{membership_request.id}/process",
+      it 'updates invite request status to accepted' do
+        accept_request = proc do post "/v1/requests/#{membership_request.id}/process",
           params.merge(authentication_token: user.authentication_token)
+        end
+
+        expect(accept_request)
+          .to change { membership_request.reload.status }
+          .from(InviteRequest::DELIVERED)
+          .to(InviteRequest::ACCEPTED)
       end
 
-      subject { json_response_body }
-      it { should be_a_group_user_representation(group_user) }
+      describe 'response body' do
+        before do
+          post "/v1/requests/#{membership_request.id}/process",
+            params.merge(authentication_token: user.authentication_token)
+        end
 
-      context 'with invalid params' do
-        let(:params) { { accept: true, user: user.id } }
+        subject { json_response_body }
+        it { should be_a_group_user_representation(group_user) }
 
-        it { should have_error('is already a group member').on('user') }
+        context 'with invalid params' do
+          let(:params) { { accept: true, user: user.id } }
+
+          it { should have_error('is already a group member').on('user') }
+        end
       end
     end
   end
@@ -91,21 +104,26 @@ describe 'v1/requests' do
     describe 'when user rejects invitation' do
       let(:params) { { accept: false, user: another_user.id } }
 
-      it 'destroys invite request' do
-        expect do
-          post "/v1/requests/#{invite_request.id}/process",
-            params.merge(authentication_token: another_user.authentication_token)
-        end.to change { InviteRequest.count }
+      it 'updates invite request status to rejected' do
+        reject_request = proc do post "/v1/requests/#{invite_request.id}/process",
+          params.merge(authentication_token: another_user.authentication_token)
+        end
+
+        expect(reject_request)
+          .to change { invite_request.reload.status }
+          .from(InviteRequest::DELIVERED)
+          .to(InviteRequest::REJECTED)
       end
 
       context 'with invalid params' do
         let(:params) { { accept: false, user: user.id } }
 
-        it 'does not destroy invite request' do
-          expect do
-            post "/v1/requests/#{invite_request.id}/process",
-              params.merge(authentication_token: another_user.authentication_token)
-          end.not_to change { InviteRequest.count }
+        it 'does not update invite request status' do
+          reject_request = proc do post "/v1/requests/#{invite_request.id}/process",
+            params.merge(authentication_token: another_user.authentication_token)
+          end
+
+          expect(reject_request).to_not change { invite_request.reload.status }
         end
       end
     end
@@ -113,21 +131,26 @@ describe 'v1/requests' do
     describe 'when group owner reject membership request' do
       let(:params) { { accept: false, user: another_user.id } }
 
-      it 'destroys invite request' do
-        expect do
-          post "/v1/requests/#{membership_request.id}/process",
-            params.merge(authentication_token: user.authentication_token)
-        end.to change { InviteRequest.count }
+      it 'updates invite request status to rejected' do
+        reject_request = proc do post "/v1/requests/#{membership_request.id}/process",
+          params.merge(authentication_token: user.authentication_token)
+        end
+
+        expect(reject_request)
+          .to change { membership_request.reload.status }
+          .from(InviteRequest::DELIVERED)
+          .to(InviteRequest::REJECTED)
       end
 
       context 'with invalid params' do
         let(:params) { { accept: false, user: -1 } }
 
-        it 'does not destroy invite request' do
-          expect do
-            post "/v1/requests/#{membership_request.id}/process",
-              params.merge(authentication_token: user.authentication_token)
-          end.not_to change { InviteRequest.count }
+        it 'does not update invite request status' do
+          reject_request = proc do post "/v1/requests/#{membership_request.id}/process",
+            params.merge(authentication_token: user.authentication_token)
+          end
+
+          expect(reject_request).to_not change { membership_request.reload.status }
         end
       end
     end

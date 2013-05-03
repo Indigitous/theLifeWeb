@@ -18,7 +18,7 @@ describe InviteRequestAcceptor do
         Group.stub(find_by_id: nil)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:group) }
     end
 
@@ -28,7 +28,7 @@ describe InviteRequestAcceptor do
         invite_request.stub(group: group)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:group) }
     end
 
@@ -37,7 +37,7 @@ describe InviteRequestAcceptor do
         User.stub(find_by_id: nil)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:user) }
     end
 
@@ -47,7 +47,7 @@ describe InviteRequestAcceptor do
         invite_request_acceptor.stub(group: group)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:user) }
     end
 
@@ -58,7 +58,7 @@ describe InviteRequestAcceptor do
         invite_request_acceptor.stub(group: group)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:user) }
     end
 
@@ -69,7 +69,7 @@ describe InviteRequestAcceptor do
         invite_request_acceptor.stub(user: user)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:user) }
     end
 

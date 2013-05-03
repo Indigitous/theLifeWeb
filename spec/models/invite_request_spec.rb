@@ -6,6 +6,7 @@ describe InviteRequest do
     it { should validate_presence_of :group }
     it { should validate_presence_of :kind }
     it { should ensure_inclusion_of(:kind).in_array(InviteRequest::TYPES) }
+    it { should ensure_inclusion_of(:status).in_array(InviteRequest::STATUSES) }
 
     describe '#members_quota' do
       let(:group) { double(:group, users_count: 9000) }

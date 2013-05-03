@@ -31,7 +31,7 @@ class InviteRequestRejector
   end
 
   def invite_request_processed?
-    invite_request.destroy
+    invite_request.update_attributes(status: InviteRequest::REJECTED)
   end
 
   def invite_belongs_to_user?
