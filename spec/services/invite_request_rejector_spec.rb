@@ -20,7 +20,7 @@ describe InviteRequestRejector do
         invite_request_rejector.stub(group: group)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:user) }
     end
 
@@ -31,12 +31,12 @@ describe InviteRequestRejector do
         invite_request_rejector.stub(user: user)
       end
 
-      it { should be_persisted }
+      its(:status) { should eq(InviteRequest::DELIVERED) }
       its(:errors) { should include(:user) }
     end
 
     describe 'with valid params' do
-      it { should_not be_persisted }
+      its(:status) { should eq(InviteRequest::REJECTED) }
     end
   end
 end

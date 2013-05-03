@@ -5,6 +5,7 @@ RSpec::Matchers.define :be_a_my_invite_request_representation do |invite_request
       user_id
       group_id
       type
+      status
     ]
 
     accessors = invite_request.sliced_accessors %w[

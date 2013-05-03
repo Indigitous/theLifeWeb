@@ -3,6 +3,11 @@ class InviteRequest < ActiveRecord::Base
   REQUEST_MEMBERSHIP = 'REQUEST_MEMBERSHIP'.freeze
   TYPES = [INVITE, REQUEST_MEMBERSHIP]
 
+  DELIVERED = 'DELIVERED'.freeze
+  ACCEPTED = 'ACCEPTED'.freeze
+  REJECTED = 'REJECTED'.freeze
+  STATUSES = [DELIVERED, ACCEPTED, REJECTED]
+
   belongs_to :user
   belongs_to :group
 
@@ -14,14 +19,15 @@ class InviteRequest < ActiveRecord::Base
 
   validates :user,
     :group,
-    :kind,
     presence: true
 
   validates :kind,
+    presence: true,
     inclusion: TYPES
 
-  validate :members_quota
+  validates :status, inclusion: STATUSES
 
+  validate :members_quota
 
   def type
     self[:kind].to_s.downcase.inquiry
