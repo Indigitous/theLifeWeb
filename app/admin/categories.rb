@@ -13,7 +13,7 @@ ActiveAdmin.register Category do
     f.globalize_inputs :translations do |t|
       t.inputs do
         t.input :name
-        t.input :description, :as => :ckeditor
+        t.input :description
         t.input :locale, :as => :hidden
       end
     end
