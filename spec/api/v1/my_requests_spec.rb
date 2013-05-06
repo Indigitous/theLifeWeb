@@ -20,4 +20,14 @@ describe 'v1/my_requests' do
     it { should be_a_kind_of Array }
     its(:first) { should be_a_my_invite_request_representation(invite_request) }
   end
+
+  describe 'get requests created by me' do
+    let(:authentication_token) { user.authentication_token }
+
+    before do
+      get '/v1/my_requests', authentication_token: authentication_token
+    end
+
+    its(:first) { should be_a_my_invite_request_representation(invite_request) }
+  end
 end

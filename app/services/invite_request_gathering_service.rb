@@ -4,13 +4,17 @@ class InviteRequestGatheringService
   end
 
   def gather
-    normalize(received_personally + received_in_groups)
+    normalize(received_personally + received_in_groups + created_by_me)
   end
 
   private
 
   def normalize(invite_requests)
     invite_requests.sort_by(&:id).reverse
+  end
+
+  def created_by_me
+    @user.invite_requests
   end
 
   def received_personally

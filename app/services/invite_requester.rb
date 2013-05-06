@@ -6,12 +6,18 @@ class InviteRequester
   def create
     group_exists? &&
     user_is_not_member_of_group? &&
+    normalize_email_and_sms &&
     invite_request_saved?
 
     invite_request
   end
 
   private
+
+  def normalize_email_and_sms
+    invite_request.email = group.owner_email
+    invite_request.sms = group.owner_mobile
+  end
 
   def invite_request
     @invite_request ||= build_invite_request
@@ -51,7 +57,7 @@ class InviteRequester
   end
 
   def group
-    @group ||= Group.find_by_id(group_id)
+    @group ||= Group.where(id: group_id).includes(:owner).first
   end
 
   def group_id

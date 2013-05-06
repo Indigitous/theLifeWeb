@@ -10,6 +10,7 @@ class Group < ActiveRecord::Base
     presence: true
 
   delegate :count, to: :users, prefix: true
+  delegate :email, :mobile, to: :owner, prefix: true
 
   alias_method :member_ids, :user_ids
 end
