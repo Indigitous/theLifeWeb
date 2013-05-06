@@ -6,7 +6,6 @@ class InviteRequester
   def create
     group_exists? &&
     user_is_not_member_of_group? &&
-    normalize_email_and_sms &&
     invite_request_saved?
 
     invite_request
@@ -49,6 +48,7 @@ class InviteRequester
   end
 
   def invite_request_saved?
+    normalize_email_and_sms
     invite_request.save
   end
 
