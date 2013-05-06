@@ -11,7 +11,7 @@ describe Event do
     let!(:event) { create(:event) }
     subject { event.to_s }
     it 'should return event id' do
-      subject.should == event.id
+      subject.should == "Event #{event.id}"
     end
   end
 

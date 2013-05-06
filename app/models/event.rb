@@ -24,6 +24,6 @@ class Event < ActiveRecord::Base
   scope :recent, lambda { |n| limit(n).order('id desc') }
 
   def to_s
-    self.id
+    "Event #{self.id}"
   end
 end

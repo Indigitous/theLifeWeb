@@ -13,7 +13,7 @@ ActiveAdmin.register Event do
 
   controller do
     def scoped_collection
-      Event.includes(:user,:friend,:activity)
+      Event.includes(:user,:friend,:activity => :translations)
     end
   end
 end

@@ -6,7 +6,7 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column :span => 3 do
         panel "Recent Events" do
-          table_for Event.recent(15) do
+          table_for Event.includes(:user, :friend, :activity).recent(15) do
             column :user
             column :friend
             column :activity
