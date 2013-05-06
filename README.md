@@ -1,13 +1,76 @@
 theLifeWeb
 ==========
 
-Web Backend for theLife Mobile App
+It is Web Backend for theLife Mobile App.
 
-## API
+# 1. Common information
 
-Status of the API could be checked at http://localhost:5000/api_taster
+### 1.1 Development env
 
-All API requests should include `authentication_token`:
+Application includes `foreman` gem for managing development stack with `Procfile`.
+[Learn more](https://devcenter.heroku.com/articles/procfile#toc) about `foreman` and `Procfile`.
+
+It can be started with `foreman start` or `./script/server` and will be available as `localhost:5000`.
+
+Application includes couple of scripts which can be used for routine operations. They are located at `./script`.
+
+Typical steps for deploying development environment:
+
+0. Clone project.
+
+1. Run `./script/bootstrap` in terminal. It will automatically do this steps:
+  1. Setup `database.yml` and `.env` files;
+  2. Install `bundler` and all gems;
+  3. Create databases, migrate them and prepare for testing.
+   
+2. Run `./script/ci` to check all tests pass. It will automatically do this steps:
+  1. Run `rspec` tests;
+  2. Run `brakeman` local security vulnerability scanner;
+  3. Run `rails_best_practices` quality tests.
+
+Development and test environments use Postgre. Production environment will use MySQL engine, so application MUST NOT contain any engine-specific code. 
+
+### 1.2 Stage environment
+
+Stage is deployed at <http://thelifeweb-stage.herokuapp.com>.
+
+**Stage can not store image files locally and will raise error while performing image updating actions.**
+
+### 1.3 Authorization
+
+Application uses `devise` gem for authorization. It creates authentication token
+for user when user registers and returns token in response when user authorizes.
+Application authenticates user with this token and does not store user info to session, so every request must contain `authentication_token`.
+
+### 1.4 Images
+
+Application uses `carrierwave` configured to store files locally at server in `"#{Rails.root}/uploads/..."` so external client has no ability to access image files without authenticating in system.
+
+`carrierwave` uses `minimagick` gem for processing images. Please install `imagemagick` package first.
+
+### 1.5 Localization
+
+Application uses [`globalize3`](https://github.com/svenfuchs/globalize3) for localized model attributes.
+It stores localized data directly in database.
+
+System messages, emails and other static text is localized using `i18n` gem.
+Localized data should be stored in `#{Rails.root}/config/locales`.
+Each locale should have it's own file named as `#{locale}.yml`.
+Application has `rails-18n` gem, so there is no need to localize standard system messages.
+
+# 2. API information
+
+Status of the API could be checked at `http://localhost:5000/api_taster`.
+
+All API requests, excluding `/v1/authenticate` and `/v1/register`
+should include `authentication_token`:
+
+## Endpoints
+
+### Authentication
+
+* POST '/v1/register' -- register a user with `email` and `password`
+* POST '/v1/authenticate' -- authenticate user with `email` and `password`
 
 ### Users
 
@@ -64,6 +127,12 @@ All API requests should include `authentication_token`:
 
 * GET '/v1/categories.json' - returns list of the categories
 
+### Images
+
+* GET `'/v1/image/:objects/:id(/:version)'` -- returns image for given object.
+If `version` is provided it will return this version of image. Else it will response with base version.
+`:objects` can be `users`, `friends` or `activities`.
+
 ## What's included
 
 Application currently based on Rails 3.2 stable branch and Ruby 1.9
@@ -97,10 +166,3 @@ Application currently based on Rails 3.2 stable branch and Ruby 1.9
 * `mailer.rb` - setup default hosts for mailer from configuration
 * `time_formats.rb` - setup default time formats, so you can use them like object.create_at.to_s(:us_time)
 * `requires.rb` - automatically requires everything in lib/ & lib/extensions
-
-### Scripts
-
-* `script/bootstrap` - setup required gems and migrate db if needed
-* `script/quality` - runs brakeman and rails_best_practices for the app
-* `script/ci` - should be used in the CI, checkout .travis.yml for example
-* `script/ci_deploy` - should be used in [Semaphoreapp CI to deploy code to Heroku](http://tatsoft.ru/ci-semaphoreapp)
