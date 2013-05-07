@@ -11,12 +11,9 @@ describe InviteRequester do
   describe '#create' do
     subject { invite_requester.create }
 
-    its(:email) { should == another_user.email }
-    its(:sms) { should == another_user.mobile }
-
     context 'when group does not exist' do
       before do
-        invite_requester.stub(group: nil)
+        Group.stub(find_by_id: nil)
       end
 
       it { should_not be_persisted }

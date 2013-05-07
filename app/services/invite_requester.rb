@@ -13,11 +13,6 @@ class InviteRequester
 
   private
 
-  def normalize_email_and_sms
-    invite_request.email = group.owner_email
-    invite_request.sms = group.owner_mobile
-  end
-
   def invite_request
     @invite_request ||= build_invite_request
   end
@@ -48,7 +43,6 @@ class InviteRequester
   end
 
   def invite_request_saved?
-    normalize_email_and_sms
     invite_request.save
   end
 
@@ -57,7 +51,7 @@ class InviteRequester
   end
 
   def group
-    @group ||= Group.where(id: group_id).includes(:owner).first
+    @group ||= Group.find_by_id(group_id)
   end
 
   def group_id
