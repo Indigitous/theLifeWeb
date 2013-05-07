@@ -167,7 +167,7 @@ to
 
 ### Activities
 
-* GET `'/v1/activities.json'` -- If `threshold_id` was provided, then response
+* GET `'/v1/activities.json'` -- If `threshold_id` it provided, then response
   will contain only activities applicable for given threshold, else it returns
   full list of activities.
 
