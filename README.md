@@ -9,78 +9,100 @@ It is Web Backend for theLife Mobile App.
 
 #### 1.1.1 Preparation
 
-Application includes couple of scripts which can be used for routine operations. They are located at `./script`.
+Application includes a couple of scripts which can be used for routine
+operations. They are located at `./script`.
 
 Typical steps for deploying development environment:
 
 1. Install external tools:
-  
+
   * `imagemagick`
 
-2. Clone project.
+2. Clone the project.
 
-3. Run `./script/bootstrap` in terminal. It will automatically do this steps:
+3. Install needed Ruby version.
+Actual `ruby` version is written in `.ruby-version`(for `rbenv`) and
+`.rvmrc`(for `rvm`) files.
+
+3. Run `./script/bootstrap` in terminal. It will automatically do these steps:
   1. Setup `database.yml` and `.env` files;
   2. Install `bundler` and all gems;
   3. Create databases, migrate them and prepare for testing.
-   
-4. Run `./script/ci` to check all tests pass. It will automatically do this steps:
+
+4. Run `./script/ci` to check all tests pass.
+  It will automatically do these steps:
   1. Run `rspec` tests;
-  2. Run [`brakeman`](https://github.com/presidentbeef/brakeman) local security vulnerability scanner;
-  3. Run [`rails_best_practices`](https://github.com/railsbp/rails_best_practices) quality tests.
+  2. Run [`brakeman`](https://github.com/presidentbeef/brakeman)
+  local security vulnerability scanner;
+  3. Run [`rails_best_practices`](https://github.com/railsbp/rails_best_practices)
+  quality tests.
 
 #### 1.1.2 Launch
 
-Application includes [`foreman`](https://github.com/ddollar/foreman) gem for managing development stack with `Procfile`.
-[Learn more](https://devcenter.heroku.com/articles/procfile#toc) about `foreman` and `Procfile`.
+Application includes [`foreman`](https://github.com/ddollar/foreman) gem
+for managing development stack with `Procfile`.
+[Learn more](https://devcenter.heroku.com/articles/procfile#toc)
+about `foreman` and `Procfile`.
 
-It can be started with `foreman start` or `./script/server` and will be available as `localhost:5000`. 
+It can be started with `foreman start` or `./script/server`
+and will be available as `localhost:5000`. 
 
 ### 1.2 Stage environment
 
 Stage is deployed at <http://thelifeweb-stage.herokuapp.com>.
 
-**Stage can not store image files locally and will raise error while performing image updating actions.**
+**Stage can not store image files locally and will raise error
+while performing image updating actions.**
 
 ### 1.3 Authorization
 
-Application uses [`devise`](https://github.com/plataformatec/devise) gem for authorization. It creates authentication token
-for user when user registers and returns token in response when user authorizes.
-Application authenticates user with this token and does not store user info to session, so every request must contain `authentication_token`.
+Application uses [`devise`](https://github.com/plataformatec/devise) gem
+for authorization. It creates authentication token for user when user registers
+and returns token in response when user authorizes. Application authenticates
+user with this token and does not store user info to session, so every request
+must contain `authentication_token`.
 
 ### 1.4 Images
 
-Application uses [`carrierwave`](https://github.com/jnicklas/carrierwave) gem configured to store files locally at server in `"#{Rails.root}/uploads/..."` so external client has no ability to access image files without authenticating in system.
+Application uses [`carrierwave`](https://github.com/jnicklas/carrierwave) gem
+configured to store files locally at server in `"#{Rails.root}/uploads/..."` so
+external client has no ability to access image files without authenticating in
+system.
 
-[`carrierwave`](https://github.com/jnicklas/carrierwave) uses [`mini_magick`](https://github.com/minimagick/minimagick) gem for processing images. Please install `imagemagick` package first.
+[`carrierwave`](https://github.com/jnicklas/carrierwave) uses
+[`mini_magick`](https://github.com/minimagick/minimagick) gem for processing
+images. Please install `imagemagick` package first.
 
 ### 1.5 Localization
 
-Application uses [`globalize3`](https://github.com/svenfuchs/globalize3) for localized model attributes.
-It stores localized data directly in database.
+Application uses [`globalize3`](https://github.com/svenfuchs/globalize3)
+for localized model attributes. It stores localized data directly in database.
 
 System messages, emails and other static text are localized using `i18n` gem.
-Localized data should be stored in `#{Rails.root}/config/locales`.
-Each locale should have it's own file named as `#{locale}.yml`.
-Application has `rails-i18n` gem, so there is no need to localize standard system messages.
+Application includes `rails-i18n` gem, so there is no need to localize standard
+system messages. Localized data should be stored in
+`#{Rails.root}/config/locales`. Each locale should have it's own file named
+as `#{locale}.yml`, e.g. `fr.yml` for `fr` locale.
 
 ### 1.6 Migration to Rails 4.0
 
-Application uses [`strong_parameters`](https://github.com/rails/strong_parameters) gem to prevent mass assignment. This gem is a part of Rails 4.0, so there should not be any issues while migrating to a new release of Rails.
+Application uses
+[`strong_parameters`](https://github.com/rails/strong_parameters) gem to prevent
+mass assignment. This gem is a part of Rails 4.0, so there should not be any
+issues while migrating to a new release of Rails.
 
 ### 1.7 Misc
 
-Development and test environments use Postgre. Production environment will use MySQL engine, so application MUST NOT contain any engine-specific code.
-
-Actual `ruby` version is written in `.ruby-version`(for `rbenv`) and `.rvmrc`(for `rvm`) files.
+Development and test environments use Postgre. Production environment will
+use MySQL engine, so application MUST NOT contain any engine-specific code.
 
 # 2. API information
 
 Application includes [`api_taster`](https://github.com/fredwu/api_taster) gem
 Status of the API could be checked at `http://localhost:5000/api_taster`.
 
-All API requests, excluding `/v1/authenticate` and `/v1/register`
-should include `authentication_token`:
+All API requests, excluding `/v1/authenticate` and `/v1/register` should include
+`authentication_token`:
 
 ## Endpoints
 
@@ -118,17 +140,20 @@ should include `authentication_token`:
 * GET `'/v1/my_events.json'` -- get the full list of events associated
   with user (including user's group comembers' events)
 
-* POST `'/v1/events/:event_id/pledge.json'` -- create new pledge event(pledge for an event)
+* POST `'/v1/events/:event_id/pledge.json'` -- create new pledge event
+(pledge for an event)
 
 ### Groups
 
-* GET `'/v1/groups.json'` -- returns list of groups, depending on given parameters
+* GET `'/v1/groups.json'` -- returns list of groups, depending on given
+parameters
 
 * POST `'/v1/groups.json'` -- creates a group
 
 * DELETE `'/v1/groups/:group_id.json'` -- deletes a group
 
-* GET `'/v1/my_groups.json'` -- returns the list of groups current user belongs to
+* GET `'/v1/my_groups.json'` -- returns the list of groups current user belongs
+to
 
 ### Requests
 
@@ -142,9 +167,9 @@ should include `authentication_token`:
 
 ### Activities
 
-* GET `'/v1/activities.json'` -- If `threshold_id` was provided, then response will
-  contain only activities applicable for given
-  threshold, else it returns full list of activities.
+* GET `'/v1/activities.json'` -- If `threshold_id` was provided, then response
+  will contain only activities applicable for given threshold, else it returns
+  full list of activities.
 
 ### Categories
 
@@ -153,8 +178,9 @@ should include `authentication_token`:
 ### Images
 
 * GET `'/v1/image/:objects/:id(/:version)'` -- returns image for given object.
-If `version` is provided it will return this version of image. Else it will response with base version.
-`:objects` can be `users`, `friends` or `activities`.
+  If `version` is provided it will return this version of image. Else it will
+  response with base version.
+  `:objects` can be `users`, `friends` or `activities`.
 
 ## What's included
 
@@ -162,31 +188,45 @@ Application currently based on Rails 3.2 stable branch and Ruby 1.9
 
 ### Application gems:
 
-* [Decent Exposure](https://github.com/voxdolo/decent_exposure) for DRY controllers
+* [Decent Exposure](https://github.com/voxdolo/decent_exposure) for DRY
+  controllers
 * [Airbrake](https://github.com/airbrake/airbrake) for exception notification
 * [Thin](https://github.com/macournoyer/thin) as rails web server
-* [Strong Parameters](https://github.com/rails/strong_parameters) to prevent mass assignment
+* [Strong Parameters](https://github.com/rails/strong_parameters) to prevent
+  mass assignment
 
 ### Development gems
 
-* [Foreman](https://github.com/ddollar/foreman) for managing development stack with Procfile
-* [Letter Opener](https://github.com/ryanb/letter_opener) for preview mail in the browser instead of sending
-* [Mail Safe](https://github.com/myronmarston/mail_safe) keep ActionMailer emails from escaping into the wild during development
-* [Bullet](https://github.com/flyerhzm/bullet) gem to kill N+1 queries and unused eager loading
-* [Rails Best Practices](https://github.com/railsbp/rails_best_practices) code metric tool
-* [Brakeman](https://github.com/presidentbeef/brakeman) static analysis security vulnerability scanner
+* [Foreman](https://github.com/ddollar/foreman) for managing development stack
+  with Procfile
+* [Letter Opener](https://github.com/ryanb/letter_opener) for preview mail in
+  the browser instead of sending
+* [Mail Safe](https://github.com/myronmarston/mail_safe) keep ActionMailer
+  emails from escaping into the wild during development
+* [Bullet](https://github.com/flyerhzm/bullet) gem to kill N+1 queries and
+  unused eager loading
+* [Rails Best Practices](https://github.com/railsbp/rails_best_practices) code
+  metric tool
+* [Brakeman](https://github.com/presidentbeef/brakeman) static analysis security
+  vulnerability scanner
 
 ### Testing gems
 
-* [Factory Girl](https://github.com/thoughtbot/factory_girl) for easier creation of test data
-* [RSpec](https://github.com/rspec/rspec) for awesome, readable isolation testing
-* [Shoulda Matchers](http://github.com/thoughtbot/shoulda-matchers) for frequently needed Rails and RSpec matchers
-* [Email Spec](https://github.com/bmabey/email-spec) Collection of rspec matchers and cucumber steps for testing emails
-* [ApiTaster](https://github.com/fredwu/api_taster) A quick and easy way to visually test your Rails application's API.
+* [Factory Girl](https://github.com/thoughtbot/factory_girl) for easier creation
+  of test data
+* [RSpec](https://github.com/rspec/rspec) for awesome, readable isolation
+  testing
+* [Shoulda Matchers](http://github.com/thoughtbot/shoulda-matchers) for
+  frequently needed Rails and RSpec matchers
+* [Email Spec](https://github.com/bmabey/email-spec) Collection of rspec
+  matchers and cucumber steps for testing emails
+* [ApiTaster](https://github.com/fredwu/api_taster) A quick and easy way to
+  visually test your Rails application's API.
 
 ### Initializes
 
 * `01_config.rb` - shortcut for getting application config with `app_config`
 * `mailer.rb` - setup default hosts for mailer from configuration
-* `time_formats.rb` - setup default time formats, so you can use them like object.create_at.to_s(:us_time)
+* `time_formats.rb` - setup default time formats, so you can use them like
+  object.create_at.to_s(:us_time)
 * `requires.rb` - automatically requires everything in lib/ & lib/extensions
