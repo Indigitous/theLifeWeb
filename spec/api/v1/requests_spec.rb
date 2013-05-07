@@ -148,4 +148,78 @@ describe 'v1/requests' do
       end
     end
   end
+
+  describe 'deleting requests' do
+    let(:invite_request) do
+      create :membership_request,
+        user: user,
+        group: another_group
+    end
+
+    let(:deleting_request) do
+      delete "/v1/requests/#{invite_request.id}",
+        authentication_token: user.authentication_token
+    end
+
+    subject { -> { deleting_request } }
+
+    it { should raise_error(ActiveRecord::RecordNotFound) }
+
+    context 'with ACCEPTED status' do
+      let(:invite_request) do
+      create :membership_request,
+        :accepted,
+        user: user,
+        group: another_group
+      end
+
+      it { should destroy_from_db(invite_request) }
+    end
+
+    context 'with REJECTED status' do
+      let(:invite_request) do
+        create :membership_request,
+          :rejected,
+          user: user,
+          group: another_group
+      end
+
+      it { should destroy_from_db(invite_request) }
+    end
+
+    context "received for the owned group" do
+      let(:invite_request) do
+        create :membership_request,
+          :accepted,
+          user: another_user,
+          group: group
+      end
+
+      it { should raise_error(ActiveRecord::RecordNotFound) }
+    end
+
+    context "personally received" do
+      let(:invite_request) do
+        create :invite_request,
+          :accepted,
+          user: another_user,
+          group: another_group,
+          email: user.email
+      end
+
+      it { should raise_error(ActiveRecord::RecordNotFound) }
+    end
+
+    context "sended to another user" do
+      let(:invite_request) do
+        create :invite_request,
+          :accepted,
+          user: user,
+          email: another_user.email,
+          group: group
+      end
+
+      it { should destroy_from_db(invite_request) }
+    end
+  end
 end
