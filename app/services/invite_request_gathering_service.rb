@@ -14,7 +14,7 @@ class InviteRequestGatheringService
   end
 
   def created_by_me
-    @user.invite_requests
+    @user.invite_requests.includes(:user, :group)
   end
 
   def received_personally
