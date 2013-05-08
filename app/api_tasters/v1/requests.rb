@@ -29,4 +29,12 @@ ApiTaster::RouteCollector.route do
     user_id: Examples.invited_user.id,
     accept: true,
     authentication_token: Examples.invited_user.authentication_token
+
+  desc <<-markdown.strip_heredoc
+    ## Removing an accepted request
+  markdown
+
+  delete "/v1/requests/:id",
+    id: Examples.invite_request.id,
+    authentication_token: Examples.invited_user.authentication_token
 end

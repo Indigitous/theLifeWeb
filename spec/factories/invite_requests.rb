@@ -10,5 +10,13 @@ FactoryGirl.define do
     factory :membership_request do
       kind InviteRequest::REQUEST_MEMBERSHIP
     end
+
+    trait :accepted do
+      status InviteRequest::ACCEPTED
+    end
+
+    trait :rejected do
+      status InviteRequest::REJECTED
+    end
   end
 end

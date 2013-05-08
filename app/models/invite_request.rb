@@ -11,6 +11,8 @@ class InviteRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
 
+  scope :accepted_or_rejected, where(status: [ACCEPTED, REJECTED])
+
   delegate :invite?, :request_membership?, to: :type
   delegate :full_name, to: :user, prefix: true
   delegate :name, to: :group, prefix: true
