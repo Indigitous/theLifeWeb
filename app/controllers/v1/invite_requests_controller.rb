@@ -1,8 +1,8 @@
 class V1::InviteRequestsController < V1::BaseController
-  expose(:request_to_delete, ancestor: :requests_to_delete)
   expose(:requests_to_delete) do
     current_user.invite_requests.accepted_or_rejected
   end
+  expose(:request_to_delete, ancestor: :requests_to_delete)
 
   expose(:invite_request)
 
@@ -27,7 +27,7 @@ class V1::InviteRequestsController < V1::BaseController
 
   def destroy
     request_to_delete.destroy
-    head :ok
+    head :no_content
   end
 
   private
