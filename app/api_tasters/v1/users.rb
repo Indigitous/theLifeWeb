@@ -10,5 +10,6 @@ ApiTaster::RouteCollector.route do
     email: 'homer@msn.com',
     mobile: '777-888-999-0',
     locale: 'fr',
+    google_registration_id: 'google_registration_id',
     authentication_token: Examples.user.authentication_token
 end
