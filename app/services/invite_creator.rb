@@ -1,3 +1,5 @@
+require 'rake'
+
 class InviteCreator
   def initialize(user, params)
     @user, @params = user, params
@@ -8,7 +10,8 @@ class InviteCreator
     user_is_group_owner? &&
     receiver_is_valid? &&
     invite_request_saved? &&
-    signup_instructions_sent?
+    signup_instructions_sent? &&
+    push_notifications_created?
 
     invite_request
   end
@@ -68,6 +71,33 @@ class InviteCreator
     invite_request.email.blank? || InvitationMailer.signup_instructions(invite_request).deliver
   end
 
+  def push_notifications_created?
+    if receiver.present?
+      create_android_push_notification
+    end
+  end
+
+  def create_android_push_notification
+    if receiver.android_device.present?
+      notification = Gcm::Notification.new
+      notification.device = receiver.android_device
+      notification.data = {
+        registration_ids: [ receiver.android_device.registration_id ],
+        data: {
+          sender_id: @user.id,
+          group: group_id,
+          type: 'INVITE'
+        }
+      }
+      notification.save
+    end
+  end
+
+  def send_push_notifications
+    debugger
+    Rake::Task['gcm:notifications:send'].invoke
+  end
+
   def build_invite_request
     InviteRequest.new(@params) do |invite_request|
       invite_request.user = @user
@@ -92,5 +122,9 @@ class InviteCreator
 
   def group_id
     @params[:group_id]
+  end
+
+  def receiver
+    User.find_by_email(email)
   end
 end
