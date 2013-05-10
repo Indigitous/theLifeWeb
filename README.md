@@ -91,7 +91,42 @@ Application uses
 mass assignment. This gem is a part of Rails 4.0, so there should not be any
 issues while migrating to a new release of Rails.
 
-### 1.7 Misc
+### 1.7 Web-server monitoring
+
+We suggest to use [Rollbar](https://rollbar.com/) for monitoring web-server
+status and errors.
+
+Rollbar is very easy to setup and work with:
+
+1. Register an account or use already registered.
+
+2. Add `rollbar` gem to Gemfile:
+  
+  ```ruby
+  gem 'rollbar', '~> 0.9.6'
+  ```
+
+  and install it
+
+  ```console
+  $ bundle install
+  ```
+
+3. Generate Rollbar initializer with your access token:
+
+  ```console
+  $ rails g rollbar PROJECT_ACCESS_TOKEN
+  ```
+
+4. Now test installation:
+
+  ```console
+  $ rake rollbar:test
+  ```
+
+  You should see exception in the Dashboard in a few seconds.
+
+### 1.8 Misc
 
 Development and test environments use Postgre. Production environment will
 use MySQL engine, so application MUST NOT contain any engine-specific code.
