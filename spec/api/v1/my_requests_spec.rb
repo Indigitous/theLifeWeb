@@ -33,10 +33,10 @@ describe 'v1/my_requests' do
       it { should be_empty }
     end
 
-    context 'when invite request was accepted' do
+    context 'when invite request was rejected' do
       let!(:invite_request) do
         create :invite_request,
-          :accepted,
+          :rejected,
           user: user,
           group: group,
           email: invited_user.email
