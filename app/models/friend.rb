@@ -7,7 +7,6 @@ class Friend < ActiveRecord::Base
   alias_attribute :name, :first_name
 
   validates :first_name,
-    :last_name,
     :user,
     :threshold,
     presence: true
