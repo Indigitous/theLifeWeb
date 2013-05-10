@@ -6,5 +6,10 @@ FactoryGirl.define do
     last_name
     mobile
     locale
+    android_device
+  end
+
+  factory :android_device, class: Gcm::Device do
+    registration_id { Faker::PhoneNumber.phone_number }
   end
 end
