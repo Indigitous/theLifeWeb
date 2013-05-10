@@ -25,7 +25,7 @@ gem 'ActiveAdmin-Globalize3-inputs', :git => "git://github.com/AdrianTeh/ActiveA
 gem 'configatron'
 
 # Push notifications section
-gem 'gcm_on_rails'
+gem 'gcm_on_rails', github: 'timurkhafizov/gcm_on_rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
