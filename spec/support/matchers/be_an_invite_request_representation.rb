@@ -5,7 +5,7 @@ RSpec::Matchers.define :be_an_invite_request_representation do |invite_request|
       user_id
       group_id
       type
-      created_at
+      updated_at
     ]
 
 
