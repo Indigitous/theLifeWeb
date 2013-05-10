@@ -5,8 +5,8 @@ describe 'v1/requests' do
   let(:another_user) { create(:user) }
   let(:group) { create(:group, owner: user) }
   let(:another_group) { create(:group) }
-  let!(:invite_request) { create(:invite_request, user: user, group: group, email: another_user.email) }
-  let!(:membership_request) { create(:membership_request, user: another_user, group: group) }
+  let!(:invite_request) { create(:invite_request, sender: user, group: group, email: another_user.email) }
+  let!(:membership_request) { create(:membership_request, sender: another_user, group: group) }
   let(:authentication_token) { user.authentication_token }
 
   describe 'creating invitations' do
@@ -152,7 +152,7 @@ describe 'v1/requests' do
   describe 'deleting requests' do
     let(:invite_request) do
       create :membership_request,
-        user: user,
+        sender: user,
         group: another_group
     end
 
@@ -169,7 +169,7 @@ describe 'v1/requests' do
       let(:invite_request) do
       create :membership_request,
         :accepted,
-        user: user,
+        sender: user,
         group: another_group
       end
 
@@ -180,7 +180,7 @@ describe 'v1/requests' do
       let(:invite_request) do
         create :membership_request,
           :rejected,
-          user: user,
+          sender: user,
           group: another_group
       end
 
@@ -191,7 +191,7 @@ describe 'v1/requests' do
       let(:invite_request) do
         create :membership_request,
           :accepted,
-          user: another_user,
+          sender: another_user,
           group: group
       end
 
@@ -202,7 +202,7 @@ describe 'v1/requests' do
       let(:invite_request) do
         create :invite_request,
           :accepted,
-          user: another_user,
+          sender: another_user,
           group: another_group,
           email: user.email
       end
@@ -214,7 +214,7 @@ describe 'v1/requests' do
       let(:invite_request) do
         create :invite_request,
           :accepted,
-          user: user,
+          sender: user,
           email: another_user.email,
           group: group
       end

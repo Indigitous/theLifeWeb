@@ -17,21 +17,21 @@ class InviteRequestGatheringService
     @user
       .invite_requests
       .accepted_or_rejected
-      .includes(:user, :group)
+      .includes(:group)
   end
 
   def received_personally
     InviteRequest
       .where(email: @user.email, kind: InviteRequest::INVITE)
       .delivered
-      .includes(:user, :group)
+      .includes(:sender, :group)
   end
 
   def received_in_groups
     InviteRequest
       .where(group_id: owned_group_ids, kind: InviteRequest::REQUEST_MEMBERSHIP)
       .delivered
-      .includes(:user, :group)
+      .includes(:sender, :group)
   end
 
   def owned_group_ids

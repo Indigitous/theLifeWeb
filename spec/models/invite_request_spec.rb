@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe InviteRequest do
   describe 'validations' do
-    it { should validate_presence_of :user }
+    it { should validate_presence_of :sender }
     it { should validate_presence_of :group }
     it { should validate_presence_of :kind }
     it { should ensure_inclusion_of(:kind).in_array(InviteRequest::TYPES) }
@@ -24,20 +24,20 @@ describe InviteRequest do
   end
 
   describe 'associations' do
-    it { should belong_to :user }
+    it { should belong_to :sender }
     it { should belong_to :group }
   end
 
   describe '#user_name' do
-    let(:inviter) { stub_model(User, full_name: 'Inviter') }
-    let(:invited_user) { stub_model(User, full_name: 'Invited') }
+    let(:sender) { stub_model(User, full_name: 'Inviter') }
+    let(:recipient) { stub_model(User, full_name: 'Invited') }
     let(:status) { InviteRequest::DELIVERED }
 
     let(:invite_request) do
       described_class.new do |invite_request|
         invite_request.status = status
-        invite_request.user = inviter
-        invite_request.invited_user = invited_user
+        invite_request.sender = sender
+        invite_request.recipient = recipient
       end
     end
 

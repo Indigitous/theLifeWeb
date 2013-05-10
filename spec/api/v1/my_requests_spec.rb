@@ -7,7 +7,7 @@ describe 'v1/my_requests' do
   let(:group) { create(:group, owner: user) }
 
   let!(:invite_request) do
-    create(:invite_request, user: user, group: group, email: invited_user.email)
+    create(:invite_request, sender: user, group: group, email: invited_user.email)
   end
 
   subject { json_response_body }

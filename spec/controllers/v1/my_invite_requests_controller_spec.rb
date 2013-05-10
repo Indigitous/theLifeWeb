@@ -6,7 +6,7 @@ describe V1::MyInviteRequestsController do
   let(:invited_user) { create(:user) }
 
   let(:invite_request) do
-    build(:invite_request, user: user, group: group, email: invited_user.email)
+    build(:invite_request, sender: user, group: group, email: invited_user.email)
   end
   let(:invite_requests) { [invite_request] }
 

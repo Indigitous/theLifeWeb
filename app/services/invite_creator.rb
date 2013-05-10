@@ -70,7 +70,7 @@ class InviteCreator
 
   def build_invite_request
     InviteRequest.new(@params) do |invite_request|
-      invite_request.user = @user
+      invite_request.sender = @user
     end
   end
 
