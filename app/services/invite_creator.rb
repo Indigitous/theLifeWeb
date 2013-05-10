@@ -93,11 +93,6 @@ class InviteCreator
     end
   end
 
-  def send_push_notifications
-    debugger
-    Rake::Task['gcm:notifications:send'].invoke
-  end
-
   def build_invite_request
     InviteRequest.new(@params) do |invite_request|
       invite_request.user = @user
