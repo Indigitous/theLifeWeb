@@ -10,6 +10,7 @@ class CreateGcmDevices < ActiveRecord::Migration
     end
 
     add_index :gcm_devices, :registration_id, :unique => true
+    add_index :gcm_devices, :user_id
   end
 
   def down

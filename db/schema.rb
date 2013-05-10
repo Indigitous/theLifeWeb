@@ -128,14 +128,15 @@ ActiveRecord::Schema.define(:version => 20130510110959) do
   add_index "friends", ["user_id"], :name => "index_friends_on_user_id"
 
   create_table "gcm_devices", :force => true do |t|
-    t.string   "registration_id",    :null => false
+    t.string   "registration_id",    :default => "some_google_registration_id", :null => false
     t.datetime "last_registered_at"
     t.integer  "user_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
   end
 
   add_index "gcm_devices", ["registration_id"], :name => "index_gcm_devices_on_registration_id", :unique => true
+  add_index "gcm_devices", ["user_id"], :name => "index_gcm_devices_on_user_id"
 
   create_table "gcm_notifications", :force => true do |t|
     t.integer  "device_id",        :null => false
