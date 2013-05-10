@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20130510110959) do
   create_table "gcm_devices", :force => true do |t|
     t.string   "registration_id",    :null => false
     t.datetime "last_registered_at"
+    t.integer  "user_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
@@ -225,7 +226,6 @@ ActiveRecord::Schema.define(:version => 20130510110959) do
     t.string   "mobile"
     t.string   "image"
     t.string   "locale",                 :default => "en", :null => false
-    t.string   "google_registration_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

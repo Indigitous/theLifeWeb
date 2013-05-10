@@ -1,9 +1,7 @@
-class CreateGcmNotifications < ActiveRecord::Migration # :nodoc:
-
-  def self.up
-
+class CreateGcmNotifications < ActiveRecord::Migration
+  def up
     create_table :gcm_notifications do |t|
-      t.integer :device_id, :null => false
+      t.integer :device_id, null: false
       t.string :collapse_key
       t.text :data
       t.boolean :delay_while_idle
@@ -15,7 +13,7 @@ class CreateGcmNotifications < ActiveRecord::Migration # :nodoc:
     add_index :gcm_notifications, :device_id
   end
 
-  def self.down
+  def down
     drop_table :gcm_notifications
   end
 end
