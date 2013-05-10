@@ -21,7 +21,7 @@ class InviteRequest < ActiveRecord::Base
 
   delegate :invite?, :request_membership?, to: :type
   delegate :full_name, to: :user, prefix: true
-  delegate :full_name, to: :invited_user, prefix: true
+  delegate :full_name, to: :invited_user, prefix: true, allow_nil: true
   delegate :name, to: :group, prefix: true
 
   alias_method :user_name, :user_full_name
