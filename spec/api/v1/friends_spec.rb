@@ -22,7 +22,7 @@ describe 'v1/friends' do
     context 'when params are not valid' do
       let(:params) { { first_name: 'Homer' } }
 
-      it { should have_error("can't be blank").on('last_name') }
+      it { should have_error("can't be blank").on('threshold') }
     end
   end
 
