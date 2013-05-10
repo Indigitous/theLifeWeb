@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
          :recoverable, :trackable, :validatable,
          :token_authenticatable
 
+  has_one :android_device, class_name: 'Gcm::Device'
+
   has_many :friends, dependent: :destroy
   has_many :events
 
