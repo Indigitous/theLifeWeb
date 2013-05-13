@@ -12,9 +12,13 @@ class V1::UsersController < V1::BaseController
   end
 
   def update
-    android_device = current_user.android_device
-    android_device.registration_id = params[:android_device][:registration_id]
-    android_device.save
+    if current_user.android_device.present?
+      android_device = current_user.android_device
+      unless params[:android_device].blank?
+        android_device.registration_id = params[:android_device][:registration_id]
+      end
+      android_device.save
+    end
 
     current_user.attributes = user_params
     current_user.save
