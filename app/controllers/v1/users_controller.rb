@@ -2,13 +2,20 @@ class V1::UsersController < V1::BaseController
   expose(:group)
   expose(:users, ancestor: :group)
 
-  wrap_parameters :user, exclude: [Devise.token_authentication_key]
+  wrap_parameters :user, exclude: [
+    Devise.token_authentication_key,
+    :android_device
+  ]
 
   def index
     respond_with(users)
   end
 
   def update
+    android_device = current_user.android_device
+    android_device.registration_id = params[:android_device][:registration_id]
+    android_device.save
+
     current_user.attributes = user_params
     current_user.save
 
@@ -29,8 +36,7 @@ class V1::UsersController < V1::BaseController
       :email,
       :mobile,
       :locale,
-      :image,
-      :google_registration_id
+      :image
     ]
 
     params.require(:user).permit(*allowed_params)
