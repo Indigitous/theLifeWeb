@@ -23,7 +23,8 @@ class V1::RegistrationsController < Devise::RegistrationsController
       :email,
       :password,
       :mobile,
-      :locale
+      :locale,
+      :apple_token
     ]
 
     params.require(:user).permit(*allowed_params)

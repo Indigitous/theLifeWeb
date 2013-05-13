@@ -6,5 +6,6 @@ FactoryGirl.define do
     last_name
     mobile
     locale
+    apple_token
   end
 end

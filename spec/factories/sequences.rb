@@ -7,4 +7,5 @@ FactoryGirl.define do
   sequence(:description, aliases: [:full_description]) { Faker::Company.catch_phrase }
   sequence(:mobile) { Faker::PhoneNumber.phone_number }
   sequence(:locale) { 'en' }
+  sequence(:apple_token) { Faker::Lorem.characters(120) }
 end

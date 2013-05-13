@@ -22,6 +22,9 @@ gem 'globalize3'
 gem 'rails-i18n'
 gem 'ActiveAdmin-Globalize3-inputs', :git => "git://github.com/AdrianTeh/ActiveAdmin-Globalize3-inputs.git"
 
+# Push notifications
+gem 'apn_sender', require: 'apn'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

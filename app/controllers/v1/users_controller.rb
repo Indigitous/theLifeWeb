@@ -29,7 +29,8 @@ class V1::UsersController < V1::BaseController
       :email,
       :mobile,
       :locale,
-      :image
+      :image,
+      :apple_token
     ]
 
     params.require(:user).permit(*allowed_params)

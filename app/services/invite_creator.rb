@@ -8,7 +8,8 @@ class InviteCreator
     user_is_group_owner? &&
     receiver_is_valid? &&
     invite_request_saved? &&
-    signup_instructions_sent?
+    signup_instructions_sent? &&
+    push_notifications_sent?
 
     invite_request
   end
@@ -68,6 +69,20 @@ class InviteCreator
     invite_request.email.blank? || InvitationMailer.signup_instructions(invite_request).deliver
   end
 
+  def push_notifications_sent?
+    send_apple_notification if receiver.present?
+  end
+
+  def send_apple_notification
+    if receiver.apple_token.present?
+      options = {}
+      options[:alert] = "#{user.full_name} invites you to a group #{group.name}"
+      APN.notify(receiver.apple_token, options)
+    end
+
+    true
+  end
+
   def build_invite_request
     InviteRequest.new(@params) do |invite_request|
       invite_request.user = @user
@@ -92,5 +107,9 @@ class InviteCreator
 
   def group_id
     @params[:group_id]
+  end
+
+  def receiver
+    User.where("email = ? OR mobile = ?", email, sms).first
   end
 end

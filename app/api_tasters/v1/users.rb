@@ -10,5 +10,6 @@ ApiTaster::RouteCollector.route do
     email: 'homer@msn.com',
     mobile: '777-888-999-0',
     locale: 'fr',
+    apple_token: 'apple_device_token',
     authentication_token: Examples.user.authentication_token
 end
