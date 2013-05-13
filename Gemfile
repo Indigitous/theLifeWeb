@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-gem 'pg'
+#gem 'pg'
+gem 'mysql2'
 gem 'airbrake'
 gem 'thin'
 gem 'decent_exposure'
@@ -62,3 +63,8 @@ group :development, :test, :staging do
   gem 'faker', github: 'stympy/faker'
   gem 'factory_girl_rails'
 end
+
+group :production do
+  gem 'rollbar', '~> 0.9.6'
+end
+
