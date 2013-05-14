@@ -65,7 +65,8 @@ class InviteCreator
   end
 
   def signup_instructions_sent?
-    invite_request.email.blank? || InvitationMailer.signup_instructions(invite_request).deliver
+    invite_request.email.blank? ||
+    MailSenderService.new(invite_request).send_signup_instructions
   end
 
   def build_invite_request

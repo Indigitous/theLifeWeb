@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-#gem 'pg'
-gem 'mysql2'
 gem 'airbrake'
 gem 'thin'
 gem 'decent_exposure'
@@ -22,6 +20,7 @@ gem 'mini_magick'
 gem 'globalize3'
 gem 'rails-i18n'
 gem 'ActiveAdmin-Globalize3-inputs', :git => "git://github.com/AdrianTeh/ActiveAdmin-Globalize3-inputs.git"
+gem 'mandrill-api'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -43,6 +42,7 @@ group :development, :test do
   gem 'mail_safe'
   gem 'rails_best_practices'
   gem 'brakeman'
+  gem 'pg'
 end
 
 group :test do
@@ -66,5 +66,6 @@ end
 
 group :production do
   gem 'rollbar', '~> 0.9.6'
+  gem 'mysql2'
 end
 

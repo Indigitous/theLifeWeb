@@ -11,6 +11,7 @@ describe 'v1/requests' do
 
   describe 'creating invitations' do
     before do
+      MailSenderService.any_instance.stub(send_signup_instructions: true)
       post 'v1/requests', params.merge(authentication_token: authentication_token)
     end
 
