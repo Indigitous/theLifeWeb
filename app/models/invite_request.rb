@@ -11,11 +11,6 @@ class InviteRequest < ActiveRecord::Base
   belongs_to :sender, class_name: 'User', foreign_key: :user_id
   belongs_to :group
 
-  belongs_to :recipient,
-    class_name: 'User',
-    foreign_key: :email,
-    primary_key: :email
-
   scope :accepted_or_rejected, where(status: [ACCEPTED, REJECTED])
   scope :delivered, where(status: DELIVERED)
 
