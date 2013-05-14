@@ -37,8 +37,11 @@ describe InviteRequest do
       described_class.new do |invite_request|
         invite_request.status = status
         invite_request.sender = sender
-        invite_request.recipient = recipient
       end
+    end
+
+    before do
+      invite_request.stub(recipient: recipient)
     end
 
     subject {  invite_request.user_name }

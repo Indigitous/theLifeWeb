@@ -36,6 +36,10 @@ class InviteRequest < ActiveRecord::Base
 
   validate :members_quota
 
+  def recipient
+    User.where('email = ? OR mobile = ?', email, sms).first
+  end
+
   def type
     self[:kind].to_s.downcase.inquiry
   end
