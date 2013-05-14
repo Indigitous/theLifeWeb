@@ -25,7 +25,7 @@ describe 'v1/requests' do
         }
       end
 
-      it { should be_an_invite_request_representation(group.invite_requests.first) }
+      it { should be_an_invite_request_representation(group.invite_requests.last) }
 
       context 'with invalid params' do
         let(:params) { { group_id: group.id, type: 'INVITE' } }

@@ -25,7 +25,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :invite_request,
           :accepted,
-          user: user,
+          sender: user,
           group: group,
           email: invited_user.email
       end
@@ -37,7 +37,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :invite_request,
           :rejected,
-          user: user,
+          sender: user,
           group: group,
           email: invited_user.email
       end
@@ -49,7 +49,7 @@ describe 'v1/my_requests' do
   describe "get invited user request membership requests" do
     let!(:invite_request) do
       create :membership_request,
-        user: invited_user,
+        sender: invited_user,
         group: group,
         email: user.email
     end
@@ -60,7 +60,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :membership_request,
           :accepted,
-          user: invited_user,
+          sender: invited_user,
           group: group,
           email: user.email
       end
@@ -72,7 +72,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :membership_request,
           :rejected,
-          user: invited_user,
+          sender: invited_user,
           group: group,
           email: user.email
       end
@@ -92,7 +92,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :invite_request,
           :accepted,
-          user: user,
+          sender: user,
           group: group,
           email: invited_user.email
       end
@@ -104,7 +104,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :invite_request,
           :rejected,
-          user: user,
+          sender: user,
           group: group,
           email: invited_user.email
       end
@@ -118,7 +118,7 @@ describe 'v1/my_requests' do
 
     let!(:invite_request) do
       create :membership_request,
-        user: invited_user,
+        sender: invited_user,
         group: group,
         email: user.email
     end
@@ -129,7 +129,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :membership_request,
           :accepted,
-          user: invited_user,
+          sender: invited_user,
           group: group,
           email: user.email
       end
@@ -141,7 +141,7 @@ describe 'v1/my_requests' do
       let!(:invite_request) do
         create :membership_request,
           :rejected,
-          user: invited_user,
+          sender: invited_user,
           group: group,
           email: user.email
       end
