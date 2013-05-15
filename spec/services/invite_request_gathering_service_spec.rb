@@ -8,11 +8,11 @@ describe InviteRequestGatheringService do
   let(:another_group) { create(:group, owner: another_user) }
 
   let(:invite_request) do
-    create(:invite_request, user: user, group: group, email: another_user.email)
+    create(:invite_request, sender: user, group: group, email: another_user.email)
   end
 
   let(:membership_request) do
-    create(:membership_request, user: third_user, group: another_group)
+    create(:membership_request, sender: third_user, group: another_group)
   end
 
   let(:invite_requests) { [invite_request, membership_request] }

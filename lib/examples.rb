@@ -6,7 +6,7 @@ module Examples
   end
 
   def user_id
-    2147483647
+    1
   end
 
   def invited_user
@@ -51,34 +51,47 @@ module Examples
 
   def setup!
     ActiveRecord::Base.transaction do
-      FactoryGirl.create_list(:user, 5)
-      FactoryGirl.create_list(:group, 3)
-      FactoryGirl.create_list(:category, 3)
-      FactoryGirl.create_list(:activity, 2)
-
-      FactoryGirl.create :admin_user,
-        :email => 'admin@example.com',
-        :password => 'password',
-        :password_confirmation => 'password'
-
-      user = FactoryGirl.create :user,
+      FactoryGirl.create :user,
         id: user_id,
-        password: password,
-        groups: [Group.first]
+        password: password
+      puts 'User for `api_taster` has been created'
 
-      invited_user = FactoryGirl.create :user,
+      FactoryGirl.create :group,
+        owner: user
+      puts 'Group for a main user has been created'
+
+      FactoryGirl.create :friend,
+        user: user
+      puts 'Friend for a main user has been created'
+
+      FactoryGirl.create :user,
         email: invited_user_email,
         password: password
+      puts 'Invited user has been created'
 
-      FactoryGirl.create(:friend, user: user)
+      FactoryGirl.create_list(:category, 3)
+      puts 'Categories have been created'
+
+      FactoryGirl.create_list(:activity, 2)
+      puts 'Activities have been created'
+
+      FactoryGirl.create :admin_user,
+        email: 'admin@example.com',
+        password: 'password',
+        password_confirmation: 'password'
+      puts 'Admin user has been created'
 
       FactoryGirl.create_list :group_event, 6,
         prayer_requested: true,
         group_users: [user],
         activity: activity
+      puts 'Group events have been created'
 
-      group = FactoryGirl.create(:group, owner: user)
-      FactoryGirl.create(:invite_request, user: user, group: group, email: invited_user.email)
+      FactoryGirl.create :invite_request,
+        sender: user,
+        group: group,
+        email: invited_user.email
+      puts 'Invite Request has been created'
     end
   end
 end

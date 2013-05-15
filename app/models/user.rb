@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
+#  validates :mobile, uniqueness: { allow_nil: true }
+
   mount_uploader :image, ImageUploader
 
   def full_name
