@@ -68,7 +68,6 @@ describe InviteCreator do
 
     context 'with valid params' do
       it 'saves to database and send_signup_instructions' do
-        MailSenderService.any_instance.stub(send_signup_instructions: true)
         MailSenderService.any_instance.should_receive(:send_signup_instructions)
         should be_persisted
       end

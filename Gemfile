@@ -43,7 +43,6 @@ group :development, :test do
   gem 'mail_safe'
   gem 'rails_best_practices'
   gem 'brakeman'
-  gem 'pg'
 end
 
 group :test do
@@ -68,4 +67,3 @@ end
 group :production do
   gem 'rollbar', '~> 0.9.6'
 end
-

@@ -10,11 +10,12 @@ class MailSenderService
   end
 
   def send_signup_instructions
-    @user, @group = @object.user, @object.group
+    @sender, @group = @object.sender, @object.group
+    @recipient_email = @object.email
 
     message_html = [
       I18n.t('email.invitation.greeting'),
-      I18n.t('email.invitation.body', name: @user.full_name, group_name: @group.name),
+      I18n.t('email.invitation.body', name: @sender.full_name, group_name: @group.name),
       I18n.t('email.invitation.instructions'),
     ].join("<br />")
 
@@ -22,18 +23,17 @@ class MailSenderService
       subject: I18n.t('email.invitation.subject', group_name: @group.name),
       html: message_html,
       to:[
-        {
-          email: @user.email,
-          name: @user.full_name
-        }
+        { email: @recipient_email }
       ]
     }
 
     send
   end
 
+  private
+
   def send
-    if Rails.env == 'production'
+    if Rails.env.production?
       mandrill = Mandrill::API.new
 
       message = @default_message_hash.merge(@message_hash)

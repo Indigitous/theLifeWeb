@@ -8,7 +8,6 @@ describe V1::InviteRequestsController do
 
   before do
     sign_in(user)
-    MailSenderService.any_instance.stub(send_signup_instructions: true)
   end
 
   it_behaves_like('a controller that requires an authentication') do
