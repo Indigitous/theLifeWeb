@@ -14,19 +14,24 @@ class InviteRequestGatheringService
   end
 
   def created_by_me
-    @user.invite_requests.includes(:user, :group)
+    @user
+      .invite_requests
+      .accepted_or_rejected
+      .includes(:group)
   end
 
   def received_personally
     InviteRequest
       .where(email: @user.email, kind: InviteRequest::INVITE)
-      .includes(:user, :group)
+      .delivered
+      .includes(:sender, :group)
   end
 
   def received_in_groups
     InviteRequest
       .where(group_id: owned_group_ids, kind: InviteRequest::REQUEST_MEMBERSHIP)
-      .includes(:user, :group)
+      .delivered
+      .includes(:sender, :group)
   end
 
   def owned_group_ids

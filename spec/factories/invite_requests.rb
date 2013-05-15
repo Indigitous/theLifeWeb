@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :invite_request do
-    user
+    sender
     group
 
     email
