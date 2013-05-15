@@ -33,10 +33,12 @@ class MailSenderService
   end
 
   def send
-    mandrill = Mandrill::API.new
+    if Rails.env == 'production'
+      mandrill = Mandrill::API.new
 
-    message = @default_message_hash.merge(@message_hash)
+      message = @default_message_hash.merge(@message_hash)
 
-    sending = mandrill.messages.send message
+      mandrill.messages.send message
+    end
   end
 end
