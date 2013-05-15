@@ -37,7 +37,7 @@ class InviteRequester
 
   def build_invite_request
     InviteRequest.new(@params) do |invite_request|
-      invite_request.user = @user
+      invite_request.sender = @user
       invite_request.kind = InviteRequest::REQUEST_MEMBERSHIP
     end
   end

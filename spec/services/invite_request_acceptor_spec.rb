@@ -4,7 +4,7 @@ describe InviteRequestAcceptor do
   let(:current_user) { create(:user) }
   let(:group) { create(:group, owner: current_user) }
   let(:user) { create(:user) }
-  let(:invite_request) { create(:invite_request, user: current_user, group: group, email: user.email) }
+  let(:invite_request) { create(:invite_request, sender: current_user, group: group, email: user.email) }
 
   let(:params) { { user: user.id } }
 

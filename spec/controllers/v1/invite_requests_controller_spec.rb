@@ -88,8 +88,8 @@ describe V1::InviteRequestsController do
   end
 
   describe '#handle' do
-    let(:invite_request) { create(:invite_request, user: user, group: group, email: another_user.email) }
-    let(:membership_request) { create(:membership_request, user: another_user, group: group) }
+    let(:invite_request) { create(:invite_request, sender: user, group: group, email: another_user.email) }
+    let(:membership_request) { create(:membership_request, sender: another_user, group: group) }
     let(:invite_request_params) do
       {
         id: invite_request.id,

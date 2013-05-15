@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
+gem 'mysql2'
 gem 'airbrake'
 gem 'thin'
 gem 'decent_exposure'
@@ -66,6 +67,5 @@ end
 
 group :production do
   gem 'rollbar', '~> 0.9.6'
-  gem 'mysql2'
 end
 
