@@ -26,7 +26,7 @@ describe '/v1/activities' do
   describe 'show activities modified since given timestamp' do
     let!(:another_activity) { create :activity,
       thresholds: [another_threshold],
-      updated_at: Time.now + 1.hour
+      updated_at: 1.hour.from_now
     }
 
     before do
@@ -34,7 +34,7 @@ describe '/v1/activities' do
 
       get 'v1/activities',
         authentication_token: authentication_token,
-        timestamp: (Time.now + 50).to_i
+        timestamp: 1.minute.from_now.to_i
     end
 
     its(:first) { should be_an_activity_representation(another_activity) }
