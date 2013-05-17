@@ -14,6 +14,9 @@ set :scm, :git
 after   'deploy:update_code', 'deploy:assets:precompile'
 before  'deploy:finalize_update', 'deploy:assets:symlink'
 
+# Link uploads
+before  'deploy:finalize_update', 'uploads:symlink'
+
 # Create database symlink
 after   'deploy:update_code', 'db:create_symlink'
 
@@ -29,5 +32,17 @@ namespace :deploy do
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
+
+# Upload path
+namespace :uploads do
+  task :create_uploads_folder do
+    run "mkdir -p #{shared_path}/uploads"
+  end
+
+  task :symlink do
+    create_uploads_folder
+    run "ln -s #{shared_path}/uploads #{latest_release}/uploads"
   end
 end
