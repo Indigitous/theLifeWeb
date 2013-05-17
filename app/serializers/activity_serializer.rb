@@ -8,5 +8,6 @@ class ActivitySerializer < BaseSerializer
     :category_id,
     :priority,
     :threshold_ids,
-    :has_threshold
+    :has_threshold,
+    :server_timestamp
 end

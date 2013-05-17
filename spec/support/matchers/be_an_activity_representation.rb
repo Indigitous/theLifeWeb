@@ -1,6 +1,6 @@
 RSpec::Matchers.define :be_an_activity_representation do |activity|
   match do |json|
-    activity_attributes = activity.sliced_attributes %w[
+    activity_attributes = %w[
       id
       title
       summary
@@ -8,15 +8,12 @@ RSpec::Matchers.define :be_an_activity_representation do |activity|
       category_id
       priority
       has_threshold
-    ]
-
-    activity_accessors = activity.sliced_accessors %w[
       threshold_ids
+      server_timestamp
     ]
-
-    response_attributes = activity_attributes.merge(activity_accessors)
 
     json.should be
-    json.should include_attributes(response_attributes)
+    json.should include_attributes(id: activity.id)
+    json.should be_a_hash_with_keys(activity_attributes)
   end
 end
