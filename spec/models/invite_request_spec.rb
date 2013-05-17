@@ -27,37 +27,4 @@ describe InviteRequest do
     it { should belong_to :sender }
     it { should belong_to :group }
   end
-
-  describe '#user_name' do
-    let(:sender) { stub_model(User, full_name: 'Inviter') }
-    let(:recipient) { stub_model(User, full_name: 'Invited') }
-    let(:status) { InviteRequest::DELIVERED }
-
-    let(:invite_request) do
-      described_class.new do |invite_request|
-        invite_request.status = status
-        invite_request.sender = sender
-      end
-    end
-
-    before do
-      invite_request.stub(recipient: recipient)
-    end
-
-    subject {  invite_request.user_name }
-
-    it { should eq "Inviter" }
-
-    context 'when status is ACCEPTED' do
-      let(:status) { InviteRequest::ACCEPTED }
-
-      it { should eq "Invited" }
-    end
-
-    context 'when status is REJECTED' do
-      let(:status) { InviteRequest::REJECTED }
-
-      it { should eq "Invited" }
-    end
-  end
 end

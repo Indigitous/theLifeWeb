@@ -19,6 +19,11 @@ class InviteRequest < ActiveRecord::Base
   delegate :full_name, to: :recipient, prefix: true, allow_nil: true
   delegate :name, to: :group, prefix: true
 
+  alias_attribute :recipient_email, :email
+
+  alias_method :sender_name, :sender_full_name
+  alias_method :recipient_name, :recipient_full_name
+
   validates :sender,
     :group,
     presence: true
@@ -37,10 +42,6 @@ class InviteRequest < ActiveRecord::Base
 
   def type
     self[:kind].to_s.downcase.inquiry
-  end
-
-  def user_name
-    status == DELIVERED ? sender_full_name : recipient_full_name
   end
 
   private
