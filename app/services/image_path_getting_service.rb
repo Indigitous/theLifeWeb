@@ -21,9 +21,8 @@ class ImagePathGettingService
   end
 
   def user_has_access_to_this_resource?
-    return true if PUBLIC_RESOURCES.include? requested_resources
-
-    accessible_resource_ids.include? resource_id.to_i
+    PUBLIC_RESOURCES.include?(requested_resources) ||
+    accessible_resource_ids.include?(resource_id.to_i)
   end
 
   def resource_exists?
@@ -31,9 +30,7 @@ class ImagePathGettingService
   end
 
   def requested_version_exists?
-    return true unless version.present?
-
-    resource.image.versions.keys.include? version
+    version.blank? || resource.image.versions.has_key?(version.to_sym)
   end
 
   def get_image_for_resource
@@ -52,7 +49,7 @@ class ImagePathGettingService
   end
 
   def resource_class
-    @resource_class ||= requested_resources.singularize.capitalize.constantize
+    @resource_class ||= requested_resources.classify.constantize
   end
 
   def resource_id
@@ -60,7 +57,7 @@ class ImagePathGettingService
   end
 
   def version
-    @params[:version].blank? ? nil : @params[:version].to_sym
+    @params[:version].presence
   end
 
   def requested_resources

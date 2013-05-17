@@ -32,9 +32,11 @@ describe '/v1/users' do
     end
 
     describe "add or update photo for current user" do
-      let(:test_image) { Rack::Test::UploadedFile.new(
-        Rails.root.join('spec', 'fixtures', 'images' , 'test_image.png')
-      )}
+      let(:test_image) do
+        Rack::Test::UploadedFile.new(
+          Rails.root.join('spec', 'fixtures', 'images' , 'test_image.png')
+        )
+      end
 
       let(:params) do
         {
