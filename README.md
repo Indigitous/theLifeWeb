@@ -131,6 +131,56 @@ Rollbar is very easy to setup and work with:
 Development and test environments use Postgre. Production environment will
 use MySQL engine, so application MUST NOT contain any engine-specific code.
 
+
+### 1.9 Capistrano
+
+Capistrano has been integrated for deployment. Capistrano uses multistage deployment for staging and production environments.
+
+To deploy to staging:
+
+```
+cap staging deploy
+```
+
+To deploy to production:
+
+```
+cap production deploy
+```
+
+For a list of Capistrano commands, type:
+
+```
+cap -vT
+```
+
+Asset precompilation is automatic. It should precompile locally and rsync the data to the server. If for whatever reason this fails, you can invoke a manual precompilation with:
+
+```
+cap staging deploy:assets:precompile_and_symlink
+```
+
+You can get into Rails console very quickly by typing
+
+
+```
+cap staging console
+```
+
+You can also get into SSH very quickly with:
+
+```
+cap staging ssh
+```
+
+And view logs:
+
+```
+cap staging log
+```
+
+
+
 # 2. API information
 
 Application includes [`api_taster`](https://github.com/fredwu/api_taster) gem
