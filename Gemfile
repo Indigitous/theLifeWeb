@@ -34,6 +34,7 @@ group :development do
   gem 'letter_opener'
   gem 'foreman'
   gem 'bullet',   '~> 4.6.0'
+  gem 'capistrano'
 end
 
 group :development, :test do
