@@ -100,10 +100,10 @@ en:
 
   email:
     invitation:
-      subject: You have been invited to %{group_name}
-      greeting: Hello
-      body: "%{name} invited you to join %{group_name}"
-      instructions: 'To join, please download theLife app at the Google Play Store, and use this email address to register an account.\nYou can find theLife app at https://play.google.com/store/apps/details?id=com.p2c.thelife&feature=search_result#?t=W251bGwsMSwyLDEsImNvbS5wMmMudGhlbGlmZSJd'
+      subject: "You have been invited to %{group_name}"
+      greeting: "Hello!"
+      body: "%{name} invited you to join %{group_name}.\n\n"
+      instructions: 'To join, please download theLife app at the Google Play Store, and use this email address to register an account.\n\nYou can find theLife app at https://play.google.com/store/apps/details?id=com.p2c.thelife&feature=search_result#?t=W251bGwsMSwyLDEsImNvbS5wMmMudGhlbGlmZSJd'
 
   errors:
     messages:
