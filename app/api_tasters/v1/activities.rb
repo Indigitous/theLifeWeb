@@ -5,5 +5,6 @@ ApiTaster::RouteCollector.route do
 
   get '/v1/activities',
     threshold_id: Examples.threshold.id,
+    timestamp: Time.now.to_i,
     authentication_token: Examples.user.authentication_token
 end
