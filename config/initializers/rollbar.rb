@@ -23,7 +23,7 @@ if defined?(Rollbar)
     # Valid levels: 'critical', 'error', 'warning', 'info', 'debug', 'ignore'
     # 'ignore' will cause the exception to not be reported at all.
     # config.exception_level_filters.merge!('MyCriticalException' => 'critical')
-    #
+
     # Enable asynchronous reporting (uses girl_friday or Threading if girl_friday
     # is not installed)
     # config.use_async = true
