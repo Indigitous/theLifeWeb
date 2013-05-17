@@ -34,7 +34,7 @@ class MailSenderService
 
   def send
     if Rails.env.production?
-      mandrill = Mandrill::API.new
+      mandrill = Mandrill::API.new('9NLFzTBUNHNYAqEFU6vAfA') # P2C
 
       message = @default_message_hash.merge(@message_hash)
 
