@@ -11,6 +11,6 @@ class BaseSerializer < ActiveModel::Serializer
   end
 
   def server_timestamp
-    Time.now().to_i
+    Time.now.to_i
   end
 end
