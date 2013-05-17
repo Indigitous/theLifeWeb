@@ -19,7 +19,7 @@ describe V1::ActivitiesController do
 
     it_behaves_like 'a successfull GET request'
 
-    it 'assigns all activities when no threshold_id is providen' do
+    it 'assigns all activities when no threshold_id and timestamp given' do
       expect(controller.activities).to match_array(activities)
     end
   end
