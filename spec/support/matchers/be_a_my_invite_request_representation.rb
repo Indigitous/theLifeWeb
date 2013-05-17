@@ -9,9 +9,9 @@ RSpec::Matchers.define :be_a_my_invite_request_representation do |invite_request
     ]
 
     accessors = invite_request.sliced_accessors %w[
-      sender_name
+      sender_full_name
       recipient_email
-      recipient_name
+      recipient_full_name
       group_name
     ]
 

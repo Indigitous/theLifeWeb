@@ -21,9 +21,6 @@ class InviteRequest < ActiveRecord::Base
 
   alias_attribute :recipient_email, :email
 
-  alias_method :sender_name, :sender_full_name
-  alias_method :recipient_name, :recipient_full_name
-
   validates :sender,
     :group,
     presence: true
