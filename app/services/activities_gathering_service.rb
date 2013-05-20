@@ -22,11 +22,7 @@ class ActivitiesGatheringService
   end
 
   def filter_activities_by_timestamp
-    if @params[:timestamp].present?
-      @activities = @activities.where(
-        "activities.updated_at > ?", Time.at(@params[:timestamp].to_i)
-      )
-    end
+    @activities = TimestampFilteringService.new(@activities, @params[:timestamp]).filter
   end
 
   def threshold_id

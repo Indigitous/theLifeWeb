@@ -15,4 +15,10 @@ describe '/v1/my_groups' do
 
     it { should be_a_my_group_representation(group) }
   end
+
+  it_behaves_like('an api with timestamps') do
+    let!(:resources) { create_list(:group, 2, users: [current_user]) }
+    let(:auth_token) { authentication_token }
+    let(:resources_url) { polymorphic_path([:v1, :my_groups]) }
+  end
 end
