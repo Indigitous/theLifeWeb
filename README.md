@@ -128,8 +128,9 @@ Rollbar is very easy to setup and work with:
 
 ### 1.8 Misc
 
-Development and test environments use Postgre. Production environment will
-use MySQL engine, so application MUST NOT contain any engine-specific code.
+Stage environment uses Postgre ('cause it is located at Heroku).
+Production environment will use MySQL engine, so application MUST NOT contain
+any engine-specific code.
 
 
 ### 1.9 Capistrano
