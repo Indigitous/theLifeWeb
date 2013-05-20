@@ -1,8 +1,9 @@
 class V1::ActivitiesController < V1::BaseController
-  expose(:activities)
+  expose(:activities) do
+    ActivitiesGatheringService.new(params).gather
+  end
 
   def index
-    self.activities = ActivitiesGatheringService.new(params).gather
     respond_with(activities)
   end
 end
