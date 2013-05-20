@@ -86,7 +86,7 @@ describe 'v1/friends' do
 
     describe "add or update photo for friend" do
       let(:test_image) { Rack::Test::UploadedFile.new(
-        Rails.root.join('spec', 'support', 'images' , 'test_image.png')
+        Rails.root.join('spec', 'fixtures', 'images' , 'test_image.png')
       )}
 
       let(:params) do
