@@ -24,7 +24,7 @@ class ActivitiesGatheringService
   def filter_activities_by_timestamp
     if @params[:timestamp].present?
       @activities = @activities.where(
-        "updated_at > ?", Time.at(@params[:timestamp].to_i)
+        "activities.updated_at > ?", Time.at(@params[:timestamp].to_i)
       )
     end
   end
