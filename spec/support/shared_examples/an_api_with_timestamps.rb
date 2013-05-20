@@ -1,10 +1,9 @@
 shared_examples 'an api with timestamps' do
   let!(:resources) { create_list(:activity, 2) }
   let(:resources_url) { polymorphic_path([:v1, resources.first.class]) }
-  let(:auth_token) { nil }
 
   before do
-    get(resources_url, authentication_token: auth_token)
+    get(resources_url, authentication_token: authentication_token)
   end
 
   subject { json_response_body }
@@ -16,7 +15,7 @@ shared_examples 'an api with timestamps' do
       resources.last.update_attributes(updated_at: 10.minutes.from_now)
 
       get resources_url,
-        authentication_token: auth_token,
+        authentication_token: authentication_token,
         timestamp: 1.minute.from_now.to_i
     end
 
