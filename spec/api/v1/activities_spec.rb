@@ -34,6 +34,7 @@ describe '/v1/activities' do
 
       get 'v1/activities',
         authentication_token: authentication_token,
+        threshold_id: another_threshold.id,
         timestamp: 1.minute.from_now.to_i
     end
 
