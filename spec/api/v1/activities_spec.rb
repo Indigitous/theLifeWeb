@@ -26,6 +26,5 @@ describe '/v1/activities' do
 
   it_behaves_like('an api with timestamps') do
     let(:resources) { create_list(:activity, 2) }
-    let(:auth_token) { authentication_token }
   end
 end
