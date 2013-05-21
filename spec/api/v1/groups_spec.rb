@@ -52,15 +52,12 @@ describe 'v1/groups' do
   end
 
   describe 'list users in a group' do
-    let!(:group) { create :group, users: [current_user] }
+    let!(:group) { create :group, owner: current_user }
 
-    before do
-      get "/v1/groups/#{group.id}/users",
-        authentication_token: authentication_token
+    it_behaves_like 'an api with timestamps' do
+      let!(:resources) { create_list(:user, 2, groups:[group]) }
+      let(:resources_url) { polymorphic_url([:v1, group, :users], only_path: true) }
     end
-
-    it { should be_a_kind_of Array }
-    its(:first) { should be_a_user_representation(current_user) }
   end
 
   describe 'delete a group' do

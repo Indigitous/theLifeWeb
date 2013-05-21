@@ -5,6 +5,8 @@ class V1::UsersController < V1::BaseController
   wrap_parameters :user, exclude: [Devise.token_authentication_key]
 
   def index
+    self.users = TimestampFilteringService.new(users, params[:timestamp]).filter
+
     respond_with(users)
   end
 
