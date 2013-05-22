@@ -5,4 +5,7 @@ shared_examples 'a successfull DELETE request' do
   before { delete action, params }
 
   subject { response }
+
+  it { should be_success }
+  its(:code) { should eq('204') }
 end

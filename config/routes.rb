@@ -19,6 +19,7 @@ TheLifeWeb::Application.routes.draw do
     devise_scope :user do
       post('/authenticate', to: 'sessions#create')
       post('/register', to: 'registrations#create')
+      delete('/users', to: 'registrations#destroy')
     end
 
     resources :friends, only: [:create, :update, :destroy]

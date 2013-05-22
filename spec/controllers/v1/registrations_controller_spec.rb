@@ -5,14 +5,20 @@ describe V1::RegistrationsController do
     set_devise_mapping(:user)
   end
 
+  subject { response }
+
   describe '#create' do
     let(:params) { FactoryGirl.attributes_for(:user) }
 
     before { post(:create, params.merge(format: :json)) }
 
-    it 'responds successfully with an HTTP 201 status code' do
-      expect(response).to be_success
-      expect(response.code).to eq('201')
-    end
+    it { should be_success }
+    its(:code) { should eq('201') }
+  end
+
+  describe '#destroy' do
+    before { sign_in(create(:user)) }
+
+    it_behaves_like 'a successfull DELETE request'
   end
 end

@@ -18,3 +18,12 @@ describe '/v1/register' do
     it { should have_error('has already been taken').on('email') }
   end
 end
+
+describe '/v1/users' do
+  let!(:user) { create :user }
+  let(:params) { { authentication_token: user.authentication_token } }
+  let(:delete_request) { delete '/v1/users', params }
+
+  subject { -> { delete_request } }
+  it { should destroy_from_db(user) }
+end
