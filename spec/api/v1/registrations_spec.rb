@@ -24,7 +24,6 @@ describe '/v1/users' do
   let(:params) { { authentication_token: user.authentication_token } }
   let(:delete_request) { delete '/v1/users', params }
 
-  it 'deletes current user from an application' do
-    expect { delete_request }.to change { User.count }
-  end
+  subject { -> { delete_request } }
+  it { should destroy_from_db(user) }
 end
