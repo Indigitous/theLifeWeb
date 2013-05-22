@@ -209,6 +209,8 @@ All API requests, excluding `/v1/authenticate` and `/v1/register` should include
 
 * DELETE `'/v1/groups/:group_id/users/:id.json'` -- delete user from a group
 
+* DELETE `'/v1/users'` -- delete current user from an application
+
 ### Friends
 
 * POST `'/v1/friends.json'` -- add new friend for current user
