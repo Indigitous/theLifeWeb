@@ -17,11 +17,7 @@ describe V1::RegistrationsController do
   end
 
   describe '#destroy' do
-    let!(:user) { create :user }
-
-    before do
-      sign_in(user)
-    end
+    before { sign_in(create(:user)) }
 
     it_behaves_like 'a successfull DELETE request'
   end
