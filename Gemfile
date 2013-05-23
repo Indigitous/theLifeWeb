@@ -22,6 +22,7 @@ gem 'globalize3'
 gem 'rails-i18n'
 gem 'ActiveAdmin-Globalize3-inputs', :git => "git://github.com/AdrianTeh/ActiveAdmin-Globalize3-inputs.git"
 gem 'mandrill-api'
+gem 'nilify_blanks'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
