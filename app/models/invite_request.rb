@@ -21,6 +21,9 @@ class InviteRequest < ActiveRecord::Base
 
   alias_attribute :recipient_email, :email
 
+  # TODO compatibility with Android 0.81
+  alias_attribute :user_name, :sender_full_name
+
   validates :sender,
     :group,
     presence: true
