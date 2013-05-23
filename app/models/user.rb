@@ -19,7 +19,9 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
-#  validates :mobile, uniqueness: { allow_nil: true }
+  validates :mobile, uniqueness: { allow_nil: true }
+
+  nilify_blanks only: [:mobile], before: :validation
 
   mount_uploader :image, ImageUploader
 
