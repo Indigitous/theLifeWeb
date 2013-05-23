@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   validates :mobile, uniqueness: { allow_nil: true }
 
-  nilify_blanks only: [:mobile]
+  nilify_blanks only: [:mobile], before: :validation
 
   mount_uploader :image, ImageUploader
 
