@@ -30,6 +30,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer'
   gem 'jquery-ui-rails'
+  gem 'slim'
 end
 
 group :development do

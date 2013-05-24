@@ -415,6 +415,7 @@ DEPENDENCIES
   select2-rails
   shoulda-matchers
   simplecov
+  slim
   strong_parameters
   therubyracer
   thin
