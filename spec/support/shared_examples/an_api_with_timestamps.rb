@@ -6,7 +6,7 @@ shared_examples 'an api with timestamps' do
     get(resources_url, authentication_token: authentication_token)
   end
 
-  subject { json_response_body }
+  subject { json_response_body['data'] }
 
   its(:size)  { should eq(resources.count) }
 
@@ -21,5 +21,22 @@ shared_examples 'an api with timestamps' do
 
     its(:size)  { should eq(1) }
     its(:first) { should be_a_representation_of(resources.last) }
+  end
+
+  context 'when no results to return' do
+    let(:time_now) { DateTime.now }
+
+    before do
+      Time.stub(:now).and_return(time_now)
+
+      get resources_url,
+        authentication_token: authentication_token,
+        timestamp: 1.minute.from_now.to_i
+    end
+
+    subject { json_response_body }
+
+    it { should include('data' => []) }
+    it { should include( 'meta' => { 'server_timestamp' => time_now.to_i }) }
   end
 end

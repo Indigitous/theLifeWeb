@@ -11,7 +11,7 @@ describe '/v1/my_groups' do
       get 'v1/my_groups', authentication_token: authentication_token
     end
 
-    subject { json_response_body }
+    subject { json_response_body['data'] }
 
     it { should be_a_my_group_representation(group) }
   end

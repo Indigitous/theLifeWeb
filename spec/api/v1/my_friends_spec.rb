@@ -11,7 +11,7 @@ describe '/v1/my_friends' do
       get 'v1/my_friends', authentication_token: authentication_token
     end
 
-    subject { json_response_body }
+    subject { json_response_body['data'] }
 
     it { should be_a_kind_of Array }
     it { should be_a_friend_representation(friend) }

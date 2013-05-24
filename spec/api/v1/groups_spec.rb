@@ -51,15 +51,6 @@ describe 'v1/groups' do
     end
   end
 
-  describe 'list users in a group' do
-    let!(:group) { create :group, owner: current_user }
-
-    it_behaves_like 'an api with timestamps' do
-      let!(:resources) { create_list(:user, 2, groups: [group]) }
-      let(:resources_url) { polymorphic_path([:v1, group, :users]) }
-    end
-  end
-
   describe 'delete a group' do
     let!(:group) { create(:group, owner: current_user) }
 
