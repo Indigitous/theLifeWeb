@@ -37,6 +37,6 @@ shared_examples 'an api with timestamps' do
     subject { json_response_body }
 
     it { should include('data' => []) }
-    it { should include( 'meta' => { 'server_timestamp' => time_now.to_i }) }
+    it { should include('meta' => { 'server_timestamp' => time_now.to_i }) }
   end
 end
