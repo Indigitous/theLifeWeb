@@ -4,8 +4,7 @@ describe '/v1/activities' do
   let(:current_user) { create :user }
   let(:authentication_token) { current_user.authentication_token }
 
-
-  subject { json_response_body }
+  subject { json_response_body['data'] }
 
   describe 'show activities apllicable for friend' do
     let(:threshold) { create :threshold, title: Threshold::TITLES[0] }

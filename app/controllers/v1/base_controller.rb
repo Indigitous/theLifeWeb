@@ -8,6 +8,16 @@ class V1::BaseController < ApplicationController
     strategy DecentExposure::StrongParametersStrategy
   end
 
+  def self.include_server_timestamp(options = {})
+    only = Array(options[:only])
+
+    define_method(:default_serializer_options) do
+      if only.blank? || only.include?(action_name.to_sym)
+        { root: :data, meta: { server_timestamp: Time.now.to_i } }
+      end
+    end
+  end
+
   private
 
   def skip_trackable
