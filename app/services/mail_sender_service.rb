@@ -14,9 +14,11 @@ class MailSenderService
     @recipient_email = @object.email
 
     message_html = [
-      I18n.t('email.invitation.greeting'),
-      I18n.t('email.invitation.body', name: @sender.full_name, group_name: @group.name),
-      I18n.t('email.invitation.instructions'),
+      "Hello #{@recipient_email},<br /><small>(le texte en suit)</small><br />",
+      "#{@sender.full_name} has invited you to join the beta test of theLife Mobile App! theLife App is a smart evangelism toolbox with the goal of helping you connect your friends to Jesus in meaningful ways. It'll help you evaluate what their current needs are in their journey, and suggest ways to help them take the next step towards knowing God.<br />",
+      "You can <a href=\"https://play.google.com/store/apps/details?id=com.p2c.thelife&feature=search_result#?t=W251bGwsMSwyLDEsImNvbS5wMmMudGhlbGlmZSJd\">download it for Android on the Google Play store</a>. If you don&#39;t have an Android device, please stay tuned, we&#39;ll be releasing an iPhone version soon!<br />",
+      "Yours,<br />theLife App team<br />",
+      "Bonjour #{@recipient_email},<br />",
     ].join("<br />")
 
     @message_hash = {
