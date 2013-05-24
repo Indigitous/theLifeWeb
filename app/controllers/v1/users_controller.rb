@@ -2,6 +2,8 @@ class V1::UsersController < V1::BaseController
   expose(:group)
   expose(:users, ancestor: :group)
 
+  # include_server_timestamp only: :index # TODO Android 0.81 compatibility; separate data and meta/server_timestamp fields
+
   wrap_parameters :user, exclude: [Devise.token_authentication_key]
 
   def index

@@ -21,7 +21,7 @@ class MailSenderService
       "Bonjour #{@recipient_email},<br />",
       "#{@recipient_email} vous a invit&eacute; &agrave; vous joindre au test b&ecirc;ta de laVie Mobile. laVie Mobile est un atelier intelligent pour l'&eacute;vang&eacute;lisation, qui a comme but de vous aider &agrave; connecter vos amis avec J&eacute;sus de fa&ccedil;on significative. Il vous aidera &agrave; &eacute;valuer o&ugrave; vos amis sont dans leur cheminement, et sugg&eacute;rera des actions concr&egrave;tes pour les aider &agrave; prendre le prochain pas vers Dieu.<br />",
       "Vous pouvez le <a href=\"https://play.google.com/store/apps/details?id=com.p2c.thelife&feature=search_result#?t=W251bGwsMSwyLDEsImNvbS5wMmMudGhlbGlmZSJd\">t&eacute;l&eacutecharger pour Android sur Google Play</a>. Si vous n'avez pas d'appareil Android, nous sortirons la version iPhone bient&ocirc;t.<br />",
-     "Cordialement,<br />l'&eacute;quile laVie Mobile", 
+     "Cordialement,<br />l'&eacute;quile laVie Mobile",
     ].join("<br />")
 
     @message_hash = {

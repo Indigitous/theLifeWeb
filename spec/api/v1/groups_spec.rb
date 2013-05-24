@@ -51,34 +51,25 @@ describe 'v1/groups' do
     end
   end
 
-  describe 'list users in a group' do
-    let!(:group) { create :group, owner: current_user }
-
-    it_behaves_like 'an api with timestamps' do
-      let!(:resources) { create_list(:user, 2, groups: [group]) }
-      let(:resources_url) { polymorphic_path([:v1, group, :users]) }
-    end
-  end
-
   describe 'delete a group' do
     let!(:group) { create(:group, owner: current_user) }
+    let(:invite_request) { create :invite_request, group: group, sender: current_user }
 
-    it 'removes group' do
-      expect {
-        delete "/v1/groups/#{group.id}",
-          authentication_token: authentication_token
-      }.to change { Group.count }
+    let(:delete_request) do
+      delete "/v1/groups/#{group.id}",
+        authentication_token: authentication_token
     end
+
+    subject { -> { delete_request } }
+
+    it { should destroy_from_db(group) }
+    it { should destroy_from_db(invite_request) }
 
     describe 'with invalid params' do
       let!(:group) { create(:group) }
 
-      it 'does not remove group' do
-        expect {
-          delete "/v1/groups/#{group.id}",
-            authentication_token: authentication_token
-        }.not_to change { Group.count }
-      end
+      it { should_not destroy_from_db(group) }
+      it { should_not destroy_from_db(invite_request) }
     end
   end
 

@@ -6,6 +6,17 @@ describe '/v1/users' do
   let(:authentication_token) { current_user.authentication_token }
   let(:params) { { first_name: 'Homer', authentication_token: authentication_token } }
 
+  describe 'list users in a group' do
+    subject { json_response_body['data'] }
+
+    let!(:group) { create :group, owner: current_user }
+
+    it_behaves_like 'an api with timestamps' do
+      let!(:resources) { create_list(:user, 2, groups: [group]) }
+      let(:resources_url) { polymorphic_path([:v1, group, :users]) }
+    end
+  end
+
   describe 'updating user profile' do
     context 'with valid params' do
       it 'updates user record' do
