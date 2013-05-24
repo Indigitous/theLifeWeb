@@ -24,10 +24,10 @@ shared_examples 'an api with timestamps' do
   end
 
   context 'when no results to return' do
-    let(:time_now) { DateTime.now }
+    let(:time_now) { Time.now }
 
     before do
-      Time.stub(:now).and_return(time_now)
+      Time.stub(now: time_now)
 
       get resources_url,
         authentication_token: authentication_token,
