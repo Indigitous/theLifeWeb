@@ -25,7 +25,7 @@ class MailSenderService
     ].join("<br />")
 
     @message_hash = {
-      subject: I18n.t('email.invitation.subject', group_name: @group.name),
+      subject: 'test laVie Mobile / theLife Mobile App Beta',
       html: message_html,
       to:[
         { email: @recipient_email }
