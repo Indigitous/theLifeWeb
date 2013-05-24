@@ -16,7 +16,7 @@ AdminUser.create(email: 'admin@p2c.com', password: 'theLife', password_confirmat
 
 # initial activities
 Activity.create(title: 'Change Threshold',
-                summary: '<b>$u</b> has moved <b>$f</b> to <b>$t</b>',
+                summary: '$u has moved $f to $t',
                 full_description: 'Use this activity to move your friend to a new threshold.',
                 thresholds: Threshold.all,
 		has_threshold: true)
