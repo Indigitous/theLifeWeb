@@ -1,17 +1,13 @@
 RSpec::Matchers.define :be_a_category_representation do |category|
   match do |json|
-    category_attributes = category.sliced_attributes %w[
+    category_attributes = %w[
       id
-    ]
-
-    category_accessors = category.sliced_accessors %w[
       name
       description
     ]
 
-    response_attributes = category_attributes.merge(category_accessors)
-
     json.should be
-    json.should include_attributes(response_attributes)
+    json.should include_attributes(id: category.id)
+    json.should be_a_hash_with_keys(category_attributes)
   end
 end
