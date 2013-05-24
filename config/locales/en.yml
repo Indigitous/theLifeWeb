@@ -100,11 +100,10 @@ en:
 
   email:
     invitation:
-      subject: "You have been invited to %{group_name}"
-      greeting: "Hello!"
-      body: "%{name} invited you to join %{group_name}."
-      instructions: 'To join, please download theLife app at the Google Play Store, and use this email address to register an account. You can find theLife app at https://play.google.com/store/apps/details?id=com.p2c.thelife&feature=search_result#?t=W251bGwsMSwyLDEsImNvbS5wMmMudGhlbGlmZSJd'
-
+      greeting_html: "Hello %{email},<br /><small>(le texte en suit)</small>"
+      body_html: "%{name} has invited you to join the beta test of theLife Mobile App! theLife App is a smart evangelism toolbox with the goal of helping you connect your friends to Jesus in meaningful ways. It'll help you evaluate what their current needs are in their journey, and suggest ways to help them take the next step towards knowing God."
+      instructions_html: 'You can %{download_link:download it for Android on the Google Play store}. If you don&#39;t have an Android device, please stay tuned, we&#39;ll be releasing an iPhone version soon!'
+      signature_html: "Yours, <br />theLife App team"
   errors:
     messages:
       group_limit_reached: members limit is reached
