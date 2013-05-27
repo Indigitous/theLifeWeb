@@ -1,4 +1,4 @@
-require 'simplecov/simplecov_rails_api_profile'
+require 'extensions/simplecov/rails_api_profile'
 SimpleCov.start 'rails-api'
 
 ENV["RAILS_ENV"] ||= 'test'
