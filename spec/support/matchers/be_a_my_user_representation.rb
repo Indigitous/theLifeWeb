@@ -1,12 +1,15 @@
-RSpec::Matchers.define :be_a_my_user_representation do |user|
+RSpec::Matchers.define :be_a_my_user_representation do |my_user|
   match do |json|
-    response_attributes = user.sliced_attributes %w[
+    my_user_attributes = %w[
       email
       first_name
       last_name
+      mobile
+      image
+      thumbnail
     ]
 
     json.should be
-    json.should include_attributes(response_attributes)
+    json.should be_a_hash_with_keys(my_user_attributes)
   end
 end
