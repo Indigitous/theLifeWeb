@@ -21,8 +21,8 @@ gem 'mini_magick'
 gem 'globalize3'
 gem 'rails-i18n'
 gem 'ActiveAdmin-Globalize3-inputs', :git => "git://github.com/AdrianTeh/ActiveAdmin-Globalize3-inputs.git"
-gem 'mandrill-api'
 gem 'nilify_blanks'
+gem 'it'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -30,6 +30,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer'
   gem 'jquery-ui-rails'
+  gem 'slim'
 end
 
 group :development do
