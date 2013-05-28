@@ -1,4 +1,4 @@
-ApiTaster::RouteCollector.route do
+ApiTaster.routes do
   desc <<-markdown.strip_heredoc
       ## Show groups user belongs to
     markdown

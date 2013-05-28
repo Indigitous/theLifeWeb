@@ -1,4 +1,4 @@
-ApiTaster::RouteCollector.route do
+ApiTaster.routes do
   desc <<-markdown.strip_heredoc
     ## Get request sent to me and my groups, ordered by request id
   markdown

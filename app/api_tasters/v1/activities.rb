@@ -1,4 +1,4 @@
-ApiTaster::RouteCollector.route do
+ApiTaster.routes do
   desc <<-markdown.strip_heredoc
     ## Show activities applicable to a friend
   markdown

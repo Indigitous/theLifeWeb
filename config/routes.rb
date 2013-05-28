@@ -50,5 +50,3 @@ TheLifeWeb::Application.routes.draw do
 
   mount ApiTaster::Engine => '/api_taster' if defined? ApiTaster::Engine
 end
-
-ApiTaster::RouteCollector.collect! if defined? ApiTaster::Engine
