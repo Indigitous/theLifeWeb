@@ -14,7 +14,7 @@ describe '/v1/my_friends' do
     subject { json_response_body['data'] }
 
     it { should be_a_kind_of Array }
-    it { should be_a_friend_representation(friend) }
+    its(:first) { should be_a_friend_representation(friend) }
   end
 
   it_behaves_like('an api with timestamps') do
