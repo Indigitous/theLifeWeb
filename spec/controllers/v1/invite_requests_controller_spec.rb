@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe V1::InviteRequestsController do
   let(:user) { create(:user) }
-  let(:group) { create(:group, owner: user) }
+  let(:group) { double(:group, id: 1, owner: user) }
   let(:another_user) { create(:user) }
-  let(:another_group) { create(:group) }
 
   before do
     sign_in(user)
@@ -18,6 +17,12 @@ describe V1::InviteRequestsController do
   subject { response }
 
   describe '#create' do
+    before do
+      Group.stub(find_by_id: group)
+      group.stub_chain(:users, :exists?).and_return(false)
+    end
+
+
     context 'inviting person' do
       let(:params) do
         {
@@ -30,6 +35,8 @@ describe V1::InviteRequestsController do
 
       context 'with valid params' do
         before do
+          InviteRequest.any_instance.stub(save: true)
+
           post :create, params
         end
 
@@ -37,14 +44,9 @@ describe V1::InviteRequestsController do
       end
 
       context 'with invalid params' do
-        let(:params) do
-          {
-            group_id: group.id,
-            format: :json
-          }
-        end
-
         before do
+          group.stub_chain(:users, :exists?).and_return(true)
+
           post :create, params
         end
 
@@ -55,14 +57,18 @@ describe V1::InviteRequestsController do
     context 'requesting membership' do
       let(:params) do
         {
-          group_id: another_group.id,
+          group_id: group.id,
           type: 'REQUEST_MEMBERSHIP',
           format: :json
         }
       end
 
       context 'with valid params' do
+        let(:group) { double(:group, id: 2, owner: another_user) }
+
         before do
+          InviteRequest.any_instance.stub(save: true)
+
           post :create, params
         end
 
@@ -70,13 +76,6 @@ describe V1::InviteRequestsController do
       end
 
       context 'with invalid params' do
-        let(:params) do
-          {
-            group_id: group.id,
-            format: :json
-          }
-        end
-
         before do
           post :create, params
         end
@@ -87,7 +86,9 @@ describe V1::InviteRequestsController do
   end
 
   describe '#handle' do
-    let(:invite_request) { create(:invite_request, sender: user, group: group, email: another_user.email) }
+    let(:invite_request) do
+      double(id: 1, sender: user, group_id: group.id, email: another_user.email)
+    end
     let(:membership_request) { create(:membership_request, sender: another_user, group: group) }
     let(:invite_request_params) do
       {
@@ -108,7 +109,15 @@ describe V1::InviteRequestsController do
     end
 
     context 'when user accepts invite' do
-      before { sign_in(another_user) }
+      let(:result) { Object.new }
+      before do
+        InviteRequest.stub(find: invite_request)
+        invite_request.stub(:as_json)
+
+        InviteRequestAcceptor.any_instance.stub(process: invite_request)
+
+        sign_in(another_user)
+      end
 
       context 'with valid params' do
         before do
@@ -120,7 +129,9 @@ describe V1::InviteRequestsController do
 
       context 'with invalid params' do
         before do
-          post :handle, invite_request_params.merge(user: user.id)
+          invite_request.stub(errors: ['error'])
+
+          post :handle, invite_request_params
         end
 
         it_behaves_like 'an :unprocessable_entity response'
