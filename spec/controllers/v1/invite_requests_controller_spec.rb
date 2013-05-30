@@ -86,10 +86,6 @@ describe V1::InviteRequestsController do
   end
 
   describe '#handle' do
-    let(:invite_request) do
-      double(id: 1, sender: user, group_id: group.id, email: another_user.email)
-    end
-    let(:membership_request) { create(:membership_request, sender: another_user, group: group) }
     let(:invite_request_params) do
       {
         id: invite_request.id,
@@ -101,100 +97,135 @@ describe V1::InviteRequestsController do
 
     let(:membership_request_params) do
       {
-        id: membership_request.id,
+        id: invite_request.id,
         accept: true,
         user: another_user.id,
         format: :json
       }
     end
 
-    context 'when user accepts invite' do
-      let(:result) { Object.new }
-      before do
-        InviteRequest.stub(find: invite_request)
-        invite_request.stub(:as_json)
-
-        InviteRequestAcceptor.any_instance.stub(process: invite_request)
-
-        sign_in(another_user)
-      end
-
-      context 'with valid params' do
-        before do
-          post :handle, invite_request_params
-        end
-
-        it_behaves_like 'a :created response'
-      end
-
-      context 'with invalid params' do
-        before do
-          invite_request.stub(errors: ['error'])
-
-          post :handle, invite_request_params
-        end
-
-        it_behaves_like 'an :unprocessable_entity response'
-      end
+    before do
+      InviteRequest.stub(find: invite_request)
+      invite_request.stub(:as_json)
     end
 
-    context 'when group owner accepts membership request' do
-      before { sign_in(user) }
-
-      context 'with valid params' do
-        before do
-          post :handle, membership_request_params
-        end
-
-        it_behaves_like 'a :created response'
+    context 'when invite request is given' do
+      let(:invite_request) do
+        double(:invite_request, id: 1, sender: user, group_id: group.id, email: another_user.email)
       end
 
-      context 'with invalid params' do
-        before do
-          post :handle, membership_request_params.merge(user: user.id)
-        end
-
-        it_behaves_like 'an :unprocessable_entity response'
-      end
-    end
-
-    context 'when user rejects invite' do
       before { sign_in(another_user) }
 
-      context 'with valid params' do
+      context 'user accepts invite request' do
         before do
-          post :handle, invite_request_params.merge(accept: false)
+          InviteRequestAcceptor.any_instance.stub(process: invite_request)
+
+          sign_in(another_user)
         end
 
-        it_behaves_like 'a :no_content response'
+        context 'with valid params' do
+          before do
+            post :handle, invite_request_params
+          end
+
+          it_behaves_like 'a :created response'
+        end
+
+        context 'with invalid params' do
+          before do
+            invite_request.stub(errors: ['error'])
+
+            post :handle, invite_request_params
+          end
+
+          it_behaves_like 'an :unprocessable_entity response'
+        end
       end
 
-      context 'with invalid params' do
+      context 'when user rejects invite' do
         before do
-          post :handle, invite_request_params.merge(accept: false, user: user.id)
+          InviteRequestRejector.any_instance.stub(process: invite_request)
+
+          sign_in(another_user)
         end
 
-        it_behaves_like 'an :unprocessable_entity response'
+        context 'with valid params' do
+          before do
+            invite_request.stub(errors: [])
+
+            post :handle, invite_request_params.merge(accept: false)
+          end
+
+          it_behaves_like 'a :no_content response'
+        end
+
+        context 'with invalid params' do
+          before do
+            invite_request.stub(errors: ['error'])
+
+            post :handle, invite_request_params.merge(accept: false, user: user.id)
+          end
+
+          it_behaves_like 'an :unprocessable_entity response'
+        end
       end
     end
 
-    context 'when group owner rejects membership request' do
-      before { sign_in(user) }
-
-      context 'with valid params' do
-        before do
-          post :handle, membership_request_params.merge(accept: false)
-        end
-
-        it_behaves_like 'a :no_content response'
+    context 'when membership request is given' do
+      let(:invite_request) do
+        double(:membership_request, id: 2, sender: another_user, group: group)
       end
 
-      context 'with invalid params' do
+      before { sign_in(user) }
+
+      context 'group owner accepts membership request' do
         before do
-          post :handle, membership_request_params.merge(accept: false, user: -1)
+          InviteRequestAcceptor.any_instance.stub(process: invite_request)
         end
 
-        it_behaves_like 'an :unprocessable_entity response'
+        context 'with valid params' do
+          before do
+            post :handle, membership_request_params
+          end
+
+          it_behaves_like 'a :created response'
+        end
+
+        context 'with invalid params' do
+          before do
+            invite_request.stub(errors: ['error'])
+
+            post :handle, membership_request_params
+          end
+
+          it_behaves_like 'an :unprocessable_entity response'
+        end
+      end
+
+      context 'when group owner rejects membership request' do
+        before do
+          InviteRequestRejector.any_instance.stub(process: invite_request)
+        end
+
+        context 'with valid params' do
+          before do
+            invite_request.stub(errors: [])
+
+            post :handle, membership_request_params.merge(accept: false)
+          end
+
+          it_behaves_like 'a :no_content response'
+        end
+
+        context 'with invalid params' do
+          before do
+            invite_request.stub(errors: ['error'])
+
+            post :handle, membership_request_params.merge(accept: false, user: -1)
+          end
+
+          it_behaves_like 'an :unprocessable_entity response'
+        end
       end
     end
   end
