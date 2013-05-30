@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe V1::MyInviteRequestsController do
-  let(:user) { create(:user) }
-  let(:group) { create(:group, owner: user) }
+  let(:user) { stub_model(User) }
+  let(:group) { stub_model(Group, owner: user) }
   let(:invited_user) { create(:user) }
 
   let(:invite_request) do
-    build(:invite_request, sender: user, group: group, email: invited_user.email)
+    stub_model(InviteRequest, sender: user, group: group, email: invited_user.email)
   end
   let(:invite_requests) { [invite_request] }
 
