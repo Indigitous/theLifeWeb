@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe V1::MyEventsController do
-  let(:current_user) { create(:user) }
+  let(:current_user) { stub_model(User) }
 
   before { sign_in(current_user) }
 

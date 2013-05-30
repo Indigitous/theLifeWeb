@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe V1::FriendsController do
-  let(:current_user) { create :user }
+  let(:current_user) { stub_model(User) }
   before { sign_in(current_user) }
 
   it_behaves_like('a controller that requires an authentication') do

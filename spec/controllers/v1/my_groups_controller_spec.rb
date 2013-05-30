@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe V1::MyGroupsController do
-  let(:current_user) { create(:user) }
+  let(:current_user) { stub_model(User) }
 
   before do
     sign_in(current_user)
-    controller.stub(current_user: current_user)
   end
 
   it_behaves_like('a controller that requires an authentication')

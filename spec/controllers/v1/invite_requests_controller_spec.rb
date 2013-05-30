@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe V1::InviteRequestsController do
-  let(:user) { create(:user) }
-  let(:group) { double(:group, id: 1, owner: user) }
-  let(:another_user) { create(:user) }
+  let(:user) { stub_model(User) }
+  let(:group) { stub_model(Group, owner: user) }
+  let(:another_user) { stub_model(User) }
 
   before do
     sign_in(user)
@@ -21,7 +21,6 @@ describe V1::InviteRequestsController do
       Group.stub(find_by_id: group)
       group.stub_chain(:users, :exists?).and_return(false)
     end
-
 
     context 'inviting person' do
       let(:params) do
@@ -106,12 +105,11 @@ describe V1::InviteRequestsController do
 
     before do
       InviteRequest.stub(find: invite_request)
-      invite_request.stub(:as_json)
     end
 
     context 'when invite request is given' do
       let(:invite_request) do
-        double(:invite_request, id: 1, sender: user, group_id: group.id, email: another_user.email)
+        stub_model(InviteRequest, sender: user, group_id: group.id, email: another_user.email)
       end
 
       before { sign_in(another_user) }
@@ -173,7 +171,7 @@ describe V1::InviteRequestsController do
 
     context 'when membership request is given' do
       let(:invite_request) do
-        double(:membership_request, id: 2, sender: another_user, group: group)
+        stub_model(InviteRequest, sender: another_user, group: group)
       end
 
       before { sign_in(user) }
@@ -203,6 +201,10 @@ describe V1::InviteRequestsController do
       end
 
       context 'when group owner rejects membership request' do
+        let(:membership_request_reject_params) do
+          membership_request_params.merge(accept: false)
+        end
+
         before do
           InviteRequestRejector.any_instance.stub(process: invite_request)
         end
@@ -211,7 +213,7 @@ describe V1::InviteRequestsController do
           before do
             invite_request.stub(errors: [])
 
-            post :handle, membership_request_params.merge(accept: false)
+            post :handle, membership_request_reject_params
           end
 
           it_behaves_like 'a :no_content response'
@@ -221,7 +223,7 @@ describe V1::InviteRequestsController do
           before do
             invite_request.stub(errors: ['error'])
 
-            post :handle, membership_request_params.merge(accept: false, user: -1)
+            post :handle, membership_request_reject_params
           end
 
           it_behaves_like 'an :unprocessable_entity response'

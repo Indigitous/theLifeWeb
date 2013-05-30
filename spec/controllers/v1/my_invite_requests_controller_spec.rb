@@ -3,7 +3,7 @@ require 'spec_helper'
 describe V1::MyInviteRequestsController do
   let(:user) { stub_model(User) }
   let(:group) { stub_model(Group, owner: user) }
-  let(:invited_user) { create(:user) }
+  let(:invited_user) { stub_model(User) }
 
   let(:invite_request) do
     stub_model(InviteRequest, sender: user, group: group, email: invited_user.email)

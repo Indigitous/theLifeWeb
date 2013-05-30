@@ -6,7 +6,7 @@ describe V1::PledgesController do
     let(:params) { { format: :json, event_id: 1 } }
   end
 
-  before { sign_in(create(:user)) }
+  before { sign_in }
 
   describe '#create' do
     let(:event) { stub_model(Event, id: 1) }

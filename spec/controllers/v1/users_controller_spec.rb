@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe V1::UsersController do
-  let(:current_user) { create :user }
-  let(:group) { create :group, owner: current_user }
+  let(:current_user) { stub_model(User) }
+  let(:group) { stub_model(Group, owner: current_user) }
   let(:base_params) { { group_id: group.id, format: :json } }
 
   before do
     sign_in(current_user)
-    Group.any_instance.stub(owner: current_user)
-    current_user.stub(owned_groups: group)
-    current_user.stub(groups: group)
+    Group.stub(find: group)
+    # current_user.stub(owned_groups: group)
+    # current_user.stub(groups: group)
   end
 
   it_behaves_like('a controller that requires an authentication') do
@@ -35,7 +35,7 @@ describe V1::UsersController do
   end
 
   describe "#destroy" do
-    let(:other_user) { create :user, groups: [group] }
+    let(:other_user) { stub_model(User) }
     let(:delete_params) { base_params.merge(id: other_user.id) }
 
     describe "when user isn't a member or current_user is not a leader" do
