@@ -10,7 +10,7 @@ describe V1::MyEventsController do
   subject { response }
 
   describe '#index' do
-    let(:event) { build :event, user: current_user, created_at: Time.now }
+    let(:event) { stub_model(Event, user: current_user, friend: stub_model(Friend)) }
     let(:events) { [event] }
 
     before do

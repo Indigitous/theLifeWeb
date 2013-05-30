@@ -8,7 +8,7 @@ describe V1::ActivitiesController do
   subject { response }
 
   describe '#index' do
-    let(:activity) { build :activity }
+    let(:activity) { stub_model(Activity) }
     let(:activities) { [activity] }
 
     before do
