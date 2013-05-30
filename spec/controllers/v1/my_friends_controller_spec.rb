@@ -5,6 +5,7 @@ describe V1::MyFriendsController do
 
   before do
     sign_in(current_user)
+    controller.stub(current_user: current_user)
   end
 
   it_behaves_like 'a controller that requires an authentication'
@@ -12,8 +13,12 @@ describe V1::MyFriendsController do
   subject { response }
 
   describe '#index' do
-    let(:friend) { create :friend, user: current_user }
+    let(:friend) { stub_model(Friend, user: current_user) }
     let(:friends) { [friend] }
+
+    before do
+      current_user.stub(friends: friends)
+    end
 
     it_behaves_like 'a successfull GET request'
 
