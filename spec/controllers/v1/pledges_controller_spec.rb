@@ -14,6 +14,7 @@ describe V1::PledgesController do
 
     before do
       controller.stub(event: event)
+      PledgeCreatingService.any_instance.stub(create: pledge)
     end
 
     it 'receives #create on the pledge creating service' do
@@ -25,7 +26,6 @@ describe V1::PledgesController do
 
     context 'when user can pledge to pray for an event' do
       before do
-        PledgeCreatingService.any_instance.stub(:create).and_return(pledge)
         post(:create, format: :json, event_id: event.id)
       end
 
@@ -36,7 +36,6 @@ describe V1::PledgesController do
     context "when user can't pledge to pray for an event" do
       before do
         pledge.stub(errors: [{ event: ["you can't pray for it"] }])
-        PledgeCreatingService.any_instance.stub(:create).and_return(pledge)
         post(:create, format: :json, event_id: event.id)
       end
 
