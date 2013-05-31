@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 describe V1::CategoriesController do
-  let(:current_user) { create :user }
-
-  before { sign_in current_user }
+  before { sign_in }
 
   it_behaves_like 'a controller that requires an authentication'
 
   describe "#index" do
-    let(:category) { build :category }
+    let(:category) { stub_model(Category) }
     let(:categories) { [category] }
 
     before do

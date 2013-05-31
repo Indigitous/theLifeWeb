@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe V1::GroupsController do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:group) { FactoryGirl.build(:group) }
+  let(:user) { stub_model(User) }
+  let(:group) { stub_model(Group) }
   let(:groups) { [group] }
 
   it_behaves_like('a controller that requires an authentication') do
@@ -14,6 +14,8 @@ describe V1::GroupsController do
     sign_in(user)
   end
 
+  subject { response }
+
   describe 'create' do
     let(:params) do
       {
@@ -23,11 +25,9 @@ describe V1::GroupsController do
       }
     end
 
-    subject { response }
-
     context 'when group created successfully' do
       before do
-        GroupCreationService.any_instance.stub(:create) { FactoryGirl.build(:group) }
+        GroupCreationService.any_instance.stub(:create) { stub_model(Group) }
         post :create, params
       end
 
@@ -52,8 +52,6 @@ describe V1::GroupsController do
       get :index, format: :json
     end
 
-    subject { response }
-
     it { should be_success }
     its(:code) { should eq('200') }
 
@@ -63,15 +61,12 @@ describe V1::GroupsController do
   end
 
   describe '#destroy' do
-    let(:group) { create(:group, owner: user) }
+    let(:group) { stub_model(Group, owner: user) }
     let(:params) { { id: group.id, format: :json } }
-
-    subject { response }
 
     describe 'when group does not exist or user is not a group owner' do
       before do
         GroupDeletionService.any_instance.stub(destroy: false)
-        Group.any_instance.should_not_receive(:destroy)
 
         delete :destroy, params
       end
@@ -82,7 +77,7 @@ describe V1::GroupsController do
 
     describe 'with valid params' do
       before do
-        Group.any_instance.should_receive(:destroy)
+        GroupDeletionService.any_instance.stub(destroy: true)
 
         delete :destroy, params
       end

@@ -1,16 +1,14 @@
 require 'spec_helper'
 
 describe V1::ActivitiesController do
-  let(:current_user) { create :user }
-
-  before { sign_in(current_user) }
+  before { sign_in }
 
   it_behaves_like('a controller that requires an authentication')
 
   subject { response }
 
   describe '#index' do
-    let(:activity) { build :activity }
+    let(:activity) { stub_model(Activity) }
     let(:activities) { [activity] }
 
     before do

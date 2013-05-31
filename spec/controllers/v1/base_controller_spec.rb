@@ -32,10 +32,9 @@ describe V1::BaseController do
     end
 
     context 'when user is logged in' do
-      let(:user) { create(:user) }
+      let(:user) { create :user, locale: 'fr' }
 
       before do
-        user.update_attribute(:locale, 'fr')
         sign_in user
       end
 

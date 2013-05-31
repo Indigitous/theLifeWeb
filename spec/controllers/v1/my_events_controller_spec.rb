@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe V1::MyEventsController do
-  let(:current_user) { create(:user) }
+  let(:current_user) { stub_model(User) }
 
   before { sign_in(current_user) }
 
@@ -10,7 +10,7 @@ describe V1::MyEventsController do
   subject { response }
 
   describe '#index' do
-    let(:event) { build :event, user: current_user, created_at: Time.now }
+    let(:event) { stub_model(Event, user: current_user, friend: stub_model(Friend)) }
     let(:events) { [event] }
 
     before do
