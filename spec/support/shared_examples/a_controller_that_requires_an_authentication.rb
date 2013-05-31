@@ -3,7 +3,7 @@ shared_examples 'a controller that requires an authentication' do
   let(:params) { { format: :json } }
   let(:method) { :get }
 
-  before { sign_in nil }
+  before { sign_out }
 
   it 'responds unauthorized with an HTTP 401 status code' do
     send(method, action, params)

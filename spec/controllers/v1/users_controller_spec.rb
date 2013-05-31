@@ -8,8 +8,6 @@ describe V1::UsersController do
   before do
     sign_in(current_user)
     Group.stub(find: group)
-    # current_user.stub(owned_groups: group)
-    # current_user.stub(groups: group)
   end
 
   it_behaves_like('a controller that requires an authentication') do
