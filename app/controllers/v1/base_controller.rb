@@ -9,13 +9,14 @@ class V1::BaseController < ApplicationController
   end
 
   def self.include_server_timestamp(options = {})
-    only = Array(options[:only])
-
-    define_method(:default_serializer_options) do
-      if only.blank? || only.include?(action_name.to_sym)
-        { root: :data, meta: { server_timestamp: Time.now.to_i } }
-      end
-    end
+    # TODO Android 0.81 compatibility; separate data and meta/server_timestamp fields
+    #only = Array(options[:only])
+    #
+    #define_method(:default_serializer_options) do
+    #  if only.blank? || only.include?(action_name.to_sym)
+    #    { root: :data, meta: { server_timestamp: Time.now.to_i } }
+    #  end
+    #end
   end
 
   private
