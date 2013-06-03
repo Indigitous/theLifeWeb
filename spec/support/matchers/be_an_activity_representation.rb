@@ -9,6 +9,8 @@ RSpec::Matchers.define :be_an_activity_representation do |activity|
       priority
       has_threshold
       threshold_ids
+      image
+      thumbnail
     ]
 
     json.should be

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe V1::MyFriendsController do
-  let(:current_user) { create(:user) }
+  let(:current_user) { stub_model(User) }
 
   before do
     sign_in(current_user)
@@ -12,8 +12,12 @@ describe V1::MyFriendsController do
   subject { response }
 
   describe '#index' do
-    let(:friend) { create :friend, user: current_user }
+    let(:friend) { stub_model(Friend, user: current_user) }
     let(:friends) { [friend] }
+
+    before do
+      current_user.stub(friends: friends)
+    end
 
     it_behaves_like 'a successfull GET request'
 

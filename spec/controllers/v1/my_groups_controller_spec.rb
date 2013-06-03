@@ -1,18 +1,20 @@
 require 'spec_helper'
 
 describe V1::MyGroupsController do
-  let(:current_user) { create(:user) }
+  let(:current_user) { stub_model(User) }
 
-  before { sign_in(current_user) }
+  before do
+    sign_in(current_user)
+  end
 
   it_behaves_like('a controller that requires an authentication')
 
   describe '#index' do
-    let(:group) { create :group, owner: current_user, users: [current_user] }
+    let(:group) { stub_model(Group, owner: current_user) }
     let(:groups) { [group] }
 
     before do
-      current_user.stub(owned_groups: groups)
+      current_user.stub(groups: groups)
     end
 
     it_behaves_like 'a successfull GET request'

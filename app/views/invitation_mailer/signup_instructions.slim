@@ -1,0 +1,11 @@
+- @invitation_locales.each do |locale|
+  = t 'email.invitation.greeting_html', locale: locale, email: @recipient_email
+  br
+  = t 'email.invitation.body_html', locale: locale, name: @sender.full_name
+  br
+  = it 'email.invitation.instructions_html',
+    locale: locale,
+    download_link: 'https://play.google.com/store/apps/details?id=com.p2c.thelife&feature=search_result#?t=W251bGwsMSwyLDEsImNvbS5wMmMudGhlbGlmZSJd'
+  br
+  = t 'email.invitation.signature_html', locale: locale
+  br

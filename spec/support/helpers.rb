@@ -12,4 +12,15 @@ module Helpers
     admin = create(:admin_user)
     sign_in admin
   end
+
+  def sign_in(user = stub_model(User))
+    request.env['warden'].stub(authenticate!: user)
+    controller.stub(current_user: user)
+  end
+
+  def sign_out(scope = :user)
+    request.env['warden'].stub(:authenticate!).
+      and_throw(:warden, { scope: scope })
+    controller.stub(current_user: nil)
+  end
 end

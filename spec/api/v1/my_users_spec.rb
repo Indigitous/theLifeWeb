@@ -18,6 +18,7 @@ describe '/v1/my_users' do
 
   describe "show another user's profile" do
     before do
+      User.any_instance.stub(image_url: 'some/path/to/image.png')
       get "/v1/my_users/#{another_user.id}", authentication_token: authentication_token
     end
 
