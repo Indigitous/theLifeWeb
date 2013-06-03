@@ -64,10 +64,10 @@ TheLifeWeb::Application.configure do
 
   config.action_mailer.smtp_settings = {
     address: 'smtp.mandrillapp.com',
-    port: 25, # ports 587 and 2525 are also supported with STARTTLS
+    port: 587, # ports 587 and 2525 are also supported with STARTTLS
     enable_starttls_auto: true, # detects and uses STARTTLS
-    user_name: ENV['MANDRILL_USERNAME'],
-    password: ENV['MANDRILL_APIKEY'], # SMTP password is any valid API key
+    user_name: 'p2cs_mailchimp', # ENV['MANDRILL_USERNAME'],
+    password: '9NLFzTBUNHNYAqEFU6vAfA', # ENV['MANDRILL_APIKEY'], # SMTP password is any valid API key
     authentication: 'login', # Mandrill supports 'plain' or 'login'
     domain: 'thelifeapp.com', # your domain to identify your server when connecting
   }
