@@ -48,8 +48,9 @@ group :development, :test do
   gem 'brakeman'
 end
 
+gem 'simplecov', require: false  # TODO shouldn't be here; need to overcome dependency from initializers/requires.rb
 group :test do
-  gem 'simplecov', require: false
+  # gem 'simplecov', require: false # TODO
   gem 'webmock', require: false
 
   gem 'capybara'
