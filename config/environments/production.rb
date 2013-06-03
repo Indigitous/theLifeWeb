@@ -62,15 +62,15 @@ TheLifeWeb::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.mandrillapp.com',
-    port: 587, # ports 587 and 2525 are also supported with STARTTLS
-    enable_starttls_auto: true, # detects and uses STARTTLS
-    user_name: 'p2cs_mailchimp', # ENV['MANDRILL_USERNAME'],
-    password: '9NLFzTBUNHNYAqEFU6vAfA', # ENV['MANDRILL_APIKEY'], # SMTP password is any valid API key
-    authentication: 'login', # Mandrill supports 'plain' or 'login'
-    domain: 'thelifeapp.com', # your domain to identify your server when connecting
-  }
-
-  config.action_mailer.default_url_options = { host: 'thelifeapp.com' }
+  #config.action_mailer.smtp_settings = {
+  #  address: 'smtp.mandrillapp.com',
+  #  port: 587, # ports 587 and 2525 are also supported with STARTTLS
+  #  enable_starttls_auto: true, # detects and uses STARTTLS
+  #  user_name: 'p2cs_mailchimp', # ENV['MANDRILL_USERNAME'],
+  #  password: '9NLFzTBUNHNYAqEFU6vAfA', # ENV['MANDRILL_APIKEY'], # SMTP password is any valid API key
+  #  authentication: 'login', # Mandrill supports 'plain' or 'login'
+  #  domain: 'thelifeapp.com', # your domain to identify your server when connecting
+  #}
+  #
+  #config.action_mailer.default_url_options = { host: 'thelifeapp.com' }
 end
