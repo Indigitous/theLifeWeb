@@ -4,3 +4,5 @@ load 'deploy'
 Dir['lib/capistrano/recipes/*.rb'].each { |plugin| load(plugin) }
 
 load 'config/deploy' # remove this line to skip loading any of the default tasks
+
+set :ssh_options, {:forward_agent => true}
