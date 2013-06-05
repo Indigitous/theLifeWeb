@@ -29,6 +29,9 @@ ActiveAdmin.register Activity do
       f.input :image
       f.input :remove_image, :as => :boolean
     end
+    f.inputs do
+      f.input :is_engagement, :as => :boolean, :label => "Engagement"
+    end
     f.buttons
   end
 
