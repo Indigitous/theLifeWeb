@@ -4,7 +4,7 @@ role :web, dns_name                          # Your HTTP server, Apache/etc
 role :app, dns_name                          # This may be the same as your `Web` server
 role :db,  dns_name, primary: true           # This is where Rails migrations will run
 
-set :deploy_to, "/var/www/html/theLifeWeb"
+set :deploy_to, "/var/www/html/theLifeWeb2"
 
 set :rails_env, 'production'
 set :branch, 'master'
