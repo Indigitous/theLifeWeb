@@ -34,11 +34,13 @@ group :assets do
   gem 'slim'
 end
 
+gem 'capistrano'
+gem 'rvm-capistrano'
+
 group :development do
   gem 'letter_opener'
   gem 'foreman'
   gem 'bullet',   '~> 4.6.0'
-  gem 'capistrano'
 end
 
 group :development, :test do
