@@ -15,11 +15,20 @@ AdminUser.create(email: 'admin@ballistiq.com', password: 'theLife', password_con
 AdminUser.create(email: 'admin@p2c.com', password: 'theLife', password_confirmation: 'theLife')
 
 # initial activities
-Activity.create(title: 'Change Threshold',
-                summary: '$u has moved $f to $t',
-                full_description: 'Use this activity to move your friend to a new threshold.',
-                thresholds: Threshold.all,
-		has_threshold: true)
+Activity.create(
+    thresholds: Threshold.all,
+    has_threshold: true,
+    translations: [
+        Activity::Translation.new(locale: "en", title:"Change Threshold", summary: "$u has moved $f to $t", full_description: "Use this activity to move your friend to a new threshold."),
+        Activity::Translation.new(locale: "fr", title:"Changement de Seuil", summary: "$u a changé le seuil de $f à $t", full_description: "Utilisez cette activité pour changer le seuil d'un ami."),
+    ])
+Activity.create(
+    thresholds: Threshold.all,
+    is_add_friend: true,
+    translations: [
+        Activity::Translation.new(locale: "en", title:"Added Friend", summary: "$u added friend $f", full_description: "This activity is automatically sent when a friend has been added."),
+        Activity::Translation.new(locale: "fr", title:"Added Friend", summary: "$u added friend $f", full_description: "This activity is automatically sent when a friend has been added."),
+                  ])
 
 # initial settings
 Setting.create(key: 'max_users_in_group', value: 15)

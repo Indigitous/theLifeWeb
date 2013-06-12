@@ -8,5 +8,6 @@ class ActivitySerializer < BaseSerializer
     :category_id,
     :priority,
     :threshold_ids,
-    :has_threshold
+    :has_threshold,
+    :is_add_friend
 end
