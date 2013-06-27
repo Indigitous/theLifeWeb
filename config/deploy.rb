@@ -14,8 +14,9 @@ set :scm, :git
 after   'deploy:update_code', 'deploy:assets:precompile'
 before  'deploy:finalize_update', 'deploy:assets:symlink'
 
-# Link uploads
+# Link uploads and statics
 before  'deploy:finalize_update', 'uploads:symlink'
+before  'deploy:finalize_update', 'statics:symlink'
 
 # Create database symlink
 after   'deploy:update_code', 'db:create_symlink'
@@ -44,5 +45,17 @@ namespace :uploads do
   task :symlink do
     create_uploads_folder
     run "ln -s #{shared_path}/uploads #{latest_release}/uploads"
+  end
+end
+
+# static images path
+namespace :statics do
+  task :create_statics_folder do
+    run "mkdir -p #{shared_path}/statics"
+  end
+
+  task :symlink do
+    create_statics_folder
+    run "ln -s #{shared_path}/statics #{latest_release}/statics"
   end
 end
