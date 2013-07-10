@@ -50,6 +50,12 @@ class User < ActiveRecord::Base
       .uniq
       .pluck(:user_id)
 
-    user_ids.push(id).uniq
+    user_ids.push(id).uniq # include self
+  end
+
+  def visible_friend_ids
+    friend_ids = visible_user_ids.collect_concat {|user_id| User.find(user_id).friend_ids}
+
+    friend_ids.uniq
   end
 end
