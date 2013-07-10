@@ -5,9 +5,7 @@ class Group < ActiveRecord::Base
   has_many :invite_requests, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  validates :description,
-    :owner,
-    presence: true
+  validates :owner, presence: true
 
   delegate :count, to: :users, prefix: true
 
