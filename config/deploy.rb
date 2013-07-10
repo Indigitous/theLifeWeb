@@ -2,7 +2,7 @@ require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
 set :application, "theLife"
-set :repository,  "git@github.com:ballistiq/theLifeWeb.git"
+set :repository,  "git@github.com:PowerToChange/theLifeWeb.git"
 
 set :stages, %w(staging production)
 set :default_stage, "staging"
