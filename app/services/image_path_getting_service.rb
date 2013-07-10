@@ -40,7 +40,7 @@ class ImagePathGettingService
   def accessible_resource_ids
     case requested_resources
       when 'users' then @user.visible_user_ids
-      when 'friends' then @user.friend_ids
+      when 'friends' then @user.visible_friend_ids
     end
   end
 
