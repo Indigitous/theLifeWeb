@@ -4,5 +4,6 @@ class MyInviteRequestSerializer < InviteRequestSerializer
     :status,
     :recipient_full_name,
     :recipient_email,
+    :recipient_id,
     :user_name   # TODO compatibility with Android 0.81
 end

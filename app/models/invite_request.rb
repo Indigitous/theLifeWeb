@@ -1,6 +1,6 @@
 class InviteRequest < ActiveRecord::Base
-  INVITE = 'INVITE'.freeze
-  REQUEST_MEMBERSHIP = 'REQUEST_MEMBERSHIP'.freeze
+  INVITE = 'INVITE'.freeze                          # Group leader invites a person to join the group
+  REQUEST_MEMBERSHIP = 'REQUEST_MEMBERSHIP'.freeze  # User requests to join the group
   TYPES = [INVITE, REQUEST_MEMBERSHIP]
 
   DELIVERED = 'DELIVERED'.freeze
@@ -17,6 +17,7 @@ class InviteRequest < ActiveRecord::Base
   delegate :invite?, :request_membership?, to: :type
   delegate :full_name, to: :sender, prefix: true
   delegate :full_name, to: :recipient, prefix: true, allow_nil: true
+  delegate :id, to: :recipient, prefix: true, allow_nil: true
   delegate :name, to: :group, prefix: true
 
   alias_attribute :recipient_email, :email
