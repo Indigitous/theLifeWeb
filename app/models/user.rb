@@ -45,12 +45,17 @@ class User < ActiveRecord::Base
   end
 
   def visible_user_ids
+    # my group members
     user_ids = GroupUser
       .where(group_id: group_ids + owned_group_ids)
       .uniq
       .pluck(:user_id)
 
-    user_ids.push(id).uniq # include self
+    # add group leaders who have invited me
+    user_ids.concat(received_invite_requests.pluck(:user_id))
+
+    # add self
+    user_ids.push(id).uniq
   end
 
   def visible_friend_ids
