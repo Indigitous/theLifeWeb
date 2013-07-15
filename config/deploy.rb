@@ -51,11 +51,11 @@ end
 # static images path
 namespace :statics do
   task :create_statics_folder do
-    run "mkdir -p #{shared_path}/statics"
+    run "mkdir -p #{shared_path}/static"
   end
 
   task :symlink do
     create_statics_folder
-    run "ln -s #{shared_path}/statics #{latest_release}/statics"
+    run "ln -s #{shared_path}/static #{latest_release}/public/static"
   end
 end
