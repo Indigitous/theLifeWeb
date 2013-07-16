@@ -173,6 +173,9 @@ GEM
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       paper_trail (~> 2)
+    google-id-token (1.1.0)
+      jwt
+      multi_json
     haml (4.0.0)
       tilt
     has_scope (0.5.1)
@@ -200,6 +203,8 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.7)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -401,6 +406,7 @@ DEPENDENCIES
   faker!
   foreman
   globalize3
+  google-id-token
   heroku
   it
   jquery-rails
