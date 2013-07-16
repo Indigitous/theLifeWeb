@@ -25,6 +25,9 @@ gem 'mandrill-api'
 gem 'nilify_blanks'
 gem 'it'
 
+# Google OAuth2 support
+gem 'google-id-token'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
