@@ -11,11 +11,11 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   def create
     # register with google account
-    if params[:authentication_gtoken]
+    if params[:authentication_token] # && params[:provider] == "google"
 
       puts "REGISTER WITH GOOGLE REQUEST"
       validator = GoogleIDToken::Validator.new
-      google_account = validator.check(params[:authentication_gtoken],
+      google_account = validator.check(params[:authentication_token],
                                        "900671345436.apps.googleusercontent.com",
                                        "900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com")
       #google_account = validator.check(params[:authentication_token],
@@ -24,7 +24,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
       if google_account.nil?
         # TODO check error handling
-        user.errors = validator.problem
+        user.errors.add(:user, I18n.t('errors.messages.does_not_exist'))
         respond_with(user)
       else
         # TODO check for email match
@@ -64,7 +64,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
       :password,
       :mobile,
       :locale,
-      :authentication_gtoken
+      :authentication_token
     ]
 
     params.require(:user).permit(*allowed_params)
