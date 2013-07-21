@@ -12,6 +12,7 @@ module Devise
         false
       end
 
+      # TODO authentication_token && provider == 'google' ? but that is more characters
       def gtoken
         params[:authentication_gtoken]
       end
@@ -44,7 +45,7 @@ module Devise
         puts google_account["email"]
         puts google_account["id"]
 
-        # successfully verified with Google, so return User
+        # successfully verified with Google, so return User, which becomes current_user
         user = User.find_by_email "user1@example.com"
         success!(user)
       end
