@@ -11,7 +11,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   def create
     # register with google account
-    if params[:authentication_token] # && params[:provider] == "google"
+    if params[:authentication_token] && params[:provider] == "google"
 
       puts "REGISTER WITH GOOGLE REQUEST"
       validator = GoogleIDToken::Validator.new
@@ -23,22 +23,15 @@ class V1::RegistrationsController < Devise::RegistrationsController
       #                                 "900671345436-diohqcc2cer6v05npbj08pnd8rgn9oib.apps.googleusercontent.com")
 
       if google_account.nil?
-        # TODO check error handling
-        user.errors.add(:user, I18n.t('errors.messages.does_not_exist'))
+        user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
         respond_with(user)
       else
-        # TODO check for email match
+        # TODO check for email match, etc
 
-        #params[:provider] = "google"
-        #params[:uid] = google_account[:id]
-        puts "HERE ARE PARAMS"
-        puts params
-        puts params.except(:authentication_gtoken)
-        user = User.new
-        # user.attributes = params.slice(:email, :first_name, :last_name, :mobile, :locale )
-        user.attributes = { email: "clarence7@ballistiq.com", password: "------", first_name: "Clarence", last_name: "Martens", mobile: "778-555-5555", locale: "en" }
+        user.uid = google_account["id"]
+        user.provider = "google"
+        user.authentication_token = nil # will be assigned a bogus one anyway, must also have bogus password on input
         user.save
-
         respond_with(user)
       end
 
@@ -64,7 +57,8 @@ class V1::RegistrationsController < Devise::RegistrationsController
       :password,
       :mobile,
       :locale,
-      :authentication_token
+      :authentication_token,
+      :provider
     ]
 
     params.require(:user).permit(*allowed_params)

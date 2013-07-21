@@ -12,8 +12,8 @@ module Devise
         false
       end
 
-      # TODO authentication_token && provider == 'google' ? but that is more characters
       def gtoken
+        # params[:authentication_token] if params[:provider] == 'google' # alternative authentication params; more consistent by also more characters
         params[:authentication_gtoken]
       end
 

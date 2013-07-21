@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503061231) do
+ActiveRecord::Schema.define(:version => 20130721030332) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20130503061231) do
     t.integer  "priority",      :default => 10,    :null => false
     t.string   "image"
     t.boolean  "has_threshold", :default => false, :null => false
+    t.boolean  "is_engagement", :default => false, :null => false
+    t.string   "special"
   end
 
   add_index "activities", ["category_id"], :name => "index_activities_on_category_id"
@@ -203,10 +205,13 @@ ActiveRecord::Schema.define(:version => 20130503061231) do
     t.string   "mobile"
     t.string   "image"
     t.string   "locale",                 :default => "en", :null => false
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["uid"], :name => "index_users_on_uid"
 
 end
