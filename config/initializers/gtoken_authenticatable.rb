@@ -12,20 +12,24 @@ module Devise
         false
       end
 
+      def gtoken
+        params[:authentication_gtoken]
+      end
+
       # is the request meant for this authenticator?
       def valid?
-        puts "IN GTOKEN valid? WITH param[authentication_gtoken] "; puts params[:authentication_gtoken]
-        params[:authentication_gtoken]
+        puts "IN GTOKEN valid? WITH param[authentication_gtoken] "; puts gtoken
+        gtoken
       end
 
       # Since this request is meant for this authenticator, attempt to authenticate it.
       def authenticate!
         puts "IN GTOKEN authenticate! WITH PARAMS "
-        puts params[:authentication_gtoken]
+        puts gtoken
 
         # verify against Google
         validator = GoogleIDToken::Validator.new
-        google_account = validator.check(params[:authentication_gtoken],
+        google_account = validator.check(gtoken,
                                          "900671345436.apps.googleusercontent.com",
                                          "900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com")
 
