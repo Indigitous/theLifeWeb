@@ -13,15 +13,10 @@ class V1::RegistrationsController < Devise::RegistrationsController
     # register with google account
     if params[:authentication_token] && params[:provider] == "google"
 
-      puts "REGISTER WITH GOOGLE REQUEST"
       validator = GoogleIDToken::Validator.new
       google_account = validator.check(params[:authentication_token],
                                        "900671345436.apps.googleusercontent.com",
                                        "900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com")
-      #google_account = validator.check(params[:authentication_token],
-      #                                 "900671345436.apps.googleusercontent.com",
-      #                                 "900671345436-diohqcc2cer6v05npbj08pnd8rgn9oib.apps.googleusercontent.com")
-
       if google_account.nil?
         user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
         respond_with(user)
