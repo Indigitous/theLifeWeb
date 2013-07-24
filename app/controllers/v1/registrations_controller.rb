@@ -11,7 +11,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   def create
     # register with google account
-    if params[:authentication_token] && params[:provider] == "google"
+    if params[:authentication_token] && params[:provider] == 'google'
 
       validator = GoogleIDToken::Validator.new
       google_account = validator.check(params[:authentication_token],
@@ -24,7 +24,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
         # TODO check for email match, etc
 
         user.uid = google_account["id"]
-        user.provider = "google"
+        user.provider = 'google'
         user.authentication_token = nil # will be assigned a bogus one anyway, must also have bogus password on input
         user.save
         respond_with(user)

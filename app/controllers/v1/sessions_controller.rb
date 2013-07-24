@@ -13,13 +13,15 @@ class V1::SessionsController < Devise::SessionsController
       google_account = validator.check(params[:authentication_token],
                                        "900671345436.apps.googleusercontent.com",
                                        "900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com")
+
       if google_account.nil?
+        user = User.new
         user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
         respond_with(user)
       else
         # TODO check for email match, etc
 
-        user = User.find_by_uid google_account["id"]
+        user = User.where("uid=? AND provider='google'", google_account['id']).first
         respond_with(user)
       end
     else

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :trackable, :validatable,
-         :token_authenticatable, :gtoken_authenticatable
+         :token_authenticatable
 
   has_many :friends, dependent: :destroy
   has_many :events
