@@ -10,22 +10,18 @@ class V1::RegistrationsController < Devise::RegistrationsController
   expose(:user, attributes: :user_params)
 
   def create
-    # register with google account
     if params[:authentication_token] && params[:provider] == 'google'
-
+      # register with google account
       validator = GoogleIDToken::Validator.new
       google_account = validator.check(params[:authentication_token],
-                                       "900671345436.apps.googleusercontent.com",
-                                       "900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com")
+                                       GoogleAccounts.config["web_client_id"],
+                                       GoogleAccounts.config["android_client_id"])
       if google_account.nil?
         user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
         respond_with(user)
       else
-        # TODO check for email match, etc
-
         user.uid = google_account["id"]
         user.provider = 'google'
-        user.authentication_token = nil # will be assigned a bogus one anyway, must also have bogus password on input
         user.save
         respond_with(user)
       end

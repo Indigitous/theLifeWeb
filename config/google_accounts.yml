@@ -1,0 +1,17 @@
+development:
+  web_client_id: 900671345436.apps.googleusercontent.com
+  android_client_id: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+
+test:
+  web_client_id: 900671345436.apps.googleusercontent.com
+  android_client_id: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+
+staging:
+  web_client_id: 900671345436.apps.googleusercontent.com
+  android_client_id: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+
+production:
+  web_client_id: 900671345436.apps.googleusercontent.com
+  android_client_id: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+
+
