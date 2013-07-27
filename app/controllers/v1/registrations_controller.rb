@@ -22,6 +22,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
       else
         user.uid = google_account["id"]
         user.provider = 'google'
+        user.authentication_token = nil # remove Google token; so it will be replaced by the Devise token
         user.save
         respond_with(user)
       end
