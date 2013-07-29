@@ -12,6 +12,13 @@ class V1::SessionsController < Devise::SessionsController
                                        GoogleAccounts.config["web_client_id"],
                                        GoogleAccounts.config["android_client_id"])
 
+      # TODO: remove for production (this is the debug client id)
+      if google_account.nil? && GoogleAccounts.config["android_client_id2"]
+        google_account = validator.check(params[:authentication_token],
+                                         GoogleAccounts.config["web_client_id"],
+                                         GoogleAccounts.config["android_client_id2"])
+      end
+
       if google_account.nil?
         user = User.new
         user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
