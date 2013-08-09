@@ -33,7 +33,8 @@ class V1::UsersController < V1::BaseController
       :email,
       :mobile,
       :locale,
-      :image
+      :image,
+      :push_registration
     ]
 
     params.require(:user).permit(*allowed_params)

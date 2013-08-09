@@ -28,6 +28,9 @@ gem 'it'
 # Google OAuth2 support
 gem 'google-id-token'
 
+# Google Cloud Messaging support
+gem 'gcm'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
