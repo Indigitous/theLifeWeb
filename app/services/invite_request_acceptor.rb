@@ -5,6 +5,7 @@ class InviteRequestAcceptor
 
   def initialize(current_user, invite_request, params)
     @current_user, @invite_request, @params = current_user, invite_request, params
+    @gcm_service = GCMService.new
   end
 
   def process
@@ -12,7 +13,8 @@ class InviteRequestAcceptor
     user_exists? &&
     user_is_not_member_of_group? &&
     invite_request_valid? &&
-    invite_request_processed?
+    invite_request_processed? &&
+    @gcm_service.send_notification(invite_request, invite_request.sender)
 
     invite_request.errors.any? ? invite_request : membership
   end
