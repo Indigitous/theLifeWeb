@@ -1,12 +1,15 @@
+# A user is requesting to join a group.
 class InviteRequester
   def initialize(user, params)
     @user, @params = user, params
+    @gcm_service = GCMService.new
   end
 
   def create
     group_exists? &&
     user_is_not_member_of_group? &&
-    invite_request_saved?
+    invite_request_saved? &&
+    @gcm_service.send_notification(invite_request, invite_request.group.owner)
 
     invite_request
   end
@@ -57,4 +60,5 @@ class InviteRequester
   def group_id
     @params[:group_id]
   end
+
 end

@@ -14,14 +14,14 @@ class V1::RegistrationsController < Devise::RegistrationsController
       # register with google account
       validator = GoogleIDToken::Validator.new
       google_account = validator.check(params[:authentication_token],
-                                       GoogleAccounts.config["web_client_id"],
-                                       GoogleAccounts.config["android_client_id"])
+                                       Google.config["accounts_web_client_id"],
+                                       Google.config["accounts_android_client_id"])
 
       # TODO: remove for production (this is the debug client id)
-      if google_account.nil? && GoogleAccounts.config["android_client_id2"]
+      if google_account.nil? && GoogleConfig.config["android_client_id2"]
         google_account = validator.check(params[:authentication_token],
-                                         GoogleAccounts.config["web_client_id"],
-                                         GoogleAccounts.config["android_client_id2"])
+                                         Google.config["accounts_web_client_id"],
+                                         Google.config["accounts_android_client_id2"])
       end
 
       if google_account.nil?

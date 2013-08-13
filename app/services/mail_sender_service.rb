@@ -44,6 +44,10 @@ class MailSenderService
       message = @default_message_hash.merge(@message_hash)
 
       mandrill.messages.send message
+    else
+      puts "MAIL SENDER SERVICE MESSAGE"
+      puts @default_message_hash.merge(@message_hash)
+      true
     end
   end
 end

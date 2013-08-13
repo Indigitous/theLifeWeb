@@ -1,0 +1,21 @@
+development:
+  accounts_web_client_id: 900671345436.apps.googleusercontent.com
+  accounts_android_client_id: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+  gcm_server_api_key: AIzaSyAfKVnw7csoV7t5oZAFCqH0Ld44DbEk-VE
+
+test:
+  accounts_web_client_id: 900671345436.apps.googleusercontent.com
+  accounts_android_client_id: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+  gcm_server_api_key: AIzaSyAfKVnw7csoV7t5oZAFCqH0Ld44DbEk-VE
+
+staging:
+  accounts_web_client_id: 900671345436.apps.googleusercontent.com
+  accounts_android_client_id: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+  gcm_server_api_key: AIzaSyAfKVnw7csoV7t5oZAFCqH0Ld44DbEk-VE
+
+production:
+  accounts_web_client_id: 900671345436.apps.googleusercontent.com
+  accounts_android_client_id: 900671345436-diohqcc2cer6v05npbj08pnd8rgn9oib.apps.googleusercontent.com
+  accounts_android_client_id2: 900671345436-9nlj2spdq75l60eq4j6sbmo27p9crmei.apps.googleusercontent.com
+  gcm_server_api_key: AIzaSyAfKVnw7csoV7t5oZAFCqH0Ld44DbEk-VE
+

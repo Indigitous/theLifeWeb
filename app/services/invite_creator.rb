@@ -1,6 +1,8 @@
+# Group leader is inviting a person to join the group.
 class InviteCreator
   def initialize(user, params)
     @user, @params = user, params
+    @gcm_service = GCMService.new
   end
 
   def create
@@ -8,7 +10,8 @@ class InviteCreator
     user_is_group_owner? &&
     receiver_is_valid? &&
     invite_request_saved? &&
-    signup_instructions_sent?
+    signup_instructions_sent? &&
+    @gcm_service.send_notification(invite_request, invite_request.recipient)
 
     invite_request
   end
