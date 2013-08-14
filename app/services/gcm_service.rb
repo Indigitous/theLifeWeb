@@ -6,6 +6,8 @@ class GCMService
   end
 
 
+  # @return true if sent successfully, false for any kind of failure
+  # invite_request will contain the error, if any
   def send_notification(invite_request, destination_user)
 
     # create the GCM message
@@ -27,6 +29,28 @@ class GCMService
 
     # tell GCM to push the message to device
     gcm_result = @gcm.send_notification([destination_user.push_registration], { data: notification } )
+
+    # handle possible errors
+    gcm_error = parse_error(gcm_result)
+    if gcm_error
+      invite_request.errors.add(:receiver, I18n.t('errors.messages.push_send_notification'))
+    end
+
+    # handle broken registration IDs
+    if gcm_error == "InvalidRegistration" || gcm_error == "NotRegistered"
+      destination_user.push_registration = nil
+      destination_user.save
+    end
+
+    !gcm_error
+  end
+
+
+  private
+
+  def parse_error(gcm_result)
+    gcm_result_body = gcm_result[:body] && JSON.parse(gcm_result[:body], { symbolize_names: true })
+    return gcm_result_body && gcm_result_body[:failure] > 0 && gcm_result_body[:results].first[:error]
   end
 
 end
