@@ -17,7 +17,6 @@ class InviteRequest < ActiveRecord::Base
   delegate :invite?, :request_membership?, to: :type
   delegate :full_name, to: :sender, prefix: true
   delegate :full_name, to: :recipient, prefix: true, allow_nil: true
-  delegate :id, to: :recipient, prefix: true, allow_nil: true
   delegate :name, to: :group, prefix: true
 
   alias_attribute :recipient_email, :email
@@ -39,6 +38,10 @@ class InviteRequest < ActiveRecord::Base
 
   def recipient
     User.where('email = ? OR mobile = ?', email, sms).first
+  end
+
+  def recipient_id
+    recipient && recipient.id
   end
 
   def type
