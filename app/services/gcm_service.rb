@@ -51,15 +51,27 @@ class GCMService
       #create the GCM message
       notification = {app_type: 'event'}
       notification[:id] = event.id
+      notification[:user_id] = event.user_id
+      notification[:user_name] = event.user_name
+      notification[:friend_id] = event.friend_id
+      notification[:friend_name] = event.friend_name
+      notification[:activity_id] = event.activity_id
+      notification[:event_id] = event.target_event_id
+      notification[:description] = event.description
+      notification[:created_at] = event.created_at.to_i
+      notification[:prayer_requested] = event.prayer_requested
+      notification[:pledges_count] = event.pledges_count
+      notification[:has_pledged] = false # group members haven't seen this event yet, so they could not have pledged
+      notification[:threshold_id] = event.threshold_id
 
       # registration ids
-      registration_ids = []
+      push_registrations = []
       destination_users.each {|u| registration_ids << u.push_registration unless u.push_registration.nil? || u.push_registration.blank? }
 
       # TODO what if not every user has a registration_id?
 
       # tell GCM to push the message to devices
-      gcm_result = @gcm.send_notification([destination_users.push_registration], { data: notification } )
+      gcm_result = @gcm.send_notification([push_registrations], { data: notification } )
 
       # TODO what about gcm errors?
 
