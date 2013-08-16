@@ -29,6 +29,10 @@ class GCMService
     # tell GCM to push the message to device
     gcm_result = @gcm.send_notification([destination_user.push_registration], { data: notification } )
 
+    if hasError(gcm_result)
+      Rails.logger.tagged('GCM') { Rails.logger.error "Send Notification Error: #{gcm_result}"}
+    end
+
     # handle possible errors
     gcm_error = parse_error(gcm_result)
     if gcm_error
@@ -36,7 +40,7 @@ class GCMService
     end
 
     # handle broken registration IDs
-    if gcm_error == "InvalidRegistration" || gcm_error == "NotRegistered"
+    if gcm_error == 'InvalidRegistration' || gcm_error == 'NotRegistered'
       destination_user.push_registration = nil
       destination_user.save
     end
@@ -68,20 +72,33 @@ class GCMService
       push_registrations = []
       destination_users.each {|u| push_registrations << u.push_registration unless u.push_registration.nil? || u.push_registration.blank? }
 
-      # TODO what if not every user has a registration_id?
+      if destination_users.count != push_registrations.count
+        Rails.logger.tagged('GCM') { Rails.logger.error "Missing registrations: #{destination_users.count} users, #{push_registrations.count} regs" }
+      end
 
       # tell GCM to push the message to devices
-      gcm_result = @gcm.send_notification(push_registrations, { data: notification } )
+      if push_registrations.count > 0
+        gcm_result = @gcm.send_notification(push_registrations, { data: notification } )
 
-      # TODO what about gcm errors?
-      # TODO example: HERE IS THE GCM RESULT {:response=>"success", :body=>"{\"multicast_id\":7990807854937981484,\"success\":1,\"failure\":0,\"canonical_ids\":0,\"results\":[{\"message_id\":\"0:1376668230232641%299a17f3f9fd7ecd\"}]}", :headers=>{"content-type"=>["application/json; charset=UTF-8"], "date"=>["Fri, 16 Aug 2013 15:50:30 GMT"], "expires"=>["Fri, 16 Aug 2013 15:50:30 GMT"], "cache-control"=>["private, max-age=0"], "x-content-type-options"=>["nosniff"], "x-frame-options"=>["SAMEORIGIN"], "x-xss-protection"=>["1; mode=block"], "server"=>["GSE"], "connection"=>["close"]}, :status_code=>200}
+        if hasError(gcm_result)
+          Rails.logger.tagged('GCM') { Rails.logger.error "Send Notification Error: #{gcm_result}"}
+        end
+      end
 
       true
     end
   end
 
 
+
   private
+
+
+  def hasError(gcm_result)
+    gcm_result_body = gcm_result[:body] && JSON.parse(gcm_result[:body], { symbolize_names: true })
+    gcm_result_body[:failure] > 0
+  end
+
 
   def parse_error(gcm_result)
     gcm_result_body = gcm_result[:body] && JSON.parse(gcm_result[:body], { symbolize_names: true })
