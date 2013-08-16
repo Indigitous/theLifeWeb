@@ -66,14 +66,15 @@ class GCMService
 
       # registration ids
       push_registrations = []
-      destination_users.each {|u| registration_ids << u.push_registration unless u.push_registration.nil? || u.push_registration.blank? }
+      destination_users.each {|u| push_registrations << u.push_registration unless u.push_registration.nil? || u.push_registration.blank? }
 
       # TODO what if not every user has a registration_id?
 
       # tell GCM to push the message to devices
-      gcm_result = @gcm.send_notification([push_registrations], { data: notification } )
+      gcm_result = @gcm.send_notification(push_registrations, { data: notification } )
 
       # TODO what about gcm errors?
+      # TODO example: HERE IS THE GCM RESULT {:response=>"success", :body=>"{\"multicast_id\":7990807854937981484,\"success\":1,\"failure\":0,\"canonical_ids\":0,\"results\":[{\"message_id\":\"0:1376668230232641%299a17f3f9fd7ecd\"}]}", :headers=>{"content-type"=>["application/json; charset=UTF-8"], "date"=>["Fri, 16 Aug 2013 15:50:30 GMT"], "expires"=>["Fri, 16 Aug 2013 15:50:30 GMT"], "cache-control"=>["private, max-age=0"], "x-content-type-options"=>["nosniff"], "x-frame-options"=>["SAMEORIGIN"], "x-xss-protection"=>["1; mode=block"], "server"=>["GSE"], "connection"=>["close"]}, :status_code=>200}
 
       true
     end

@@ -3,7 +3,7 @@ class V1::EventsController < V1::BaseController
   expose(:event, attributes: :event_params)
 
   def create
-    new_event = EventCreatingService.new(event).create
+    new_event = EventCreatingService.new(current_user, event).create
     respond_with(new_event)
   end
 
