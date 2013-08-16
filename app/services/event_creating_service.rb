@@ -1,15 +1,20 @@
 class EventCreatingService
   def initialize(event)
     @event = event
+    @gcm_service = GCMService.new
   end
 
   def create
-    update_friend_threshold if @event.save
+    @event.save &&
+    update_friend_threshold &&
+    @gcm_service.send_event_notifications(@event, current_user.fellow_group_member)
+
     @event
   end
 
   private
 
+  # will return true on successful update
   def update_friend_threshold
     friend = @event.friend
 

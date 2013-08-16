@@ -44,12 +44,27 @@ class User < ActiveRecord::Base
     User.where(id: visible_user_ids)
   end
 
+  # the user ids of all the fellow group members
+  def fellow_group_member_ids
+    user_ids = GroupUser
+          .where(group_id: group_ids + owned_group_ids)
+          .uniq
+          .pluck(:user_id)
+
+    # don't include self
+    user_ids.delete(id)
+
+    user_ids
+  end
+
+
+  def fellow_group_members
+    User.find(fellow_group_member_ids)
+  end
+
   def visible_user_ids
     # my group members
-    user_ids = GroupUser
-      .where(group_id: group_ids + owned_group_ids)
-      .uniq
-      .pluck(:user_id)
+    user_ids = fellow_group_member_ids
 
     # add group leaders who have invited me
     user_ids.concat(received_invite_requests.pluck(:user_id))

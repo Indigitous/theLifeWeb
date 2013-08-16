@@ -6,9 +6,8 @@ class GCMService
   end
 
 
-  # @return true if sent successfully, false for any kind of failure
-  # invite_request will contain the error, if any
-  def send_notification(invite_request, destination_user)
+  # @return true if sent successfully, false for any kind of failure. invite_request will contain the error, if any.
+  def send_invite_request_notification(invite_request, destination_user)
 
     # create the GCM message
     notification = {app_type: 'request'}
@@ -43,6 +42,29 @@ class GCMService
     end
 
     !gcm_error
+  end
+
+
+  def send_event_notifications(event, destination_users)
+    if destination_users.count > 0
+
+      #create the GCM message
+      notification = {app_type: 'event'}
+      notification[:id] = event.id
+
+      # registration ids
+      registration_ids = []
+      destination_users.each {|u| registration_ids << u.push_registration unless u.push_registration.nil? || u.push_registration.blank? }
+
+      # TODO what if not every user has a registration_id?
+
+      # tell GCM to push the message to devices
+      gcm_result = @gcm.send_notification([destination_users.push_registration], { data: notification } )
+
+      # TODO what about gcm errors?
+
+      true
+    end
   end
 
 
