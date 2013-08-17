@@ -96,13 +96,13 @@ class GCMService
 
   def hasError(gcm_result)
     gcm_result_body = gcm_result[:body] && JSON.parse(gcm_result[:body], { symbolize_names: true })
-    gcm_result_body[:failure] > 0
+    gcm_result_body && gcm_result_body[:failure] > 0
   end
 
 
   def parse_error(gcm_result)
     gcm_result_body = gcm_result[:body] && JSON.parse(gcm_result[:body], { symbolize_names: true })
-    return gcm_result_body && gcm_result_body[:failure] > 0 && gcm_result_body[:results].first[:error]
+    gcm_result_body && gcm_result_body[:failure] > 0 && gcm_result_body[:results].first[:error]
   end
 
 end
