@@ -13,7 +13,7 @@ class V1::SessionsController < Devise::SessionsController
                                        Google.config["accounts_android_client_id"])
 
       # TODO: remove for production (this is the debug client id)
-      if google_account.nil? && Google.config["android_client_id2"]
+      if google_account.nil? && Google.config["accounts_android_client_id2"]
         google_account = validator.check(params[:authentication_token],
                                          Google.config["accounts_web_client_id"],
                                          Google.config["accounts_android_client_id2"])
