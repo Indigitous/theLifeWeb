@@ -12,7 +12,7 @@ class InviteRequestRejector
     user_exists? &&
     invite_request_valid? &&
     invite_request_processed? &&
-    @gcm_service.send_notification(invite_request, invite_request.sender)
+    @gcm_service.send_event_notifications(invite_request, invite_request.sender)
 
     invite_request
   end
