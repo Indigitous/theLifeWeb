@@ -29,20 +29,16 @@ class GCMService
     # tell GCM to push the message to device
     gcm_result = @gcm.send_notification([destination_user.push_registration], { data: notification } )
 
-    if hasError(gcm_result)
-      Rails.logger.tagged('GCM') { Rails.logger.error "Send Notification Error: #{gcm_result}"}
-    end
-
-    # handle possible errors
-    gcm_error = parse_error(gcm_result)
+    gcm_error = get_error(gcm_result)
     if gcm_error
+      Rails.logger.tagged('GCM') { Rails.logger.error "Send Notification Error: #{gcm_result}"}
       invite_request.errors.add(:receiver, I18n.t('errors.messages.push_send_notification'))
-    end
 
-    # handle broken registration IDs
-    if gcm_error == 'InvalidRegistration' || gcm_error == 'NotRegistered'
-      destination_user.push_registration = nil
-      destination_user.save
+      # handle broken registration IDs
+      if gcm_error == 'InvalidRegistration' || gcm_error == 'NotRegistered'
+        destination_user.push_registration = nil
+        destination_user.save
+      end
     end
 
     !gcm_error
@@ -80,29 +76,29 @@ class GCMService
       if push_registrations.count > 0
         gcm_result = @gcm.send_notification(push_registrations, { data: notification } )
 
-        if hasError(gcm_result)
-          Rails.logger.tagged('GCM') { Rails.logger.error "Send Notification Error: #{gcm_result}"}
+        if get_error(gcm_result)
+           Rails.logger.tagged('GCM') { Rails.logger.error "Send Notification Error: #{gcm_result}"}
         end
       end
 
+      # method always succeeds
       true
     end
   end
 
 
-
   private
 
+  # @return the error or nil if no error
+  def get_error(gcm_result)
+    return 'GCM server failed' if gcm_result.nil?
+    return gcm_result[:response] if gcm_result[:status_code] < 200 || gcm_result[:status_code] > 299
 
-  def hasError(gcm_result)
     gcm_result_body = gcm_result[:body] && JSON.parse(gcm_result[:body], { symbolize_names: true })
-    gcm_result_body && gcm_result_body[:failure] > 0
-  end
+    return 'GCM call failed' if gcm_result_body.nil?
+    return gcm_result_body[:results].first[:error] if gcm_result_body[:failure] > 0
 
-
-  def parse_error(gcm_result)
-    gcm_result_body = gcm_result[:body] && JSON.parse(gcm_result[:body], { symbolize_names: true })
-    gcm_result_body && gcm_result_body[:failure] > 0 && gcm_result_body[:results].first[:error]
+    nil
   end
 
 end
