@@ -10,27 +10,40 @@ class V1::RegistrationsController < Devise::RegistrationsController
   expose(:user, attributes: :user_params)
 
   def create
-    if params[:authentication_token] && params[:provider] == 'google'
-      # register with google account
-      validator = GoogleIDToken::Validator.new
-      google_account = validator.check(params[:authentication_token],
+    if params[:authentication_token]
+
+      external_account = nil
+      if params[:provider] == 'google'
+        # register with google account
+        validator = GoogleIDToken::Validator.new
+        external_account = validator.check(params[:authentication_token],
                                        Google.config["accounts_web_client_id"],
                                        Google.config["accounts_android_client_id"])
 
-      # TODO: remove for production (this is the debug client id)
-      if google_account.nil? && Google.config["accounts_android_client_id2"]
-        google_account = validator.check(params[:authentication_token],
-                                         Google.config["accounts_web_client_id"],
-                                         Google.config["accounts_android_client_id2"])
+        # TODO: remove for production (this is the debug client id)
+        if external_account.nil? && Google.config["accounts_android_client_id2"]
+          external_account = validator.check(params[:authentication_token],
+                                           Google.config["accounts_web_client_id"],
+                                           Google.config["accounts_android_client_id2"])
+        end
+
+      elsif params[:provider] == 'facebook'
+        # register with facebook account
+        begin
+          graph = Koala::Facebook::API.new(params[:authentication_token])
+          external_account = graph.get_object("me")
+        rescue Koala::Facebook::AuthenticationError => e
+          Rails.logger.tagged('FACEBOOK') { Rails.logger.error("Authentication Error: #{e}") }
+        end
       end
 
-      if google_account.nil?
+      if external_account.nil?
         user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
         respond_with(user)
       else
-        user.uid = google_account["id"]
-        user.provider = 'google'
-        user.authentication_token = nil # remove Google token; so it will be replaced by the Devise token
+        user.uid = external_account['id']
+        user.provider = params[:provider]
+        user.authentication_token = nil # remove external token; it will be replaced by the Devise token
         user.save
         respond_with(user)
       end

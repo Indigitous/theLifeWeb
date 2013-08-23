@@ -31,6 +31,9 @@ gem 'google-id-token'
 # Google Cloud Messaging support
 gem 'gcm'
 
+# Facebook support
+gem "koala", "~> 1.7.0rc1"
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

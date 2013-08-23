@@ -163,6 +163,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fastercsv (1.5.5)
     ffi (1.4.0)
     foreman (0.62.0)
@@ -214,6 +216,10 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    koala (1.7.0rc1)
+      addressable
+      faraday
+      multi_json
     launchy (2.2.0)
       addressable (~> 2.3)
     letter_opener (1.1.0)
@@ -241,6 +247,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.7.2)
     multi_xml (0.5.5)
+    multipart-post (1.2.0)
     mysql2 (0.3.11)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
@@ -419,6 +426,7 @@ DEPENDENCIES
   it
   jquery-rails
   jquery-ui-rails
+  koala (~> 1.7.0rc1)
   letter_opener
   mail_safe
   mandrill-api
