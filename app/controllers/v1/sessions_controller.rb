@@ -7,6 +7,7 @@ class V1::SessionsController < Devise::SessionsController
     if params[:authentication_token]
 
       external_account = nil
+      user = nil
       first_name = nil
       last_name = nil
       if params[:provider] == 'google'
@@ -35,25 +36,25 @@ class V1::SessionsController < Devise::SessionsController
         end
       end
 
-      if external_account.nil?
-        user = User.new
-        user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
-        respond_with(user)
-      else
+      if external_account
         # find the user account with the matching uid and provider
         user = User.where('uid=? AND provider=?', external_account['id'], params[:provider]).first
 
-        # update user record to latest from external source
-        if first_name
-          user.first_name = first_name
+        if user
+          # update user record to latest from external source
+          user.first_name = first_name if first_name
+          user.last_name = last_name if last_name
+          user.save if first_name || last_name
         end
-        if last_name
-          user.last_name = last_name
-        end
-        user.save if first_name || last_name
-
-        respond_with(user)
       end
+
+      # could not find the user account
+      if user.nil?
+        user = User.new
+        user.errors.add(:external_account, I18n.t('errors.messages.no_access'))
+      end
+
+      respond_with(user)
 
     else
       # manual log in
