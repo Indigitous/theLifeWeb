@@ -17,21 +17,21 @@ class V1::RegistrationsController < Devise::RegistrationsController
         # register with google account
         validator = GoogleIDToken::Validator.new
         external_account = validator.check(params[:authentication_token],
-                                       Google.config["accounts_web_client_id"],
-                                       Google.config["accounts_android_client_id"])
+                                       Google.config['accounts_web_client_id'],
+                                       Google.config['accounts_android_client_id'])
 
         # TODO: remove for production (this is the debug client id)
-        if external_account.nil? && Google.config["accounts_android_client_id2"]
+        if external_account.nil? && Google.config['accounts_android_client_id2']
           external_account = validator.check(params[:authentication_token],
-                                           Google.config["accounts_web_client_id"],
-                                           Google.config["accounts_android_client_id2"])
+                                           Google.config['accounts_web_client_id'],
+                                           Google.config['accounts_android_client_id2'])
         end
 
       elsif params[:provider] == 'facebook'
         # register with facebook account
         begin
           graph = Koala::Facebook::API.new(params[:authentication_token])
-          external_account = graph.get_object("me")
+          external_account = graph.get_object('me')
         rescue Koala::Facebook::AuthenticationError => e
           Rails.logger.tagged('FACEBOOK') { Rails.logger.error("Authentication Error: #{e}") }
         end
