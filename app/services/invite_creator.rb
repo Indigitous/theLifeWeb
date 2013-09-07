@@ -11,7 +11,7 @@ class InviteCreator
     receiver_is_valid? &&
     invite_request_saved? &&
     signup_instructions_sent? &&
-    @gcm_service.send_invite_request_notification(invite_request, invite_request.recipient)
+    invite_request.recipient && @gcm_service.send_invite_request_notification(invite_request, invite_request.recipient)
 
     invite_request
   end

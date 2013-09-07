@@ -14,7 +14,7 @@ class InviteRequestAcceptor
     user_is_not_member_of_group? &&
     invite_request_valid? &&
     invite_request_processed? &&
-    @gcm_service.send_invite_request_notification(invite_request, invite_request.sender)
+    invite_request.sender.push_registration && @gcm_service.send_invite_request_notification(invite_request, invite_request.sender)
 
     invite_request.errors.any? ? invite_request : membership
   end
