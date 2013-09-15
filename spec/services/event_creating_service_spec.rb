@@ -3,8 +3,9 @@ require 'spec_helper'
 describe EventCreatingService do
   describe '#create' do
     let(:event) { double(:event) }
+    let(:user) { create :user }
 
-    subject { EventCreatingService.new(event) }
+    subject { EventCreatingService.new(user, event) }
 
     it 'creates an event' do
       event.should_receive(:save)
