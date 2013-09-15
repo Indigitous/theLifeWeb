@@ -9,7 +9,7 @@ class InviteRequester
     group_exists? &&
     user_is_not_member_of_group? &&
     invite_request_saved? &&
-    invite_request.group.owner.push_registration && @gcm_service.send_invite_request_notification(invite_request, invite_request.group.owner)
+    group.owner.push_registration && @gcm_service.send_invite_request_notification(invite_request, group.owner)
 
     invite_request
   end
