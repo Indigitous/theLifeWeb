@@ -11,14 +11,9 @@ describe '/v1/my_friends' do
       get 'v1/my_friends', authentication_token: authentication_token
     end
 
-    subject { json_response_body['data'] }
+    subject { json_response_body }
 
     it { should be_a_kind_of Array }
     its(:first) { should be_a_friend_representation(friend) }
-  end
-
-  it_behaves_like('an api with timestamps') do
-    let!(:resources) { create_list :friend, 2, user: current_user }
-    let(:resources_url) { polymorphic_path([:v1, :my_friends]) }
   end
 end
