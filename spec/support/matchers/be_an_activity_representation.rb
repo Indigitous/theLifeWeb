@@ -11,6 +11,7 @@ RSpec::Matchers.define :be_an_activity_representation do |activity|
       threshold_ids
       image
       thumbnail
+      special
     ]
 
     json.should be
