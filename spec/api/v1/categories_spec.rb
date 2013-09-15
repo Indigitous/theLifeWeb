@@ -11,12 +11,18 @@ describe '/v1/categories' do
       get 'v1/categories', authentication_token: authentication_token
     end
 
-    subject { json_response_body['data'] }
+    subject { json_response_body }
 
     its(:first) { should be_a_category_representation(category) }
   end
-
-  it_behaves_like 'an api with timestamps' do
-    let(:resources) { create_list :category, 2 }
-  end
 end
+
+#    subject { json_response_body['data'] }
+#
+#    its(:first) { should be_a_category_representation(category) }
+#  end
+#
+#  it_behaves_like 'an api with timestamps' do
+#    let(:resources) { create_list :category, 2 }
+#  end
+#end

@@ -22,11 +22,6 @@ describe 'v1/groups' do
       its(:users) { should include(group.owner) }
     end
 
-    context 'when params are not valid' do
-      let(:params) { { name: 'The best group ever!' } }
-
-      it { should have_error("can't be blank").on('description') }
-    end
   end
 
   describe 'list groups' do
