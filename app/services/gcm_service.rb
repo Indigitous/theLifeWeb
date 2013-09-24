@@ -5,7 +5,7 @@ class GCMService
     @gcm = GCM.new(Google.config["gcm_server_api_key"])
   end
 
-
+  # send the invite_request to the given user
   # @return true if sent successfully, false for any kind of failure. invite_request will contain the error, if any.
   def send_invite_request_notification(invite_request, destination_user)
 
@@ -45,6 +45,7 @@ class GCMService
   end
 
 
+  # send the event to the given users
   def send_event_notifications(event, destination_users)
     if destination_users.count > 0
 
@@ -64,6 +65,32 @@ class GCMService
       notification[:has_pledged] = false # group members haven't seen this event yet, so they could not have pledged
       notification[:threshold_id] = event.threshold_id
 
+      push_notifications(notification, destination_users)
+    end
+  end
+
+
+  # send the pledge to the given users
+  def send_pledge_notifications(pledging_user, event, destination_users)
+    if destination_users.count > 0
+
+      #create the GCM message
+      notification = {app_type: 'pledge'}
+      notification[:id] = event.id
+      notification[:user_id] = pledging_user.id
+      notification[:pledges_count] = event.pledges_count
+      notification[:target_event_id] = event.id
+
+      push_notifications(notification, destination_users)
+    end
+  end
+
+
+  private
+
+  # send the notification to the destination users
+  def push_notifications(notification, destination_users)
+
       # registration ids
       push_registrations = []
       destination_users.each {|u| push_registrations << u.push_registration unless u.push_registration.nil? || u.push_registration.blank? }
@@ -71,7 +98,6 @@ class GCMService
       if destination_users.count != push_registrations.count
         Rails.logger.tagged('GCM') { Rails.logger.error "Missing registrations: #{destination_users.count} users, #{push_registrations.count} regs" }
       end
-
       # tell GCM to push the message to devices
       if push_registrations.count > 0
         gcm_result = @gcm.send_notification(push_registrations, { data: notification } )
@@ -83,11 +109,8 @@ class GCMService
 
       # method always succeeds
       true
-    end
   end
 
-
-  private
 
   # @return the error or nil if no error
   def get_error(gcm_result)
