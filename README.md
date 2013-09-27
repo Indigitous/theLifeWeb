@@ -45,7 +45,7 @@ for managing development stack with `Procfile`.
 about `foreman` and `Procfile`.
 
 It can be started with `foreman start` or `./script/server`
-and will be available as `localhost:5000`. 
+and will be available as `localhost:5000`.
 
 ### 1.2 Stage environment
 
@@ -101,7 +101,7 @@ Rollbar is very easy to setup and work with:
 1. Register an account or use already registered.
 
 2. Add `rollbar` gem to Gemfile:
-  
+
   ```ruby
   gem 'rollbar', '~> 0.9.6'
   ```
@@ -318,3 +318,8 @@ Application currently based on Rails 3.2 stable branch and Ruby 1.9
 * `time_formats.rb` - setup default time formats, so you can use them like
   object.create_at.to_s(:us_time)
 * `requires.rb` - automatically requires everything in lib/ & lib/extensions
+
+
+# 3. Other notes
+* make sure ntp is installed on the server; this prevents strange times (e.g. future)
+  from showing on the events/requests list
