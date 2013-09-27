@@ -102,8 +102,8 @@ en:
     invitation:
       greeting_html: "Hello %{email},<br /><small>(le texte en suit)</small>"
       body_html: |
-        %{name} has invited you to join theLife
-        Mobile App! theLife App is a smart evangelism toolbox with the goal of
+        %{name} has invited you to join TheLife
+        Mobile App! TheLife App is a smart evangelism toolbox with the goal of
         helping you connect your friends to Jesus in meaningful ways. It'll help
         you evaluate what their current needs are in their journey, and suggest
         ways to help them take the next step towards knowing God.
