@@ -27,6 +27,13 @@ class V1::RegistrationsController < Devise::RegistrationsController
                                            Google.config['accounts_android_client_id2'])
         end
 
+        # P2C client id
+        if external_account.nil? && Google.config['accounts_android_client_id3']
+           external_account = validator.check(params[:authentication_token],
+                                            Google.config['accounts_web_client_id'],
+                                            Google.config['accounts_android_client_id3'])
+        end
+
       elsif params[:provider] == 'facebook'
         # register with facebook account
         begin
