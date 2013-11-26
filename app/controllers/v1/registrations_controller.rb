@@ -17,7 +17,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
         # register with google account
         validator = GoogleIDToken::Validator.new
 
-        (1..3).each do
+        (1..4).each do
           # P2C client id
           if external_account.nil? && Google.config['accounts_android_client_id3']
             external_account = validator.check(params[:authentication_token],
@@ -40,12 +40,16 @@ class V1::RegistrationsController < Devise::RegistrationsController
           end
 
           # HACK: does this make it work?
-          sleep 1 if external_account.nil?
+          if external_account.nil? do
+            sleep 2
+            Rails.logger.tagged('GOOGLE') { Rails.logger.error("Authentication Error With Token: #{params[:authentication_token]}") }
+          end
         end
 
         if external_account.nil?
-          Rails.logger.tagged('GOOGLE') { Rails.logger.error("Authentication Error With Token: #{params[:authentication_token]}") }
+          Rails.logger.tagged('GOOGLE') { Rails.logger.error("Authentication FAILED With Token: #{params[:authentication_token]}") }
         end
+      end
 
       elsif params[:provider] == 'facebook'
         # register with facebook account
