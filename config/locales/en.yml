@@ -122,7 +122,7 @@ en:
       is_not_owner: is not owner
       is_already_a_group_member: is already a group member
       both_email_and_sms_cant_be_blank: both email and sms can't be blank at the same time
-      no_access: could not be accessed
+      no_access: could not be accessed2
       push_send_notification: can not push message
 
   translation:

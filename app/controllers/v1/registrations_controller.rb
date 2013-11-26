@@ -16,22 +16,35 @@ class V1::RegistrationsController < Devise::RegistrationsController
       if params[:provider] == 'google'
         # register with google account
         validator = GoogleIDToken::Validator.new
-        external_account = validator.check(params[:authentication_token],
-                                       Google.config['accounts_web_client_id'],
-                                       Google.config['accounts_android_client_id'])
 
-        # TODO: remove for production (this is the debug client id)
-        if external_account.nil? && Google.config['accounts_android_client_id2']
-          external_account = validator.check(params[:authentication_token],
-                                           Google.config['accounts_web_client_id'],
-                                           Google.config['accounts_android_client_id2'])
+        (1..3).each do
+          # P2C client id
+          if external_account.nil? && Google.config['accounts_android_client_id3']
+            external_account = validator.check(params[:authentication_token],
+                                             Google.config['accounts_web_client_id'],
+                                             Google.config['accounts_android_client_id3'])
+          end
+
+          # TODO: remove for production (this is the debug/developer client id)
+          if external_account.nil? && Google.config['accounts_android_client_id2']
+             external_account = validator.check(params[:authentication_token],
+                                              Google.config['accounts_web_client_id'],
+                                              Google.config['accounts_android_client_id2'])
+          end
+
+          # TODO: remove for production (this is the debug/developer client id)
+          if external_account.nil? && Google.config['accounts_android_client_id']
+            external_account = validator.check(params[:authentication_token],
+                                         Google.config['accounts_web_client_id'],
+                                         Google.config['accounts_android_client_id'])
+          end
+
+          # HACK: does this make it work?
+          sleep 1 if external_account.nil?
         end
 
-        # P2C client id
-        if external_account.nil? && Google.config['accounts_android_client_id3']
-           external_account = validator.check(params[:authentication_token],
-                                            Google.config['accounts_web_client_id'],
-                                            Google.config['accounts_android_client_id3'])
+        if external_account.nil?
+          Rails.logger.tagged('GOOGLE') { Rails.logger.error("Authentication Error With Token: #{params[:authentication_token]}") }
         end
 
       elsif params[:provider] == 'facebook'
